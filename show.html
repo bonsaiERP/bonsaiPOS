@@ -34,10 +34,10 @@ th, td {
 var fs = require('fs');
 (function($) {
 // Leer
-fs.readFile('data.json', function (err, products) {
+ fs.readFile('data.json', function (err, products) {
  if (err) throw err;
- var str = JSON.stringify(products);
- dataObj = $.parseJSON('[' + str + ']');
+ var myObject = eval('(' + products + ')');
+ alert(myObject[1].code);
  });
   })(jQuery);
 </script>
