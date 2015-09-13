@@ -5,8 +5,21 @@
 <script>
 window.$ = window.jQuery = require('./libs/jquery.min.js');
 </script>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+</style>
 </head>
+
 <body>
+
+<h1>Registrar Producto</h1>
 <form id="form1">
 <input type="number" name="code" id="code" placeholder="Codigo"/>
 <input type="text" name="name" id="name" placeholder="Nombre del Producto" />
@@ -15,23 +28,34 @@ window.$ = window.jQuery = require('./libs/jquery.min.js');
 </form>
 <hr/>
 
+<h1>Listar Productos</h1>
+<table style="width:100%">
+  <tr>
+    <th>Codigo</th>
+    <th>Nombre del producto</th>
+    <th>Precio</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><a href="edit.html">Editar</a></td>
+    <td><a href="delete.html">Eliminar</a></td>
+  </tr>
+</table>
+<hr/>
+
 <script>
 var fs = require('fs');
 (function($) {
-// Salvar
+// Guardar
 $('#form1').on('submit', function(event) {
 event.preventDefault();
 var data = {code: $('#code').val(), name: $('#name').val(), price: $('#price').val()};
-//leer el archivo
- fs.readFile('data.json', function (err, products) {
-  if (err) throw err;
-  var str = JSON.stringify(products);
-  alert(str);
-  dataObj = $.parseJSON('[' + str + ']');
-  dataObj.push(JSON.stringify(data));
-  alert(dataObj);
-
-  });
+fs.appendFile('data.json', JSON.stringify(data), 'utf8');
+alert("Producto Registrado Exitosamente");
   });
   })(jQuery);
 </script>
