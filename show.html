@@ -19,27 +19,57 @@ th, td {
 
 <body>
 
-<h1>Listar Productos</h1>
+<h1>Nueva Venta</h1>
+<form id="form1">
+<input type="number" name="code" id="code_product" placeholder="Codigo del Producto"/>
+<button>Anadir</button>
+<button>Confirmar</button>
+</form>
 <table style="width:100%" id="tblDatos">
   <tr>
     <th>Codigo</th>
     <th>Nombre del producto</th>
+    <th>Cantidad</th>
     <th>Precio</th>
   </tr>
 </table>
 <hr/>
-<a href="index.html">Registrar Producto</a>
+<h3>Total:
+<label id="total" type="number"></label>
+</h3>
+<a href="index.html">Menu</a>
 
 <script>
 var fs = require('fs');
 (function($) {
-// Leer
- fs.readFile('data.json', function (err, products) {
- if (err) throw err;
- var myObject = eval('(' + products + ')');
- alert(myObject[1].code);
- });
-  })(jQuery);
+      // Leer
+    fs.readFile('data.json', function (err, products) {
+    if (err) throw err;
+    var myObject = eval('(' + products + ')');
+    var total = 0;
+  $('#form1').on('submit', function(event) {
+      event.preventDefault();
+      var tablaDatos= $("#tblDatos");
+      var code_product = $("#code_product").val();
+      var resp = false;
+         for(var cont=0;cont<myObject.length;cont++)
+         {
+             if (code_product == myObject[cont].code)
+             {
+                 if (myObject[cont].amount <= 0) alert("Producto Agotado");
+                 tablaDatos.append("<tr><td>"+myObject[cont].code+"</td><td>"+myObject[cont].name+"</td><td>"+1+"</td><td>"+myObject[cont].price+"</td></tr>");
+                 myObject[cont].amount = myObject[cont].amount - 1;
+                 total = total + parseInt(myObject[cont].price);
+                 $("#total").text(total);
+                 resp=true;
+                 break;
+             }
+         }
+             if (resp == false) alert("Producto Inexistente");
+
+     });
+});
+})(jQuery);
 </script>
 </body>
 </html>

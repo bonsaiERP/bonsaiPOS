@@ -5,40 +5,9 @@
 <script>
 window.$ = window.jQuery = require('./libs/jquery.min.js');
 </script>
-<style>
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;
-}
-</style>
 </head>
 
 <body>
-
-<h1>Registrar Producto</h1>
-<form id="form1">
-<input type="number" name="code" id="code" placeholder="Codigo"/>
-<input type="text" name="name" id="name" placeholder="Nombre del Producto" />
-<input type="number" name="price" id="price" placeholder="Precio" />
-<button>Guardar</button>
-</form>
-<hr/>
-<a href="show.html">Listar Productos</a>
-<script>
-var fs = require('fs');
-(function($) {
-// Guardar
-$('#form1').on('submit', function(event) {
-event.preventDefault();
-var data = {code: $('#code').val(), name: $('#name').val(), price: $('#price').val()};
-fs.appendFile('data.json', JSON.stringify(data), 'utf8');
-alert("Producto Registrado Exitosamente");
-  });
-  })(jQuery);
-</script>
+<a href="show.html">Nueva Venta</a>
 </body>
 </html>
