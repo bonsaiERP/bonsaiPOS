@@ -1,49 +1,7 @@
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-<title>BonsaiPOS</title>
-<script>
-window.$ = window.jQuery = require('./libs/jquery.min.js');
-</script>
-<style>
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;
-}
-</style>
-</head>
-
-<body>
-
-<h1>Nueva Venta</h1>
-<form id="form1">
-<input type="number" name="code" id="code_product" placeholder="Codigo del Producto"/>
-<button>Anadir</button>
-<button>Confirmar</button>
-</form>
-<table style="width:100%" id="tblDatos">
-  <tr>
-    <th>Codigo</th>
-    <th>Nombre del producto</th>
-    <th>Cantidad</th>
-    <th>Precio</th>
-  </tr>
-</table>
-<hr/>
-<h3>Total:
-<label id="total" type="number"></label>
-</h3>
-<a href="index.html">Menu</a>
-
-<script>
 var fs = require('fs');
 (function($) {
       // Leer
-    fs.readFile('data.json', function (err, products) {
+    fs.readFile('bd/products.json', function (err, products) {
     if (err) throw err;
     var myObject = eval('(' + products + ')');
     var total = 0;
@@ -70,6 +28,3 @@ var fs = require('fs');
      });
 });
 })(jQuery);
-</script>
-</body>
-</html>
