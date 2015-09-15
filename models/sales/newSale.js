@@ -29,19 +29,19 @@ var fs = require('fs');
       if (resp == false) alert("Producto Inexistente");
 
     });
-  
+
     $("#btn_confirm").click(function(){
       var products_number = $("#tblDatos tr").length;
-      
+
       if (products_number > 1) {
 
         fs.readFile('bd/sales.json', function (err, sales) {
           if (err) throw err;
 
           var mySales = eval('(' + sales + ')');
-          var date = new Date();  
+          var date = new Date();
           var size = mySales.length;
-       
+
           mySales.push({"id":size + 1, "date":date, "total":total});
           fs.writeFileSync("bd/sales.json", JSON.stringify(mySales), 'utf8');
 
