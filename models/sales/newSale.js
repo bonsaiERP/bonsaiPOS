@@ -8,6 +8,11 @@ var fs = require('fs');
     var total = 0;
 
     $('#form1').on('submit', function (event) {
+
+      $("#alertAddedSuccessful").hide();
+      $("#alertAddedWarning").hide();
+      $("#alertAddedDanger").hide();
+
       event.preventDefault();
       var data_table = $("#tblDatos");
       var code_product = $("#code_product").val();
@@ -15,16 +20,27 @@ var fs = require('fs');
 
       for (var cont = 0; cont < myObject.length; cont++) {
         if (code_product == myObject[cont].code) {
-          if (myObject[cont].amount <= 0) alert("Producto Agotado");
-            data_table.append('<tr><td align="center">' + myObject[cont].code + '</td><td align="center">' + myObject[cont].name + '</td><td align="center">' + 1 + '</td><td align="center">' + myObject[cont].price + "</td></tr>");
-            myObject[cont].amount = myObject[cont].amount - 1;
+
+          data_table.append('<tr><td align="center">' + myObject[cont].code + '</td><td align="center">' + myObject[cont].name + '</td><td align="center">' + 1 + '</td><td align="center">' + myObject[cont].price + "</td></tr>");
+          myObject[cont].amount = myObject[cont].amount - 1;
           total = total + parseInt(myObject[cont].price);
           $("#total").text(total);
+          $("#alertAddedSuccessful").show();
+          if (myObject[cont].amount <= 0){
+            $('#myWarningModal').modal('show');
+            $("#alertAddedSuccessful").hide();
+            $("#alertAddedWarning").show();
+          }
           resp = true;
           break;
         }
       }
-      if (resp == false) alert("Producto Inexistente");
+      if (resp == false) {
+        $('#myDangerModal').modal('show');
+        $("#alertAddedSuccessful").hide();
+        $("#alertAddedWarning").hide();
+        $("#alertAddedDanger").show();
+      }
     });
 
     $("#btn_confirm").click(function () {

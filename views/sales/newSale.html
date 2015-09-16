@@ -33,11 +33,22 @@
   </nav>
 </div>
 <div class="container">
-  <div class="alert alert-dismissible alert-warning">
+  <div class="alert alert-dismissible alert-success" id="alertAddedSuccessful"hidden="true">
     <button type="button" class="close" data-dismiss="alert">×</button>
-    <h4>Warning!</h4>
-    <p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a>.</p>
+    <h4>Bien Hecho!</h4>
+    <p>El producto fue a&ntilde;adido exitosamente.</p>
   </div>
+  <div class="alert alert-dismissible alert-warning" id="alertAddedWarning"hidden="true">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <h4>Cuidado!</h4>
+    <p>El producto no se encuentra disponible, pero ser&aacute; a&ntilde;adido a la venta.</p>
+  </div>
+  <div class="alert alert-dismissible alert-danger" id="alertAddedDanger"hidden="true">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <h4>Alerta!</h4>
+    <p>El producto no existe.</p>
+  </div>
+
   <h1>Nueva Venta</h1>
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="right">
@@ -64,21 +75,36 @@
   <h3 align="right"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Total:
   <label style="text-align: right;​" id="total" type="number">0</label>
   </h3>
-  <dialog id="myDialog">This is a dialog window</dialog>
 
-  <!-- Modal -->
-  <div class="modal" id="myModal" role="dialog" >
+  <!-- Modal warning -->
+  <div class="modal" id="myWarningModal" role="dialog" >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Producto Agotado</h4>
+          <h4 class="modal-title"><span class="label label-warning">Cuidado - Producto Agotado!</span></h4>
         </div>
         <div class="modal-body">
-          <p> Este producto se encuentra agotado. Desea de todas maneras agregarlo a la venta?</p>
+          <p> Este producto se encuentra agotado. Desea de todas maneras ser&aacute; a la venta.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" >Descartar Producto</button>
-          <button id="btn_addProduct" type="button" class="btn btn-primary" data-dismiss="modal" >Agregar Producto</button>
+          <button id="btn_addProduct" type="button" class="btn btn-warning" data-dismiss="modal" >Agregar Producto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Danger -->
+  <div class="modal" id="myDangerModal" role="dialog" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"><span class="label label-danger">Alerta - El producto no existe!</span></h4>
+        </div>
+        <div class="modal-body">
+          <p> El producto que desea agregar a la venta no existe.</p>
+        </div>
+        <div class="modal-footer">
+          <button id="btn_addProduct" type="button" class="btn btn-danger" data-dismiss="modal" >Aceptar</button>
         </div>
       </div>
     </div>
