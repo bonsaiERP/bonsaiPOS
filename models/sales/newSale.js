@@ -1,11 +1,12 @@
 var fs = require('fs');
+var total = 0;
 
 (function ($) {
   // Leer
   fs.readFile('bd/products.json', function (err, products) {
     if (err) throw err;
     var myObject = eval('(' + products + ')');
-    var total = 0;
+
 
 
 
@@ -76,12 +77,24 @@ var fs = require('fs');
 
 
 })(jQuery);
+
+
 function fnselect(value){
-  
+  var fs = require('fs');
+   fs.readFile('bd/products.json', function (err, products) {
+      if (err)
+       throw err;
+        var myObject = eval('(' + products + ')');
+         for (var cont = 0; cont < myObject.length; cont++) {
+            if (value == myObject[cont].code)
+            {
+              myObject[cont].amount = myObject[cont].amount + 1;
+               total = total - parseInt(myObject[cont].price);
+               $("#total").text(total);
+             }
+            }
 
-    var element = document.getElementById(value);
-    element.remove();
-
-
-
-}
+       });
+       var element = document.getElementById(value);
+        element.remove();
+       }
