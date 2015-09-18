@@ -7,6 +7,8 @@ var fs = require('fs');
     var myObject = eval('(' + products + ')');
     var total = 0;
 
+
+
     $('#form1').on('submit', function (event) {
 
       $("#alertAddedSuccessful").hide();
@@ -21,8 +23,9 @@ var fs = require('fs');
       for (var cont = 0; cont < myObject.length; cont++) {
         if (code_product == myObject[cont].code) {
 
-          data_table.append('<tr><td align="center">' + myObject[cont].code + '</td><td align="center">' + myObject[cont].name + '</td><td align="center">' + 1 + '</td><td align="center">' + myObject[cont].price + "</td></tr>");
-          myObject[cont].amount = myObject[cont].amount - 1;
+          data_table.append("<tr id = " + myObject[cont].code + "><td  "+">"+myObject[cont].code+"</td><td>"+myObject[cont].name+"</td><td>"+1+"</td><td>"+myObject[cont].price+"</td><td><button onclick="+"fnselect("+myObject[cont].code + ")"+">"+"x"+"</button></td></tr>");
+
+            myObject[cont].amount = myObject[cont].amount - 1;
           total = total + parseInt(myObject[cont].price);
           $("#total").text(total);
           $("#alertAddedSuccessful").show();
@@ -70,4 +73,15 @@ var fs = require('fs');
 
   });
 
+
+
 })(jQuery);
+function fnselect(value){
+  
+
+    var element = document.getElementById(value);
+    element.remove();
+
+
+
+}
