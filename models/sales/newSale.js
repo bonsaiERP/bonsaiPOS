@@ -17,7 +17,7 @@ var fs = require('fs');
         if (code_product == myObject[cont].code) {
           if (myObject[cont].amount <= 0) alert("Producto Agotado");
 
-          data_table.append("<tr><td>" + myObject[cont].code + "</td><td>" + myObject[cont].name + "</td><td>" + 1 + "</td><td>" + myObject[cont].price + "</td></tr>");
+          data_table.append("<tr id = '"+ myObject[cont].code+"'"+"><td>" + myObject[cont].code + "</td><td>" + myObject[cont].name + "</td><td>" + 1 + "</td><td>" + myObject[cont].price + "</td></tr>");
           myObject[cont].amount = myObject[cont].amount - 1;
           total = total + parseInt(myObject[cont].price);
           $("#total").text(total);
