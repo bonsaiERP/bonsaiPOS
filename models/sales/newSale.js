@@ -1,11 +1,13 @@
 var fs = require('fs');
+var total;
+{document.getElementById("btn_cancel").style.display="none";}
 
 (function ($) {
   // Leer
   fs.readFile('bd/products.json', function (err, products) {
     if (err) throw err;
     var myObject = eval('(' + products + ')');
-    var total = 0;
+     total = 0;
 
     $('#form1').on('submit', function (event) {
 
@@ -25,6 +27,9 @@ var fs = require('fs');
           myObject[cont].amount = myObject[cont].amount - 1;
           total = total + parseInt(myObject[cont].price);
           $("#total").text(total);
+          {document.getElementById("btn_cancel").style.display="block";}
+
+
           $("#alertAddedSuccessful").show();
           if (myObject[cont].amount <= 0){
             $('#myWarningModal').modal('show');
@@ -43,6 +48,7 @@ var fs = require('fs');
       }
     });
 
+
     $("#btn_confirm").click(function () {
       var products_number = $("#tblDatos tr").length;
 
@@ -60,6 +66,7 @@ var fs = require('fs');
 
         });
 
+
         fs.writeFileSync("bd/products.json", JSON.stringify(myObject), 'utf8');
         alert("Exito en la venta");
         location.reload();
@@ -69,5 +76,14 @@ var fs = require('fs');
     });
 
   });
+  $("#btn_cancel").click(function(){
+      if(confirm("¿Esta seguro de cancelar la venta?")){
+          location.reload();
+      }
+      else{
+          alert("no se cancelo la venta");
+          return false;
+      }
+  });
 
-})(jQuery);
+  })(jQuery);
