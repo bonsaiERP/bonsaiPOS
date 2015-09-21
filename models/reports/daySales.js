@@ -1,18 +1,18 @@
 var fs = require('fs');
-
-function getpathproyect(todelete)
+daySales = {
+getpathproyect:function(todelete)
 {
   actualdir = __dirname
   actualdir = actualdir.replace(todelete,'');
   return actualdir;
-}
+},
 
-function convertdatetoformatofso(date)
+convertdatetoformatofso:function(date)
 {
   return new Date(date);
-}
+},
 
-function devolvertodo(date)
+devolvertodo:function(date)
 {
   dir= getpathproyect('\\views\\reports');
   fs.readFile(dir+'/bd/sales.json', function (err, sales) {
@@ -47,10 +47,10 @@ function devolvertodo(date)
         data_table.append("<tr> <td>" + getactualtime(aux) + "</td> <td>" + result[cont].id + "</td> <td>" + result[cont].total + "</td></tr>");
       }
   });
-}
+},
 
 
-function thehighttime(time1,time2)
+thehighttime:function(time1,time2)
 {
   var aux1 = time1.getHours();
   var aux2 = time2.getHours();
@@ -73,9 +73,9 @@ function thehighttime(time1,time2)
   else {
     return false;
   }
-}
+},
 
-function getactualdate(date)
+getactualdate:function(date)
 {
   var day = date.getDate();
   var month = date.getMonth();
@@ -83,9 +83,9 @@ function getactualdate(date)
   var result = day+"/"+month+"/"+year;
   return result;
 
-}
+},
 
-function getactualtime(date)
+getactualtime:function(date)
 {
   var minuts = date.getMinutes();
   var hours = date.getHours();
@@ -93,3 +93,6 @@ function getactualtime(date)
   var result = hours+":"+minuts+":"+seconds;
   return result;
 }
+}
+
+module.exports = daySales;
