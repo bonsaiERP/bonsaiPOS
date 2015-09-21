@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+[{"code":1,"name":"Iphone","price":"450","amount":3},{"code":2,"name":"Iphone 6","price":"650","amount":-1},{"code":3,"name":"Iphone 6s","price":"850","amount":-2}]
+=======
+[{"code":1,"name":"Iphone","price":"450","amount":3},{"code":2,"name":"Iphone 6","price":"650","amount":-3},{"code":3,"name":"Iphone 6s","price":"850","amount":-4}]
+>>>>>>> 81c9df5c2f96bb0abb7e20c57bba13a98c37891e

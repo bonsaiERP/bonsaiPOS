@@ -1,80 +1,78 @@
+/* global DataBase */
+
 var fs = require('fs');
-var total;
+var total = 0;
+var db = new DataBase();
+var myObject = db.getTable("products");
 {document.getElementById("btn_cancel").style.display="none";}
 
+function showAlertMessage(tipeMessage)
+{
+  $("#alertMessage").removeClass();
+  if(tipeMessage=="success"){
+    $("#alertMessage").addClass("alert alert-dismissible alert-success");
+    $("#alertMessage")[0].innerHTML='<p>El producto fue a&ntilde;adido exitosamente.</p>';
+  }
+  else if (tipeMessage=="warning"){
+    $("#alertMessage").addClass("alert alert-dismissible alert-warning");
+    $("#alertMessage")[0].innerHTML='<p>El producto no se encuentra disponible, pero se a&ntilde;adi&oacute; a la venta.</p>';
+  }
+  else{
+    $("#alertMessage").addClass("alert alert-dismissible alert-danger");
+    $("#alertMessage")[0].innerHTML='<p>El producto no existe.</p>';
+  }
+  $("#alertMessage").show();
+}
+
 (function ($) {
-  // Leer
-  fs.readFile('bd/products.json', function (err, products) {
-    if (err) throw err;
-    var myObject = eval('(' + products + ')');
-     total = 0;
 
-    $('#form1').on('submit', function (event) {
+  $('#form1').on('submit', function (event) {
+    $("#alertMessage").hide();
+    event.preventDefault();
+    var data_table = $("#tblDatos");
+    var code_product = $("#code_product").val();
+    var resp = false;
 
-      $("#alertAddedSuccessful").hide();
-      $("#alertAddedWarning").hide();
-      $("#alertAddedDanger").hide();
+    for (var cont = 0; cont < myObject.length; cont++) {
+      if (code_product == myObject[cont].code) {
+        data_table.append("<tr id = " + myObject[cont].code + "><td  " + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + "</td><td>" + 1 + "</td><td>" + myObject[cont].price + "</td><td><button onclick=" + "fnselect(" + myObject[cont].code + ")" + ">" + "x" + "</button></td></tr>");
+        myObject[cont].amount = myObject[cont].amount - 1;
+        total = total + parseInt(myObject[cont].price);
+        {document.getElementById("btn_cancel").style.display="block";}
 
-      event.preventDefault();
-      var data_table = $("#tblDatos");
-      var code_product = $("#code_product").val();
-      var resp = false;
+        $("#total").text(total);
+        showAlertMessage("success");
 
-      for (var cont = 0; cont < myObject.length; cont++) {
-        if (code_product == myObject[cont].code) {
-
-          data_table.append('<tr><td align="center">' + myObject[cont].code + '</td><td align="center">' + myObject[cont].name + '</td><td align="center">' + 1 + '</td><td align="center">' + myObject[cont].price + "</td></tr>");
-          myObject[cont].amount = myObject[cont].amount - 1;
-          total = total + parseInt(myObject[cont].price);
-          $("#total").text(total);
-          {document.getElementById("btn_cancel").style.display="block";}
-
-
-          $("#alertAddedSuccessful").show();
-          if (myObject[cont].amount <= 0){
-            $('#myWarningModal').modal('show');
-            $("#alertAddedSuccessful").hide();
-            $("#alertAddedWarning").show();
-          }
-          resp = true;
-          break;
+        if (myObject[cont].amount <= 0) {
+          showAlertMessage("warning");
         }
+        resp = true;
+        break;
       }
-      if (resp == false) {
-        $('#myDangerModal').modal('show');
-        $("#alertAddedSuccessful").hide();
-        $("#alertAddedWarning").hide();
-        $("#alertAddedDanger").show();
-      }
-    });
+    }
+    if (resp == false) {
+      $('#myDangerModal').modal('show');
+      showAlertMessage("danger");
+    }
+  });
 
+  $("#btn_confirm").click(function () {
+    var products_number = $("#tblDatos tr").length;
 
-    $("#btn_confirm").click(function () {
-      var products_number = $("#tblDatos tr").length;
+    if (products_number > 1) {
 
-      if (products_number > 1) {
-
-        fs.readFile('bd/sales.json', function (err, sales) {
-          if (err) throw err;
-
-          var mySales = eval('(' + sales + ')');
-          var date = new Date();
-          var size = mySales.length;
-
-          mySales.push({ "id": size + 1, "date": date, "total": total });
-          fs.writeFileSync("bd/sales.json", JSON.stringify(mySales), 'utf8');
-
-        });
-
-
-        fs.writeFileSync("bd/products.json", JSON.stringify(myObject), 'utf8');
-        alert("Exito en la venta");
-        location.reload();
-      } else {
-        alert("Error, no existen productos en la linea de venta.");
-      };
-    });
-
+      var mySales = db.getTable("sales");
+      var date = new Date();
+      var size = mySales.length;
+      var sale = { "id": size + 1, "date": date, "total": total };
+      mySales.push(sale);
+      db.putTable("sales", mySales);
+      db.putTable("products", myObject);
+      alert("Exito en la venta");
+      location.reload();
+    } else {
+      alert("Error, no existen productos en la linea de venta.");
+    };
   });
   $("#btn_cancel").click(function(){
       if(confirm("¿Esta seguro de cancelar la venta?")){
@@ -86,4 +84,23 @@ var total;
       }
   });
 
-  })(jQuery);
+})(jQuery);
+
+function fnselect(value) {
+  var fs = require('fs');
+  fs.readFile('bd/products.json', function (err, products) {
+    if (err)
+      throw err;
+    var myObject = eval('(' + products + ')');
+    for (var cont = 0; cont < myObject.length; cont++) {
+      if (value == myObject[cont].code) {
+        myObject[cont].amount = myObject[cont].amount + 1;
+        total = total - parseInt(myObject[cont].price);
+        $("#total").text(total);
+      }
+    }
+
+  });
+  var element = document.getElementById(value);
+  element.remove();
+}
