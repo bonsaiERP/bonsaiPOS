@@ -15,7 +15,7 @@ function convertdatetoformatofso(date)
 function returndatatoshow(date)
 {
   dir= getpathproyect('\\views\\reports');
-  fs.readFile(dir+'/bd/sales.json', function (err, sales) {
+  fs.readFile('bd/sales.json', function (err, sales) {
     if (err) throw err;
     var general_list_of_sales = eval('(' + sales + ')');
     var day = date.getDate();

@@ -62,7 +62,7 @@ function showAlertMessage(tipeMessage)
     if (products_number > 1) {
 
       var mySales = db.getTable("sales");
-      var date = new Date();
+      var date = new Date().toUTCString();
       var size = mySales.length;
       var sale = { "id": size + 1, "date": date, "total": total };
       mySales.push(sale);
