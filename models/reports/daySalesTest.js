@@ -92,11 +92,6 @@ getactualtime:function(date)
   var seconds = date.getSeconds();
   var result = hours+":"+minuts+":"+seconds;
   return result;
-},
-
-suma:function(n1,n2)
-{
-  return n1 + n2;
 }
 }
 

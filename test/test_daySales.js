@@ -1,5 +1,5 @@
 var assert = require('assert');
-var daySales = require('../models/reports/daySales.js');
+var daySales = require('../models/reports/daySalesTest.js');
 
 describe('GET#time', function() {
   it('Funcion getactualdate deberia obtener la fecha en dia-mes-anio', function() {
