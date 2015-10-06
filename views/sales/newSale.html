@@ -23,7 +23,13 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Venta <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="views/sales/newSale.html">Nueva Venta</a></li>
+                <li><a href="newSale.html">Nueva Venta</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Reportes <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="../../views/reports/daySales.html">Ventas del dia</a></li>
               </ul>
             </li>
           </ul>
@@ -39,19 +45,11 @@
       <button type="button" class="close" data-dismiss="alert">×</button>
     </div>
     <h1>Nueva Venta</h1>
-    <div class="row">
-      <div class="col-md-4" >
-        <form id="form1">
-          <input type="number" name="code" id="code_product" placeholder="Codigo del Producto" />
-          <button class="btn btn-primary">Anadir</button>
-        </form>
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-info" id="btn_confirm">Confirmar Venta</button>
-      </div>
-      <div class="col-md-4">
-         <button class="btn btn-danger"  id="btn_cancel"  >Cancelar Venta</button>
-      </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+      <form id="form1">
+        <input type="number" name="code" id="code_product" placeholder="Codigo del Producto" />
+        <button class="btn btn-primary">Anadir</button>
+      </form>
     </div>
     <br>
     <br>
@@ -67,19 +65,28 @@
     <h3 align="right"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Total:
       <label style="text-align: right;​" id="total" type="number">0</label>
     </h3>
+    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" align="right">
+        <button class="btn btn-info" id="btn_confirm" style="display:none;">Confirmar Venta</button>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" align="left">
+        <button class="btn btn-danger" id="btn_cancel" style="display:none;">Cancelar Venta</button>
+      </div>
+    </div>
 
     <!-- Modal Danger -->
     <div class="modal" id="myDangerModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title"><span class="label label-danger">Alerta - El producto no existe!</span></h4>
+            <h4 class="modal-title"><span class="label label-danger" id="modalTitleMessageDanger"></span></h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" id="modalBodyMessageDanger">
             <p> El producto que desea agregar a la venta no existe.</p>
           </div>
           <div class="modal-footer">
-            <button id="btn_addProduct" type="button" class="btn btn-danger" data-dismiss="modal">Aceptar</button>
+            <button id="btn_cancelSale" type="button" class="btn btn-info" style="display:none;"></button>
+            <button id="btn_cancelAndAccept" type="button" class="btn btn-danger" data-dismiss="modal" ></button>
           </div>
         </div>
       </div>

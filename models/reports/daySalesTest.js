@@ -1,4 +1,50 @@
 var fs = require('fs');
+
+function convertdatetoformatofso(date)
+{
+  return new Date(date);
+}
+
+function thehighttime(time1,time2)
+{
+  var aux1 = time1.getHours();
+  var aux2 = time2.getHours();
+  if(aux2 != aux1)
+  {
+    if(aux2 < aux1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  var aux1 = time1.getMinutes();
+  var aux2 = time2.getMinutes();
+  if(aux2 != aux1)
+  {
+    if(aux2 < aux1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  var aux1 = time1.getSeconds();
+  var aux2 = time2.getSeconds();
+  if(aux2 < aux1)
+  {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+
 daySales = {
 getpathproyect:function(todelete)
 {
@@ -10,6 +56,50 @@ getpathproyect:function(todelete)
 convertdatetoformatofso:function(date)
 {
   return new Date(date);
+},
+
+returnlistofsalesofdate:function(date)
+{
+  var db = new DataBase();
+  var general_list_of_sales = db.getTable("sales");
+  var day = date.getDate();
+  var month = date.getMonth();
+  var year = date.getFullYear();
+  var result = [];
+  for (i = 0; i < general_list_of_sales.length; i++) {
+    var aux = convertdatetoformatofso(general_list_of_sales[i].date);
+    if(aux.getDate() == day && aux.getMonth() == month && aux.getFullYear() == year)
+    {
+      result.push(general_list_of_sales[i]);
+    }
+  }
+  return result;
+},
+
+orderlistbyhour:function(list_of_sales)
+{
+  for (var cont = 0; cont < list_of_sales.length; cont++) {
+    for (var cont1 = cont + 1; cont1 < list_of_sales.length; cont1++) {
+      var aux1 = convertdatetoformatofso(list_of_sales[cont].date);
+      var aux2 = convertdatetoformatofso(list_of_sales[cont1].date);
+      if(thehighttime(aux1,aux2))
+      {
+        var extra = list_of_sales[cont1];
+        list_of_sales[cont1] = list_of_sales[cont];
+        list_of_sales[cont] = extra;
+      }
+    }
+  }
+  return list_of_sales;
+},
+
+gettotalofsales:function(list_of_sales)
+{
+  var tot = 0;
+  for (var cont = 0; cont < list_of_sales.length; cont++) {
+    tot = tot + list_of_sales[cont].total;
+  }
+  return tot;
 },
 
 devolvertodo:function(date)
@@ -54,15 +144,29 @@ thehighttime:function(time1,time2)
 {
   var aux1 = time1.getHours();
   var aux2 = time2.getHours();
-  if(aux2 < aux1)
+  if(aux2 != aux1)
   {
-    return true;
+    if(aux2 < aux1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
   var aux1 = time1.getMinutes();
   var aux2 = time2.getMinutes();
-  if(aux2 < aux1)
+  if(aux2 != aux1)
   {
-    return true;
+    if(aux2 < aux1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
   var aux1 = time1.getSeconds();
   var aux2 = time2.getSeconds();

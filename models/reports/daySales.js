@@ -12,10 +12,54 @@ function convertdatetoformatofso(date)
   return new Date(date);
 }
 
+function returnlistofsalesofdate(date)
+{
+  var db = new DataBase();
+  var general_list_of_sales = db.getTable("sales");
+  var day = date.getDate();
+  var month = date.getMonth();
+  var year = date.getFullYear();
+  var result = [];
+  for (i = 0; i < general_list_of_sales.length; i++) {
+    var aux = convertdatetoformatofso(general_list_of_sales[i].date);
+    if(aux.getDate() == day && aux.getMonth() == month && aux.getFullYear() == year)
+    {
+      result.push(general_list_of_sales[i]);
+    }
+  }
+  return result;
+}
+
+function orderlistbyhour(list_of_sales)
+{
+  for (var cont = 0; cont < list_of_sales.length; cont++) {
+    for (var cont1 = cont + 1; cont1 < list_of_sales.length; cont1++) {
+      var aux1 = convertdatetoformatofso(list_of_sales[cont].date);
+      var aux2 = convertdatetoformatofso(list_of_sales[cont1].date);
+      if(thehighttime(aux1,aux2))
+      {
+        var extra = list_of_sales[cont1];
+        list_of_sales[cont1] = list_of_sales[cont];
+        list_of_sales[cont] = extra;
+      }
+    }
+  }
+  return list_of_sales;
+}
+
+function gettotalofsales(list_of_sales)
+{
+  var tot = 0;
+  for (var cont = 0; cont < list_of_sales.length; cont++) {
+    tot = tot + list_of_sales[cont].total;
+  }
+  return tot;
+}
+
 function returndatatoshow(date)
 {
   dir= getpathproyect('\\views\\reports');
-  fs.readFile('bd/sales.json', function (err, sales) {
+  fs.readFile(dir+'bd/sales.json', function (err, sales) {
     if (err) throw err;
     var general_list_of_sales = eval('(' + sales + ')');
     var day = date.getDate();
@@ -44,7 +88,7 @@ function returndatatoshow(date)
     var data_table = $("#tblDatos");
       for (var cont = 0; cont < result.length; cont++) {
         var aux = convertdatetoformatofso(result[cont].date);
-        data_table.append("<tr> <td>" + getactualtime(aux) + "</td> <td>" + result[cont].id + "</td> <td>" + result[cont].total + "</td></tr>");
+        data_table.append('<tr> <td style="text-align: center;">' + getactualtime(aux) + '</td> <td style="text-align: center;">' + result[cont].id + '</td> <td style="text-align: center;">' + result[cont].total + "</td></tr>");
       }
   });
 }
@@ -54,15 +98,29 @@ function thehighttime(time1,time2)
 {
   var aux1 = time1.getHours();
   var aux2 = time2.getHours();
-  if(aux2 < aux1)
+  if(aux2 != aux1)
   {
-    return true;
+    if(aux2 < aux1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
   var aux1 = time1.getMinutes();
   var aux2 = time2.getMinutes();
-  if(aux2 < aux1)
+  if(aux2 != aux1)
   {
-    return true;
+    if(aux2 < aux1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
   var aux1 = time1.getSeconds();
   var aux2 = time2.getSeconds();

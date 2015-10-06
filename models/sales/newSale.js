@@ -4,7 +4,14 @@ var fs = require('fs');
 var total = 0;
 var db = new DataBase();
 var myObject = db.getTable("products");
-{document.getElementById("btn_cancel").style.display="none";}
+if(localStorage.getItem('reload')==1)
+{
+  showAlertMessage("successSale");
+  $("#alertMessage").show();
+  localStorage.removeItem('reload');
+}
+// {document.getElementById("btn_cancel").style.display="none";}
+// {document.getElementById("btn_confirm").style.display="none";}
 
 function showAlertMessage(tipeMessage)
 {
@@ -12,6 +19,10 @@ function showAlertMessage(tipeMessage)
   if(tipeMessage=="success"){
     $("#alertMessage").addClass("alert alert-dismissible alert-success");
     $("#alertMessage")[0].innerHTML='<p>El producto fue a&ntilde;adido exitosamente.</p>';
+  }
+  else if (tipeMessage=="successSale"){
+    $("#alertMessage").addClass("alert alert-dismissible alert-success");
+    $("#alertMessage")[0].innerHTML='<p>La venta se realiz&oacute; correctamente.</p>';
   }
   else if (tipeMessage=="warning"){
     $("#alertMessage").addClass("alert alert-dismissible alert-warning");
@@ -35,11 +46,11 @@ function showAlertMessage(tipeMessage)
 
     for (var cont = 0; cont < myObject.length; cont++) {
       if (code_product == myObject[cont].code) {
-        data_table.append("<tr id = " + myObject[cont].code + "><td  " + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + "</td><td>" + 1 + "</td><td>" + myObject[cont].price + "</td><td><button onclick=" + "fnselect(" + myObject[cont].code + ")" + ">" + "x" + "</button></td></tr>");
+        data_table.append("<tr id = " + myObject[cont].code + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + 1 + '</td><td style="text-align: center;">' + myObject[cont].price + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].code + ")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
         myObject[cont].amount = myObject[cont].amount - 1;
         total = total + parseInt(myObject[cont].price);
-        {document.getElementById("btn_cancel").style.display="block";}
-
+        $("#btn_confirm").show();
+        $("#btn_cancel").show();
         $("#total").text(total);
         showAlertMessage("success");
 
@@ -51,16 +62,16 @@ function showAlertMessage(tipeMessage)
       }
     }
     if (resp == false) {
+      $('#btn_cancelAndAccept')[0].innerHTML="Aceptar";
+      $("#modalTitleMessageDanger")[0].innerHTML='Alerta - El producto no existe!';
+      $("#modalBodyMessageDanger")[0].innerHTML='<p> El producto que desea agregar a la venta no existe.</p>';
       $('#myDangerModal').modal('show');
       showAlertMessage("danger");
+
     }
   });
 
   $("#btn_confirm").click(function () {
-    var products_number = $("#tblDatos tr").length;
-
-    if (products_number > 1) {
-
       var mySales = db.getTable("sales");
       var date = new Date().toUTCString();
       var size = mySales.length;
@@ -68,20 +79,28 @@ function showAlertMessage(tipeMessage)
       mySales.push(sale);
       db.putTable("sales", mySales);
       db.putTable("products", myObject);
-      alert("Exito en la venta");
       location.reload();
-    } else {
-      alert("Error, no existen productos en la linea de venta.");
-    };
+      localStorage.setItem('reload',1);
   });
+
   $("#btn_cancel").click(function(){
-      if(confirm("¿Esta seguro de cancelar la venta?")){
-          location.reload();
-      }
-      else{
-          alert("no se cancelo la venta");
-          return false;
-      }
+    $('#myDangerModal').modal('show');
+    $("#modalTitleMessageDanger")[0].innerHTML='Alerta - Esta apunto de cancelar una venta!';
+    $("#modalBodyMessageDanger")[0].innerHTML='<p> ¿Esta seguro que desea cancelar la venta actual? </p>';
+    $('#btn_cancelAndAccept')[0].innerHTML="Cancelar";
+    $('#btn_cancelSale')[0].innerHTML="Aceptar";
+    $("#btn_cancelSale").show();
+      // if(confirm("¿Esta seguro de cancelar la venta?")){
+      //     location.reload();
+      // }
+      // else{
+      //     alert("no se cancelo la venta");
+      //     return false;
+      // }
+  });
+
+  $("#btn_cancelSale").click(function(){
+    location.reload();
   });
 
 })(jQuery);
@@ -91,7 +110,7 @@ function fnselect(value) {
   fs.readFile('bd/products.json', function (err, products) {
     if (err)
       throw err;
-    var myObject = eval('(' + products + ')');
+    
     for (var cont = 0; cont < myObject.length; cont++) {
       if (value == myObject[cont].code) {
         myObject[cont].amount = myObject[cont].amount + 1;
@@ -100,7 +119,14 @@ function fnselect(value) {
       }
     }
 
+
+
   });
   var element = document.getElementById(value);
   element.remove();
+  var rowCount = $('#tblDatos tr').length;
+  if(rowCount-1==0){
+    $("#btn_confirm").hide();
+    $("#btn_cancel").hide();
+  }
 }
