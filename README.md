@@ -1,1 +1,1 @@
-Point of Sale for bonsaiERP
+Point of Sale for bonsaiERP.
