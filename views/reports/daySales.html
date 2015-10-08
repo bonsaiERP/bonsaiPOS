@@ -39,29 +39,31 @@
       </div>
     </div>
   </nav>
-  <br><br>
-  <center>
-    <p id="labeldate"><script>
-    var data_table = $("#labeldate");
-    data_table.append('Fecha: '+ getactualdate(new Date()));
-    </script></p>
-  </center><br>
-  <table class="table table-striped table-hover" id="tblDatos">
-    <tr>
-      <th style="text-align: center;">Hora</th>
-      <th style="text-align: center;">Numero de Venta</th>
-      <th style="text-align: center;">Total Venta</th>
-    </tr>
-    <script>
-       var list_of_sales = returnlistofsalesofdate(new Date());
-       list_of_sales = orderlistbyhour(list_of_sales);
-       var data_table = $("#tblDatos");
-       for (var cont = 0; cont < list_of_sales.length; cont++) {
-         var aux = convertdatetoformatofso(list_of_sales[cont].date);
-         data_table.append("<tr> <td>" + getactualtime(aux) + "</td> <td>" + list_of_sales[cont].id + "</td> <td>" + list_of_sales[cont].total + "</td></tr>");
-       }
-       data_table.append("<tr><td></td><td>Total acomulado</td><td>"+gettotalofsales(list_of_sales)+"</td>");
-    </script>
-  </table>
+  <h1 align="center">Ventas del día</h1><br/>
+  <div class="container">
+    <center>
+      <p id="labeldate"><script>
+      var data_table = $("#labeldate");
+      data_table.append('Fecha: '+ getactualdate(new Date()));
+      </script></p>
+    </center><br>
+    <table class="table table-striped table-hover" id="tblDatos">
+      <tr>
+        <th style="text-align: center;">Hora</th>
+        <th style="text-align: center;">Numero de Venta</th>
+        <th style="text-align: center;">Total Venta</th>
+      </tr>
+      <script>
+         var list_of_sales = returnlistofsalesofdate(new Date());
+         list_of_sales = orderlistbyhour(list_of_sales);
+         var data_table = $("#tblDatos");
+         for (var cont = 0; cont < list_of_sales.length; cont++) {
+           var aux = convertdatetoformatofso(list_of_sales[cont].date);
+           data_table.append("<tr> <td>" + getactualtime(aux) + "</td> <td>" + list_of_sales[cont].id + "</td> <td>" + list_of_sales[cont].total + "</td></tr>");
+         }
+         data_table.append("<tr><td></td><td>Total acomulado</td><td>"+gettotalofsales(list_of_sales)+"</td>");
+      </script>
+    </table>
+  </div>
 </body>
 </html>
