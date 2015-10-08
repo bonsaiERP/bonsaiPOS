@@ -52,6 +52,7 @@ function showAlertMessage(tipeMessage)
         $("#btn_confirm").show();
         $("#btn_cancel").show();
         $("#total").text(total);
+        $("#code_product").val("");
         showAlertMessage("success");
 
         if (myObject[cont].amount <= 0) {
@@ -61,7 +62,7 @@ function showAlertMessage(tipeMessage)
         break;
       }
     }
-    if (resp == false) {
+    if (resp === false) {
       $('#btn_cancelAndAccept')[0].innerHTML="Aceptar";
       $("#modalTitleMessageDanger")[0].innerHTML='Alerta - El producto no existe!';
       $("#modalBodyMessageDanger")[0].innerHTML='<p> El producto que desea agregar a la venta no existe.</p>';
@@ -110,7 +111,7 @@ function fnselect(value) {
   fs.readFile('bd/products.json', function (err, products) {
     if (err)
       throw err;
-    
+
     for (var cont = 0; cont < myObject.length; cont++) {
       if (value == myObject[cont].code) {
         myObject[cont].amount = myObject[cont].amount + 1;
@@ -125,7 +126,7 @@ function fnselect(value) {
   var element = document.getElementById(value);
   element.remove();
   var rowCount = $('#tblDatos tr').length;
-  if(rowCount-1==0){
+  if(rowCount-1===0){
     $("#btn_confirm").hide();
     $("#btn_cancel").hide();
   }
