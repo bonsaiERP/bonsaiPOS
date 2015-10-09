@@ -3,7 +3,7 @@
 var fs = require('fs');
 var total = 0;
 var db = new DataBase();
-var myObject = db.getTable("products");
+var myObject = db.getTable("products",'\\views\\sales',2);
 if(localStorage.getItem('reload')==1)
 {
   showAlertMessage("successSale");
@@ -73,13 +73,13 @@ function showAlertMessage(tipeMessage)
   });
 
   $("#btn_confirm").click(function () {
-      var mySales = db.getTable("sales");
+      var mySales = db.getTable("sales",'\\views\\sales',2);
       var date = new Date().toUTCString();
       var size = mySales.length;
       var sale = { "id": size + 1, "date": date, "total": total };
       mySales.push(sale);
-      db.putTable("sales", mySales);
-      db.putTable("products", myObject);
+      db.putTable("sales", mySales,'\\views\\sales',2);
+      db.putTable("products", myObject,'\\views\\sales',2);
       location.reload();
       localStorage.setItem('reload',1);
   });
@@ -106,9 +106,44 @@ function showAlertMessage(tipeMessage)
 
 })(jQuery);
 
+function getpathproyect(todelete,cant_of_breakbar)
+{
+  actualdir = __dirname
+  /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
+  si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
+  */
+  if(actualdir.search('/') != -1)
+  {
+    for(i = 0; i < cant_of_breakbar; i++)
+    {
+      todelete = todelete.replace(String.fromCharCode(92),'/');
+    }
+  }
+  actualdir = actualdir.replace(todelete,'');
+  return actualdir;
+}
+
+function converpath(toconvert,cant_of_breakbar)
+{
+  actualdir = __dirname
+  /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
+  si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
+  */
+  if(actualdir.search('/') != -1)
+  {
+    for(i = 0; i < cant_of_breakbar; i++)
+    {
+      toconvert = toconvert.replace(String.fromCharCode(92),'/');
+    }
+  }
+  return toconvert;
+}
+
+
 function fnselect(value) {
   var fs = require('fs');
-  fs.readFile('bd/products.json', function (err, products) {
+  dir = getpathproyect('\\views\\sales',2);
+  fs.readFile(dir + converpath('\\bd\\products.json',2), function (err, products) {
     if (err)
       throw err;
 

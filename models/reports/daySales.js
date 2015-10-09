@@ -3,8 +3,34 @@ var fs = require('fs');
 function getpathproyect(todelete)
 {
   actualdir = __dirname
+  /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
+  si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
+  */
+  if(actualdir.search('/') != -1)
+  {
+    for(i = 0; i < cant_of_breakbar; i++)
+    {
+      todelete = todelete.replace(String.fromCharCode(92),'/');
+    }
+  }
   actualdir = actualdir.replace(todelete,'');
   return actualdir;
+}
+
+function converpath(toconvert,cant_of_breakbar)
+{
+  actualdir = __dirname
+  /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
+  si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
+  */
+  if(actualdir.search('/') != -1)
+  {
+    for(i = 0; i < cant_of_breakbar; i++)
+    {
+      toconvert = toconvert.replace(String.fromCharCode(92),'/');
+    }
+  }
+  return toconvert;
 }
 
 function convertdatetoformatofso(date)
@@ -15,7 +41,7 @@ function convertdatetoformatofso(date)
 function returnlistofsalesofdate(date)
 {
   var db = new DataBase();
-  var general_list_of_sales = db.getTable("sales");
+  var general_list_of_sales = db.getTable("sales",'\\views\\reports',2);
   var day = date.getDate();
   var month = date.getMonth();
   var year = date.getFullYear();
@@ -58,8 +84,8 @@ function gettotalofsales(list_of_sales)
 
 function returndatatoshow(date)
 {
-  dir= getpathproyect('\\views\\reports');
-  fs.readFile(dir+'bd/sales.json', function (err, sales) {
+  dir= getpathproyect('\\views\\reports',2);
+  fs.readFile(dir+converpath('\\bd\\sales.json',2), function (err, sales) {
     if (err) throw err;
     var general_list_of_sales = eval('(' + sales + ')');
     var day = date.getDate();
@@ -88,7 +114,7 @@ function returndatatoshow(date)
     var data_table = $("#tblDatos");
       for (var cont = 0; cont < result.length; cont++) {
         var aux = convertdatetoformatofso(result[cont].date);
-        data_table.append('<tr> <td style="text-align: center;">' + getactualtime(aux) + '</td> <td style="text-align: center;">' + result[cont].id + '</td> <td style="text-align: center;">' + result[cont].total + "</td></tr>");
+        data_table.append("<tr> <td>" + getactualtime(aux) + "</td> <td>" + result[cont].id + "</td> <td>" + result[cont].total + "</td></tr>");
       }
   });
 }
