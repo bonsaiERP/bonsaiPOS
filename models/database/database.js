@@ -9,17 +9,14 @@ var DataBase = function () {
     /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
     si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
     */
-    console.log(actualdir+"--"+todelete);
     if(actualdir.search('/') != -1)
     {
       for(i = 0; i < cant_of_breakbar; i++)
       {
-        console.log("Entro");
         todelete = todelete.replace(String.fromCharCode(92),'/');
       }
     }
     actualdir = actualdir.replace(todelete,'');
-    console.log(actualdir);
     return actualdir;
   }
 
