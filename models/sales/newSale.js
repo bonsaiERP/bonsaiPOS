@@ -52,7 +52,7 @@ function showAlertMessage(tipeMessage)
     if(amount_product > 0){
       for (var cont = 0; cont < myObject.length; cont++) {
         if (code_product == myObject[cont].code) {
-          data_table.append("<tr id = " + myObject[cont].code + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].code + ")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
+          data_table.append("<tr id = " + myObject[cont].code + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].code + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
           myObject[cont].amount = myObject[cont].amount - amount_product;
           total = total + parseInt(myObject[cont].price * amount_product);
           $("#btn_confirm").show();
@@ -155,7 +155,7 @@ function converpath(toconvert,cant_of_breakbar)
 }
 
 
-function fnselect(value) {
+function fnselect(value, amount_value) {
   var fs = require('fs');
   dir = getpathproyect('\\views\\sales',2);
   fs.readFile(dir + converpath('\\bd\\products.json',2), function (err, products) {
@@ -164,8 +164,8 @@ function fnselect(value) {
 
     for (var cont = 0; cont < myObject.length; cont++) {
       if (value == myObject[cont].code) {
-        myObject[cont].amount = myObject[cont].amount + 1;
-        total = total - parseInt(myObject[cont].price);
+        myObject[cont].amount = myObject[cont].amount + amount_value;
+        total = total - parseInt(myObject[cont].price*amount_value);
         $("#total").text(total);
       }
     }
