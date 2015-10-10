@@ -28,6 +28,10 @@ function showAlertMessage(tipeMessage)
     $("#alertMessage").addClass("alert alert-dismissible alert-warning");
     $("#alertMessage")[0].innerHTML='<p>El producto no se encuentra disponible, pero se a&ntilde;adi&oacute; a la venta.</p>';
   }
+  else if (tipeMessage=="warningAmount"){
+    $("#alertMessage").addClass("alert alert-dismissible alert-danger");
+    $("#alertMessage")[0].innerHTML='<p>La cantidad del producto debe ser mayor a 0.</p>';
+  }
   else{
     $("#alertMessage").addClass("alert alert-dismissible alert-danger");
     $("#alertMessage")[0].innerHTML='<p>El producto no existe.</p>';
@@ -42,26 +46,37 @@ function showAlertMessage(tipeMessage)
     event.preventDefault();
     var data_table = $("#tblDatos");
     var code_product = $("#code_product").val();
+    var amount_product = $("#amount_product").val();
     var resp = false;
 
-    for (var cont = 0; cont < myObject.length; cont++) {
-      if (code_product == myObject[cont].code) {
-        data_table.append("<tr id = " + myObject[cont].code + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + 1 + '</td><td style="text-align: center;">' + myObject[cont].price + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].code + ")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
-        myObject[cont].amount = myObject[cont].amount - 1;
-        total = total + parseInt(myObject[cont].price);
-        $("#btn_confirm").show();
-        $("#btn_cancel").show();
-        $("#total").text(total);
-        $("#code_product").val("");
-        showAlertMessage("success");
+    if(amount_product > 0){
+      for (var cont = 0; cont < myObject.length; cont++) {
+        if (code_product == myObject[cont].code) {
+          data_table.append("<tr id = " + myObject[cont].code + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].code + ")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
+          myObject[cont].amount = myObject[cont].amount - amount_product;
+          total = total + parseInt(myObject[cont].price * amount_product);
+          $("#btn_confirm").show();
+          $("#btn_cancel").show();
+          $("#total").text(total);
+          $("#code_product").val("");
+          $("#amount_product").val("");
+          showAlertMessage("success");
 
-        if (myObject[cont].amount <= 0) {
-          showAlertMessage("warning");
+          if (myObject[cont].amount <= 0) {
+            showAlertMessage("warning");
+          }
+          resp = true;
+          break;
         }
-        resp = true;
-        break;
       }
-    }
+      }
+      else {
+        showAlertMessage("warningAmount");
+        $("#code_product").val("");
+        $("#amount_product").val("");
+        resp = true;
+      }
+
     if (resp === false) {
       $('#btn_cancelAndAccept')[0].innerHTML="Aceptar";
       $("#modalTitleMessageDanger")[0].innerHTML='Alerta - El producto no existe!';

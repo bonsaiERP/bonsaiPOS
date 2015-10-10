@@ -1,1 +1,1 @@
-[{"code":1,"name":"Iphone","price":"450","amount":1},{"code":2,"name":"Iphone 6","price":"650","amount":1},{"code":3,"name":"Iphone 6s","price":"850","amount":-6}]
+[{"code":1,"name":"Iphone","price":"450","amount":-5},{"code":2,"name":"Iphone 6","price":"650","amount":0},{"code":3,"name":"Iphone 6s","price":"850","amount":-6}]
