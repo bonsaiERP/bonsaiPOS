@@ -50,8 +50,8 @@ function showAlertMessage(tipeMessage)
 
     if(amount_product > 0){
       for (var cont = 0; cont < myObject.length; cont++) {
-        if (code_product == myObject[cont].code) {
-          data_table.append("<tr id = " + myObject[cont].code + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].code + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
+        if (code_product == myObject[cont].id) {
+          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].code + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
           myObject[cont].amount = myObject[cont].amount - amount_product;
           total = total + parseInt(myObject[cont].price * amount_product);
           $("#btn_confirm").show();
@@ -101,7 +101,7 @@ if(code_product.length != 0){
 
       if (myObject[cont].name.search(code_product)!=-1 ) {
 
-        data_table.append("<tr id = " + myObject[cont].name + "><td  " + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + "</td><td>" + 1 + "</td><td>" + myObject[cont].price + "</td><td><button id = " + nombre +  ">" + "anadir" + "</button></td></tr>");
+        data_table.append("<tr id = " + myObject[cont].name + "><td  " + ">" + myObject[cont].id + "</td><td>" + myObject[cont].name + "</td><td>" + 1 + "</td><td>" + myObject[cont].price + "</td><td><button id = " + nombre +  ">" + "anadir" + "</button></td></tr>");
         //myObject[cont].amount = myObject[cont].amount - 1;
         //total = total + parseInt(myObject[cont].price);
         {document.getElementById("btn_cancel").style.display="block";}
@@ -211,7 +211,7 @@ function fnselect(value, amount_value) {
       throw err;
 
     for (var cont = 0; cont < myObject.length; cont++) {
-      if (value == myObject[cont].code) {
+      if (value == myObject[cont].id) {
         myObject[cont].amount = myObject[cont].amount + amount_value;
         total = total - parseInt(myObject[cont].price*amount_value);
         $("#total").text(total);
