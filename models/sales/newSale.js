@@ -4,14 +4,13 @@ var fs = require('fs');
 var total = 0;
 var db = new DataBase();
 var myObject = db.getTable("products",'\\views\\sales',2);
+
 if(localStorage.getItem('reload')==1)
 {
   showAlertMessage("successSale");
   $("#alertMessage").show();
   localStorage.removeItem('reload');
 }
-// {document.getElementById("btn_cancel").style.display="none";}
-// {document.getElementById("btn_confirm").style.display="none";}
 
 function showAlertMessage(tipeMessage)
 {

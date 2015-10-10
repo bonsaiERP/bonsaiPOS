@@ -48,7 +48,6 @@ var DataBase = function () {
   }
 
   this.putTable = function(table_name,table,to_delete,cant_of_breakbar){
-    console.log(to_delete+"******************************")
     fs.writeFileSync(getpathproyect(to_delete,cant_of_breakbar)+ converpath('\\bd\\',2) + table_name + '.json', JSON.stringify(table), 'utf8');
   }
 }
