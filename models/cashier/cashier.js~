@@ -4,11 +4,7 @@ var fs = require('fs');
 function showAlertMessage(tipeMessage)
 {
   $("#alertMessage").removeClass();
-  if(tipeMessage=="success"){
-    $("#alertMessage").addClass("alert alert-dismissible alert-success");
-    $("#alertMessage")[0].innerHTML='<p>El monto en caja fue a&ntilde;adido exitosamente.</p>';
-  }
-  else if (tipeMessage=="warningAmount"){
+  if (tipeMessage=="warningAmount"){
     $("#alertMessage").addClass("alert alert-dismissible alert-danger");
     $("#alertMessage")[0].innerHTML='<p>La cantidad debe ser numerica y mayor a cero.</p>';
   }
@@ -24,8 +20,6 @@ function showAlertMessage(tipeMessage)
     
     if(money > 0){
        create_cashier(money);
-       showAlertMessage("success");
-       $("#money").val("");
     }else {
        showAlertMessage("warningAmount");
     }
