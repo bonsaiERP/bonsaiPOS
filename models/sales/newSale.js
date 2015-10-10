@@ -4,14 +4,13 @@ var fs = require('fs');
 var total = 0;
 var db = new DataBase();
 var myObject = db.getTable("products",'\\views\\sales',2);
+
 if(localStorage.getItem('reload')==1)
 {
   showAlertMessage("successSale");
   $("#alertMessage").show();
   localStorage.removeItem('reload');
 }
-// {document.getElementById("btn_cancel").style.display="none";}
-// {document.getElementById("btn_confirm").style.display="none";}
 
 function showAlertMessage(tipeMessage)
 {
@@ -51,8 +50,8 @@ function showAlertMessage(tipeMessage)
 
     if(amount_product > 0){
       for (var cont = 0; cont < myObject.length; cont++) {
-        if (code_product == myObject[cont].code) {
-          data_table.append("<tr id = " + myObject[cont].code + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].code + ")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
+        if (code_product == myObject[cont].id) {
+          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].code + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
           myObject[cont].amount = myObject[cont].amount - amount_product;
           total = total + parseInt(myObject[cont].price * amount_product);
           $("#btn_confirm").show();
@@ -86,13 +85,15 @@ function showAlertMessage(tipeMessage)
 
     }
   });
+/////////////////////////////////////////
 
   $('#form2').on('submit', function (event) {
     $("#alertMessage").hide();
     event.preventDefault();
-    var data_table = $("#tblDatos");
+    var data_table = $("#tblDatosBuscados");
     var code_product = $("#search_product").val();
     var resp = false;
+    var nombre = "add_btn";
 
 if(code_product.length != 0){
     for (var cont = 0; cont < myObject.length; cont++) {
@@ -100,17 +101,13 @@ if(code_product.length != 0){
 
       if (myObject[cont].name.search(code_product)!=-1 ) {
 
-        data_table.append("<tr id = " + myObject[cont].name + "><td  " + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + "</td><td>" + 1 + "</td><td>" + myObject[cont].price + "</td><td><button onclick=" + "fnselect(" + myObject[cont].code + ")" + ">" + "x" + "</button></td></tr>");
-        myObject[cont].amount = myObject[cont].amount - 1;
-        total = total + parseInt(myObject[cont].price);
+        data_table.append("<tr id = " + myObject[cont].name + "><td  " + ">" + myObject[cont].id + "</td><td>" + myObject[cont].name + "</td><td>" + 1 + "</td><td>" + myObject[cont].price + "</td><td><button id = " + nombre +  ">" + "anadir" + "</button></td></tr>");
+        //myObject[cont].amount = myObject[cont].amount - 1;
+        //total = total + parseInt(myObject[cont].price);
         {document.getElementById("btn_cancel").style.display="block";}
 
-        $("#total").text(total);
-        showAlertMessage("success");
 
-        if (myObject[cont].amount <= 0) {
-          showAlertMessage("warning");
-        }
+
         resp = true;
         //break;
       }
@@ -123,8 +120,21 @@ if(code_product.length != 0){
 }
 
 );
-  
 
+/////////////////////////////////////
+$("#add_btn").click(function () {
+  showAlertMessage("danger");
+
+  //  var mySales = db.getTable("sales",'\\views\\sales',2);
+    //var date = new Date().toUTCString();
+  //  var size = mySales.length;
+    //var sale = { "id": size + 1, "date": date, "total": total };
+    //mySales.push(sale);
+    //db.putTable("sales", mySales,'\\views\\sales',2);
+    //db.putTable("products", myObject,'\\views\\sales',2);
+    //location.reload();
+    //localStorage.setItem('reload',1);
+});
   $("#btn_confirm").click(function () {
       var mySales = db.getTable("sales",'\\views\\sales',2);
       var date = new Date().toUTCString();
@@ -193,7 +203,7 @@ function converpath(toconvert,cant_of_breakbar)
 }
 
 
-function fnselect(value) {
+function fnselect(value, amount_value) {
   var fs = require('fs');
   dir = getpathproyect('\\views\\sales',2);
   fs.readFile(dir + converpath('\\bd\\products.json',2), function (err, products) {
@@ -201,9 +211,9 @@ function fnselect(value) {
       throw err;
 
     for (var cont = 0; cont < myObject.length; cont++) {
-      if (value == myObject[cont].code) {
-        myObject[cont].amount = myObject[cont].amount + 1;
-        total = total - parseInt(myObject[cont].price);
+      if (value == myObject[cont].id) {
+        myObject[cont].amount = myObject[cont].amount + amount_value;
+        total = total - parseInt(myObject[cont].price*amount_value);
         $("#total").text(total);
       }
     }
