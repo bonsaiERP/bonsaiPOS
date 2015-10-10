@@ -72,6 +72,44 @@ function showAlertMessage(tipeMessage)
     }
   });
 
+  $('#form2').on('submit', function (event) {
+    $("#alertMessage").hide();
+    event.preventDefault();
+    var data_table = $("#tblDatos");
+    var code_product = $("#search_product").val();
+    var resp = false;
+
+if(code_product.length != 0){
+    for (var cont = 0; cont < myObject.length; cont++) {
+      //if (code_product == myObject[cont].name) {
+
+      if (myObject[cont].name.search(code_product)!=-1 ) {
+
+        data_table.append("<tr id = " + myObject[cont].name + "><td  " + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + "</td><td>" + 1 + "</td><td>" + myObject[cont].price + "</td><td><button onclick=" + "fnselect(" + myObject[cont].code + ")" + ">" + "x" + "</button></td></tr>");
+        myObject[cont].amount = myObject[cont].amount - 1;
+        total = total + parseInt(myObject[cont].price);
+        {document.getElementById("btn_cancel").style.display="block";}
+
+        $("#total").text(total);
+        showAlertMessage("success");
+
+        if (myObject[cont].amount <= 0) {
+          showAlertMessage("warning");
+        }
+        resp = true;
+        //break;
+      }
+    }
+    if (resp == false) {
+      $('#myDangerModal').modal('show');
+      showAlertMessage("danger");
+    }
+  }
+}
+
+);
+  
+
   $("#btn_confirm").click(function () {
       var mySales = db.getTable("sales");
       var date = new Date().toUTCString();
