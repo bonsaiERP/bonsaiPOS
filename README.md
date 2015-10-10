@@ -1,7 +1,1 @@
-Point of Sale for bonsaiERP
-Erika Vargas Navarro
-
-
-
-
-
+Point of Sale for bonsaiERP.
