@@ -7,11 +7,20 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 </script>
 <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="../../models/database/database.js" type="text/javascript"></script>
-<script src="../../models/cashier/cashier.js" type="text/javascript"></script>
+<script type="text/javascript">
+function verify_cashier(){
+  if(exist_active_cashier('\\views\\cashier',2)){
+     document.getElementById("cash_close").style.display = "block"
+     document.getElementById("cash_open").style.display = "none" 
+  }else{
+     document.getElementById("cash_close").style.display = "none"
+     document.getElementById("cash_open").style.display = "block"
+  }
+}
+</script>
 </head>
 
-<body>
+<body onload="verify_cashier(); apertura_cashier()">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -32,14 +41,21 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
               <li><a href="../reports/daySales.html">Ventas del dia</a></li>
             </ul>
           </li>
+         
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Pruebas caja <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Abrir caja</a></li>
-              <li><a href="verificarcashier.html">Verificar si se abrio caja</a></li>
-              <li><a href="closecashier.html">Cerrar caja</a></li>
+            <a href="#" class="dropdown-toggle" id="cash_open" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
+             <ul class="dropdown-menu" role="menu">
+               <li><a href="views/cashier/opencashier.html">Abrir Caja</a></li>
+             </ul> 
+          </li>
+
+          <li class="dropdown active">
+           <a href="#" class="dropdown-toggle" id="cash_close" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
+             <ul class="dropdown-menu" role="menu">
+              <li><a href="views/cashier/closecashier.html">Cerrar Caja</a></li>
             </ul>
-          </li> 
+          </li>
+         
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario</a></li>
@@ -57,12 +73,21 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
       <button type="button" class="close" data-dismiss="alert">×</button>
     </div> 
    <h1 align="center">Abrir Caja</h1><br/>
+    <div class="col-md-3"></div>
+     <div class="col-md-6">
      <form id="form1">
-        <input type="text" name="money" id="money" placeholder="Cantidad de Apertura" /><br><br>
-        <button class="btn btn-primary">Abrir</button>
-      </form>   
+        <label>Ultimo Cierre:</label>
+        <input type="text" class="form-control" id="ultimocierre"><br>
+        <label>Monto de Apertura:</label>
+        <input type="text" class="form-control" id="money"><br>
+        <center><button class="btn btn-success">Abrir Caja</button></center>        
+      </form>
+    </div>
+   </div>   
   </div>
 
 </body>
+<script src="../../models/database/database.js" type="text/javascript"></script>
+<script src="../../models/cashier/cashier.js" type="text/javascript"></script>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </html>
