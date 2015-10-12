@@ -44,22 +44,18 @@ function showAlertMessage(tipeMessage)
     $("#alertMessage").hide();
     event.preventDefault();
     var data_table = $("#tblDatos");
-    // var code_product = $("#code_product").val();
-    
     var amount_product = $("#amount_product").val();
     var name_product = $("#name_product").val();
-    
+
     if(Number(name_product) != true){
       for (var cont = 0; cont < myObject.length; cont++) {
         if (name_product === myObject[cont].name) {
-          
-          var code_product = myObject[cont].id;
+
+           name_product = myObject[cont].id;
         }
       }
-      
+
     }
-    
-    // alert( typeof Number(name_product);
     var resp = false;
 
     if(amount_product > 0){
@@ -245,21 +241,15 @@ function fnselect(value, amount_value) {
 }
 
 $(document).ready(function() {
- 
-		var colores = [
-		"rojo",
-		"verde",
-		"violeta",
-		"azul",
-		"amarillo",
-		"negro",
-		"blanco",
-		"dorado",
-		"celeste",
-		"rosado"
+
+		var stock = [
+		"Tijeras 12\" Tramontina",
+		"Bolsa de cemento de 50kg",
+		"Parlantes multimedia AKIO 12w USB",
+		"Yogurt Frutado de 1 lt"
 		];
- 
+
 		$('#name_product').autocomplete({
-			source: colores
-		});           
+			source: stock
+		});
 	});
