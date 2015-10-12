@@ -71,6 +71,7 @@ function verify_cashier(){
       <button type="button" class="close" data-dismiss="alert">×</button>
     </div> 
    <h1 align="center">Cerrar Caja</h1><br/>
+    <form id="form2">
      <h3 align="left"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Monto de Apertura:
       <label style="text-align: right;​" id="monto" type="number">0</label>
      </h3>
@@ -79,8 +80,10 @@ function verify_cashier(){
      </h3>
      <h3 align="left"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Monto Total:
       <label style="text-align: right;​" id="total" type="number">0</label>
+      <input type="hidden" class="form-control" id="totalcash">
      </h3>
-        <button class="btn btn-success" id="btn_confirm">Confirmar Cierre</button>
+        <button class="btn btn-success">Confirmar Cierre</button>
+    </form> 
   </div>  
 
 </body>
