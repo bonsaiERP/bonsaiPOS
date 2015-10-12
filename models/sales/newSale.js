@@ -44,20 +44,34 @@ function showAlertMessage(tipeMessage)
     $("#alertMessage").hide();
     event.preventDefault();
     var data_table = $("#tblDatos");
-    var code_product = $("#code_product").val();
+    // var code_product = $("#code_product").val();
+    
     var amount_product = $("#amount_product").val();
+    var name_product = $("#name_product").val();
+    
+    if(Number(name_product) != true){
+      for (var cont = 0; cont < myObject.length; cont++) {
+        if (name_product === myObject[cont].name) {
+          
+          var code_product = myObject[cont].id;
+        }
+      }
+      
+    }
+    
+    // alert( typeof Number(name_product);
     var resp = false;
 
     if(amount_product > 0){
       for (var cont = 0; cont < myObject.length; cont++) {
-        if (code_product == myObject[cont].id) {
-          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].code + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
+        if (name_product == myObject[cont].id) {
+          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].id + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
           myObject[cont].amount = myObject[cont].amount - amount_product;
           total = total + parseInt(myObject[cont].price * amount_product);
           $("#btn_confirm").show();
           $("#btn_cancel").show();
           $("#total").text(total);
-          $("#code_product").val("");
+          $("#name_product").val("");
           $("#amount_product").val("");
           showAlertMessage("success");
 
@@ -71,7 +85,7 @@ function showAlertMessage(tipeMessage)
       }
       else {
         showAlertMessage("warningAmount");
-        $("#code_product").val("");
+        $("#name_product").val("");
         $("#amount_product").val("");
         resp = true;
       }
@@ -229,3 +243,23 @@ function fnselect(value, amount_value) {
     $("#btn_cancel").hide();
   }
 }
+
+$(document).ready(function() {
+ 
+		var colores = [
+		"rojo",
+		"verde",
+		"violeta",
+		"azul",
+		"amarillo",
+		"negro",
+		"blanco",
+		"dorado",
+		"celeste",
+		"rosado"
+		];
+ 
+		$('#name_product').autocomplete({
+			source: colores
+		});           
+	});
