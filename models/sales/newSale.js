@@ -95,43 +95,7 @@ function showAlertMessage(tipeMessage)
 
     }
   });
-/////////////////////////////////////////
 
-  $('#form2').on('submit', function (event) {
-    $("#alertMessage").hide();
-    event.preventDefault();
-    var data_table = $("#tblDatosBuscados");
-    var code_product = $("#search_product").val();
-    var resp = false;
-    var nombre = "add_btn";
-
-if(code_product.length != 0){
-    for (var cont = 0; cont < myObject.length; cont++) {
-      //if (code_product == myObject[cont].name) {
-
-      if (myObject[cont].name.search(code_product)!=-1 ) {
-
-        data_table.append("<tr id = " + myObject[cont].name + "><td  " + ">" + myObject[cont].id + "</td><td>" + myObject[cont].name + "</td><td>" + 1 + "</td><td>" + myObject[cont].price + "</td><td><button id = " + nombre +  ">" + "anadir" + "</button></td></tr>");
-        //myObject[cont].amount = myObject[cont].amount - 1;
-        //total = total + parseInt(myObject[cont].price);
-        {document.getElementById("btn_cancel").style.display="block";}
-
-
-
-        resp = true;
-        //break;
-      }
-    }
-    if (resp == false) {
-      $('#myDangerModal').modal('show');
-      showAlertMessage("danger");
-    }
-  }
-}
-
-);
-
-/////////////////////////////////////
 $("#add_btn").click(function () {
   showAlertMessage("danger");
 
