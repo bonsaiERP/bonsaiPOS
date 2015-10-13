@@ -14,7 +14,7 @@
 function verify_cashier(){
   if(exist_active_cashier('\\views\\reports',2)){
      document.getElementById("cash_close").style.display = "block"
-     document.getElementById("cash_open").style.display = "none" 
+     document.getElementById("cash_open").style.display = "none"
   }else{
      document.getElementById("cash_close").style.display = "none"
      document.getElementById("cash_open").style.display = "block"
@@ -48,7 +48,7 @@ function verify_cashier(){
             <a href="#" class="dropdown-toggle" id="cash_open" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
              <ul class="dropdown-menu" role="menu">
                <li><a href="../cashier/opencashier.html">Abrir Caja</a></li>
-             </ul> 
+             </ul>
           </li>
 
           <li class="dropdown active">
@@ -57,7 +57,7 @@ function verify_cashier(){
               <li><a href="../cashier/closecashier.html">Cerrar Caja</a></li>
             </ul>
           </li>
-          
+
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Productos <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -98,6 +98,7 @@ function verify_cashier(){
          var list_of_sales = returnlistofsalesofdate(new Date());
          list_of_sales = orderlistbyhour(list_of_sales);
          var data_table = $("#tblDatos");
+         console.log("Llego hasta aqui");
          for (var cont = 0; cont < list_of_sales.length; cont++) {
            var aux = convertdatetoformatofso(list_of_sales[cont].date);
            data_table.append("<tr> <td>" + getactualtime(aux) + "</td> <td>" + list_of_sales[cont].id + "</td> <td>" + list_of_sales[cont].total + "</td></tr>");

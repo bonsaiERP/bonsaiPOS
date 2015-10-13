@@ -22,9 +22,9 @@ function showAlertMessage(tipeMessage)
 
   $('#form1').on('submit', function (event) {
     $("#alertMessage").hide();
-    event.preventDefault(); 
+    event.preventDefault();
     var money = $("#money").val();
-    
+
     if(money > 0){
        create_cashier(money);
        location.href = "../../views/cashier/closecashier.html";
@@ -34,7 +34,7 @@ function showAlertMessage(tipeMessage)
   });
 
   $("#btn_confirm").click(function () {
-      var total_cash = data_cashier(); 
+      var total_cash = data_cashier();
       if(total_cash > 0){
         close_cashier(total_cash);
         location.href = "../../views/cashier/opencashier.html";
@@ -51,7 +51,7 @@ function convertdatetoformatofso(date)
   return new Date(date);
 }
 
-function returnlistofsalesofdate(date)
+function returnlistofsalesofdatecashier(date)
 {
   var db = new DataBase();
   var general_list_of_sales = db.getTable("sales",'\\views\\cashier',2);
@@ -69,11 +69,14 @@ function returnlistofsalesofdate(date)
   return result;
 }
 
-function gettotalofsales(list_of_sales)
+function gettotalofsalescashier(list_of_sales,date_open)
 {
   var tot = 0;
   for (var cont = 0; cont < list_of_sales.length; cont++) {
-    tot = tot + list_of_sales[cont].total;
+    if( thehighttimecashier( convertdatetoformatofso(date_open),convertdatetoformatofso( list_of_sales[cont].date) ) )
+    {
+      tot = tot + list_of_sales[cont].total;
+    }
   }
   return tot;
 }
@@ -86,14 +89,94 @@ function data_cashier()
   var ultimo = myCashiers.length-1;
   monto = myCashiers[ultimo].money_open;
   $("#monto").text(monto);
-  
-  var list_of_sales = returnlistofsalesofdate(new Date());
-  total_daySales = gettotalofsales(list_of_sales);
+
+  var list_of_sales = returnlistofsalesofdatecashier(new Date());
+  total_daySales = gettotalofsalescashier(list_of_sales,myCashiers[ultimo].date_open);
   $("#totalSales").text(total_daySales);
 
   total = parseInt(monto) + parseInt(total_daySales);
   $("#total").text(total);
   return total;
+}
+
+
+function thehighttimecashier(time1,time2)
+{
+  console.log(time1+"---"+time2)
+  var aux1 = time1.getFullYear();
+  var aux2 = time2.getFullYear();
+  if(aux2 != aux1)
+  {
+    if(aux2 > aux1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  aux1 = time1.getMonth();
+  aux2 = time2.getMonth();
+  if(aux2 != aux1)
+  {
+    if(aux2 > aux1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  aux1 = time1.getDate();
+  aux2 = time2.getDate();
+  if(aux2 != aux1)
+  {
+    if(aux2 > aux1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  aux1 = time1.getHours();
+  aux2 = time2.getHours();
+  if(aux2 != aux1)
+  {
+    if(aux2 > aux1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  aux1 = time1.getMinutes();
+  aux2 = time2.getMinutes();
+  if(aux2 != aux1)
+  {
+    if(aux2 > aux1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  aux1 = time1.getSeconds();
+  aux2 = time2.getSeconds();
+  if(aux2 > aux1)
+  {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
 /*function apertura_cashier()

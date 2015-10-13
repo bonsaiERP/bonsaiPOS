@@ -41,6 +41,7 @@ function convertdatetoformatofso(date)
 function returnlistofsalesofdate(date)
 {
   var db = new DataBase();
+  console.log("Llego hasta aqui");
   var general_list_of_sales = db.getTable("sales",'\\views\\reports',2);
   var day = date.getDate();
   var month = date.getMonth();
