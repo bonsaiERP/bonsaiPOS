@@ -44,20 +44,30 @@ function showAlertMessage(tipeMessage)
     $("#alertMessage").hide();
     event.preventDefault();
     var data_table = $("#tblDatos");
-    var code_product = $("#code_product").val();
     var amount_product = $("#amount_product").val();
+    var name_product = $("#name_product").val();
+
+    if(Number(name_product) != true){
+      for (var cont = 0; cont < myObject.length; cont++) {
+        if (name_product === myObject[cont].name) {
+
+           name_product = myObject[cont].id;
+        }
+      }
+
+    }
     var resp = false;
 
     if(amount_product > 0){
       for (var cont = 0; cont < myObject.length; cont++) {
-        if (code_product == myObject[cont].id) {
-          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].code + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
+        if (name_product == myObject[cont].id) {
+          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].id + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
           myObject[cont].amount = myObject[cont].amount - amount_product;
           total = total + parseInt(myObject[cont].price * amount_product);
           $("#btn_confirm").show();
           $("#btn_cancel").show();
           $("#total").text(total);
-          $("#code_product").val("");
+          $("#name_product").val("");
           $("#amount_product").val("");
           showAlertMessage("success");
 
@@ -71,7 +81,7 @@ function showAlertMessage(tipeMessage)
       }
       else {
         showAlertMessage("warningAmount");
-        $("#code_product").val("");
+        $("#name_product").val("");
         $("#amount_product").val("");
         resp = true;
       }
@@ -85,43 +95,7 @@ function showAlertMessage(tipeMessage)
 
     }
   });
-/////////////////////////////////////////
 
-  $('#form2').on('submit', function (event) {
-    $("#alertMessage").hide();
-    event.preventDefault();
-    var data_table = $("#tblDatosBuscados");
-    var code_product = $("#search_product").val();
-    var resp = false;
-    var nombre = "add_btn";
-
-if(code_product.length != 0){
-    for (var cont = 0; cont < myObject.length; cont++) {
-      //if (code_product == myObject[cont].name) {
-
-      if (myObject[cont].name.search(code_product)!=-1 ) {
-
-        data_table.append("<tr id = " + myObject[cont].name + "><td  " + ">" + myObject[cont].id + "</td><td>" + myObject[cont].name + "</td><td>" + 1 + "</td><td>" + myObject[cont].price + "</td><td><button id = " + nombre +  ">" + "anadir" + "</button></td></tr>");
-        //myObject[cont].amount = myObject[cont].amount - 1;
-        //total = total + parseInt(myObject[cont].price);
-        {document.getElementById("btn_cancel").style.display="block";}
-
-
-
-        resp = true;
-        //break;
-      }
-    }
-    if (resp == false) {
-      $('#myDangerModal').modal('show');
-      showAlertMessage("danger");
-    }
-  }
-}
-
-);
-
-/////////////////////////////////////
 $("#add_btn").click(function () {
   showAlertMessage("danger");
 
@@ -229,3 +203,17 @@ function fnselect(value, amount_value) {
     $("#btn_cancel").hide();
   }
 }
+
+$(document).ready(function() {
+
+		var stock = [
+		"Tijeras 12\" Tramontina",
+		"Bolsa de cemento de 50kg",
+		"Parlantes multimedia AKIO 12w USB",
+		"Yogurt Frutado de 1 lt"
+		];
+
+		$('#name_product').autocomplete({
+			source: stock
+		});
+	});
