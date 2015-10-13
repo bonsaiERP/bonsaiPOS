@@ -49,14 +49,16 @@ $(document).ready(function () {
   			products = agregarAmount(products);
   			db.putTable('products',products,'',2);
         setTimeout(function(){
-            showAlertMessage("successProductUpdate");
-     			  $("#alertMessage").show();
+            //showAlertMessage("successProductUpdate");
+     			  //$("#alertMessage").show();
+            alert("Los productos fueron actualizados exitosamente.")
             $('#progressbar-2').html("Descarga Completa.");
         }, 1000);
   		})
       .fail(function (ajaxContext){
-        showAlertMessage("errorProductUpdate");
-        $("#alertMessage").show();
+        //showAlertMessage("errorProductUpdate");
+        //$("#alertMessage").show();
+        alert("Error al Actualizar los productos.");
         $('#progressbar-2').html("Error en la Descarga.");
       });
 	  });
