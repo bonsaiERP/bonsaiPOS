@@ -115,7 +115,7 @@ function returndatatoshow(date)
     var data_table = $("#tblDatos");
       for (var cont = 0; cont < result.length; cont++) {
         var aux = convertdatetoformatofso(result[cont].date);
-        data_table.append("<tr> <td>" + getactualtime(aux) + "</td> <td>" + result[cont].id + "</td> <td>" + result[cont].total + "</td></tr>");
+        data_table.append('<tr> <td style="text-align: center;">' + getactualtime(aux) + '</td> <td style="text-align: center;">' + result[cont].id + '</td> <td style="text-align: center;">' + result[cont].total + '</td></tr>');
       }
   });
 }

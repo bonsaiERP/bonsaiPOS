@@ -101,9 +101,9 @@ function verify_cashier(){
          console.log("Llego hasta aqui");
          for (var cont = 0; cont < list_of_sales.length; cont++) {
            var aux = convertdatetoformatofso(list_of_sales[cont].date);
-           data_table.append("<tr> <td>" + getactualtime(aux) + "</td> <td>" + list_of_sales[cont].id + "</td> <td>" + list_of_sales[cont].total + "</td></tr>");
+           data_table.append('<tr> <td style="text-align: center;">' + getactualtime(aux) + '</td> <td style="text-align: center;">' + list_of_sales[cont].id + '</td> <td style="text-align: center;">' + list_of_sales[cont].total + '</td></tr>');
          }
-         data_table.append("<tr><td></td><td>Total acomulado</td><td>"+gettotalofsales(list_of_sales)+"</td>");
+         data_table.append('<tr><td></td><td style="text-align: right;"><strong>Total acomulado:</strong></td><td style="text-align: center;">'+gettotalofsales(list_of_sales)+'</td>');
       </script>
     </table>
   </div>
