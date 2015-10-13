@@ -11,7 +11,7 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
 function verify_cashier(){
   if(exist_active_cashier('\\views\\users',2)){
      document.getElementById("cash_close").style.display = "block"
-     document.getElementById("cash_open").style.display = "none" 
+     document.getElementById("cash_open").style.display = "none"
   }else{
      document.getElementById("cash_close").style.display = "none"
      document.getElementById("cash_open").style.display = "block"
@@ -45,10 +45,10 @@ function verify_cashier(){
             <a href="#" class="dropdown-toggle" id="cash_open" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
              <ul class="dropdown-menu" role="menu">
                <li><a href="../cashier/opencashier.html">Abrir Caja</a></li>
-             </ul> 
+             </ul>
           </li>
 
-          <li class="dropdown active">
+          <li class="dropdown">
            <a href="#" class="dropdown-toggle" id="cash_close" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
              <ul class="dropdown-menu" role="menu">
               <li><a href="../cashier/closecashier.html">Cerrar Caja</a></li>

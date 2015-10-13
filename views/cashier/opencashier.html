@@ -11,7 +11,7 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
 function verify_cashier(){
   if(exist_active_cashier('\\views\\cashier',2)){
      document.getElementById("cash_close").style.display = "block"
-     document.getElementById("cash_open").style.display = "none" 
+     document.getElementById("cash_open").style.display = "none"
   }else{
      document.getElementById("cash_close").style.display = "none"
      document.getElementById("cash_open").style.display = "block"
@@ -41,15 +41,15 @@ function verify_cashier(){
               <li><a href="../reports/daySales.html">Ventas del dia</a></li>
             </ul>
           </li>
-         
+
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" id="cash_open" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
              <ul class="dropdown-menu" role="menu">
                <li><a href="#">Abrir Caja</a></li>
-             </ul> 
+             </ul>
           </li>
 
-          <li class="dropdown active">
+          <li class="dropdown">
            <a href="#" class="dropdown-toggle" id="cash_close" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
              <ul class="dropdown-menu" role="menu">
               <li><a href="views/cashier/closecashier.html">Cerrar Caja</a></li>
@@ -80,11 +80,11 @@ function verify_cashier(){
 <!--<script type="text/javascript">
     create_cashier(123);
 </script>-->
-   
+
   <div class="container">
     <div class="alert alert-dismissible alert-success" id="alertMessage" hidden="true">
       <button type="button" class="close" data-dismiss="alert">×</button>
-    </div> 
+    </div>
    <h1 align="center">Abrir Caja</h1><br/>
     <div class="col-md-3"></div>
      <div class="col-md-6">
@@ -93,10 +93,10 @@ function verify_cashier(){
         <input type="text" class="form-control" id="ultimocierre"><br>-->
         <label>Monto de Apertura:</label>
         <input type="text" class="form-control" id="money"><br>
-        <center><button class="btn btn-success">Abrir Caja</button></center>        
+        <center><button class="btn btn-success">Abrir Caja</button></center>
       </form>
     </div>
-   </div>   
+   </div>
   </div>
 
 </body>

@@ -11,7 +11,7 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
 function verify_cashier(){
   if(exist_active_cashier('\\views\\cashier',2)){
      document.getElementById("cash_close").style.display = "block"
-     document.getElementById("cash_open").style.display = "none" 
+     document.getElementById("cash_open").style.display = "none"
   }else{
      document.getElementById("cash_close").style.display = "none"
      document.getElementById("cash_open").style.display = "block"
@@ -45,10 +45,10 @@ function verify_cashier(){
             <a href="#" class="dropdown-toggle" id="cash_open" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
              <ul class="dropdown-menu" role="menu">
                <li><a href="opencashier.html">Abrir Caja</a></li>
-             </ul> 
+             </ul>
           </li>
 
-          <li class="dropdown active">
+          <li class="dropdown">
            <a href="#" class="dropdown-toggle" id="cash_close" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
              <ul class="dropdown-menu" role="menu">
               <li><a href="closecashier.html">Cerrar Caja</a></li>
@@ -82,7 +82,7 @@ function verify_cashier(){
    <div class="container">
     <div class="alert alert-dismissible alert-success" id="alertMessage" hidden="true">
       <button type="button" class="close" data-dismiss="alert">×</button>
-    </div> 
+    </div>
    <h1 align="center">Cerrar Caja</h1><br/>
      <h3 align="left"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Monto de Apertura:
       <label style="text-align: right;​" id="monto" type="number">0</label>
@@ -94,7 +94,7 @@ function verify_cashier(){
       <label style="text-align: right;​" id="total" type="number">0</label>
      </h3>
         <button class="btn btn-success" id="btn_confirm">Confirmar Cierre</button>
-  </div>  
+  </div>
 
 </body>
 <script src="../../models/database/database.js" type="text/javascript"></script>
