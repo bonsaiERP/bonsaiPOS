@@ -63,7 +63,7 @@ function showAlertMessage(tipeMessage)
         if (name_product == myObject[cont].id) {
           data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].id + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
           myObject[cont].amount = myObject[cont].amount - amount_product;
-          total = total + parseInt(myObject[cont].price * amount_product);
+          total = total + (myObject[cont].price * amount_product);
           $("#btn_confirm").show();
           $("#btn_cancel").show();
           $("#total").text(total);
@@ -187,7 +187,7 @@ function fnselect(value, amount_value) {
     for (var cont = 0; cont < myObject.length; cont++) {
       if (value == myObject[cont].id) {
         myObject[cont].amount = myObject[cont].amount + amount_value;
-        total = total - parseInt(myObject[cont].price*amount_value);
+        total = total - (myObject[cont].price*amount_value);
         $("#total").text(total);
       }
     }
