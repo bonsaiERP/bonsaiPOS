@@ -45,7 +45,7 @@ function verify_cashier(){
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" id="cash_open" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
              <ul class="dropdown-menu" role="menu">
-               <li><a href="views/cashier/opencashier.html">Abrir Caja</a></li>
+               <li><a href="#">Abrir Caja</a></li>
              </ul> 
           </li>
 
@@ -55,7 +55,20 @@ function verify_cashier(){
               <li><a href="views/cashier/closecashier.html">Cerrar Caja</a></li>
             </ul>
           </li>
-         
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Productos <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#" id="update">Sincronizar Productos </a></li>
+                <li> <a href="#" id="download"></a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Cliente <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="../users/newUser.html">Nuevo cliente</a></li>
+            </ul>
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario</a></li>
