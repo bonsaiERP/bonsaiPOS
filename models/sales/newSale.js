@@ -53,13 +53,14 @@ function showAlertMessage(tipeMessage)
            name_product = myObject[cont].id;
         }
       }
+
     }
     var resp = false;
 
     if(amount_product > 0){
       for (var cont = 0; cont < myObject.length; cont++) {
         if (name_product == myObject[cont].id) {
-          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].code + "</td><td>" + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].id + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
+          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].id + "</td><td>" + myObject[cont].code + '</td><td style="text-align: center;">' + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price  + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].id + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
           myObject[cont].amount = myObject[cont].amount - amount_product;
           total = total + (myObject[cont].price * amount_product);
           $("#btn_confirm").show();
@@ -90,13 +91,11 @@ function showAlertMessage(tipeMessage)
       $("#modalBodyMessageDanger")[0].innerHTML='<p> El producto que desea agregar a la venta no existe.</p>';
       $('#myDangerModal').modal('show');
       showAlertMessage("danger");
-
     }
   });
 
 $("#add_btn").click(function () {
   showAlertMessage("danger");
-
 });
   $("#btn_confirm").click(function () {
       var mySales = db.getTable("sales",'\\views\\sales',2);
@@ -133,7 +132,8 @@ function getpathproyect(todelete,cant_of_breakbar)
   */
   if(actualdir.search('/') != -1)
   {
-    for(i = 0; i < cant_of_breakbar; i++){
+    for(i = 0; i < cant_of_breakbar; i++)
+    {
       todelete = todelete.replace(String.fromCharCode(92),'/');
     }
   }
@@ -147,8 +147,10 @@ function converpath(toconvert,cant_of_breakbar)
   /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
   si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
   */
-  if(actualdir.search('/') != -1){
-    for(i = 0; i < cant_of_breakbar; i++){
+  if(actualdir.search('/') != -1)
+  {
+    for(i = 0; i < cant_of_breakbar; i++)
+    {
       toconvert = toconvert.replace(String.fromCharCode(92),'/');
     }
   }
@@ -171,7 +173,6 @@ function fnselect(value, amount_value) {
       }
     }
   });
-
   var element = document.getElementById(value);
   element.remove();
   var rowCount = $('#tblDatos tr').length;
@@ -182,7 +183,6 @@ function fnselect(value, amount_value) {
 }
 
 $(document).ready(function() {
-
 		var stock = [
 		"Tijeras 12\" Tramontina",
 		"Bolsa de cemento de 50kg",
