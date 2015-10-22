@@ -1,0 +1,142 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<title>BonsaiPOS</title>
+<script>
+window.$ = window.jQuery = require('../../libs/jquery.min.js');
+</script>
+<script src="../../models/cashier/cashier.js" type="text/javascript"></script>
+<script src="../../models/users/listUser.js" type="text/javascript"></script>
+<script src="../../models/database/database.js" type="text/javascript"></script>
+<script src="../../models/passvar.js" type="text/javascript"></script>
+<script src="../../models/users/editUser.js" type="text/javascript"></script>
+<link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript">
+function verify_cashier(){
+  if(exist_active_cashier('\\views\\users',2)){
+     document.getElementById("cash_close").style.display = "block"
+     document.getElementById("cash_open").style.display = "none"
+  }else{
+     document.getElementById("cash_close").style.display = "none"
+     document.getElementById("cash_open").style.display = "block"
+  }
+}
+</script>
+</head>
+
+<body onload="verify_cashier()">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="../../index.html">BonsaiPOS</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Venta <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="../../views/sales/newSale.html">Nueva Venta</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Reportes <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="../../views/reports/daySales.html">Ventas del dia</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" id="cash_open" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
+             <ul class="dropdown-menu" role="menu">
+               <li><a href="../cashier/opencashier.html">Abrir Caja</a></li>
+             </ul>
+          </li>
+
+          <li class="dropdown">
+           <a href="#" class="dropdown-toggle" id="cash_close" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
+             <ul class="dropdown-menu" role="menu">
+              <li><a href="../cashier/closecashier.html">Cerrar Caja</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Usuario <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="newUser.html">Nuevo cliente</a></li>
+              <li><a href="listusers.html">Lista clientes</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="alert alert-dismissible alert-success" id="alertMessage" hidden="true">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+    </div>
+    <h1 align="center">Modificar cliente</h1><br/>
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <form>
+        <script>
+          if (get_user())
+          {
+            document.write("<label>Nombre:</label>");
+            document.write('<input type="text" class="form-control" id="name-field" value ="'+get_name_user()+'"><br>');
+            document.write("<label>Apellido:</label>");
+            document.write('<input type="text" class="form-control" id="lastname-field" value ="'+get_lastname_user()+'"><br>');
+            document.write("<label>CI:</label>");
+            document.write('<input type="text" class="form-control" id="ci-field" value ="'+get_ci_user()+'"><br>');
+            document.write('<input type="hidden" id="id-field" value ="'+get_id_user()+'">');
+          }
+          else
+          {
+            ;
+          }
+        </script>
+        <center><input type="submit" class="btn btn-success" onclick="edit_user()" value="Modificar cliente"></center>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Danger -->
+    <div class="modal" id="myDangerModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title"><span class="label label-danger" id="modalTitleMessageDanger"></span></h4>
+          </div>
+          <div class="modal-body" id="modalBodyMessageDanger">
+          </div>
+          <div class="modal-footer">
+            <button id="btn_cancelSale" type="button" class="btn btn-info" style="display:none;"></button>
+            <button id="btn_cancelAndAccept" type="button" class="btn btn-danger" data-dismiss="modal" >Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="myAcceptModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title"><span class="label label-danger" id="modalTitleMessageAccept"></span></h4>
+          </div>
+          <div class="modal-body" id="modalBodyMessageAccept">
+          </div>
+          <div class="modal-footer">
+            <button id="btn_cancelSale" type="button" class="btn btn-info" style="display:none;"></button>
+            <button id="btn_cancelAndAccept" type="button" class="btn btn-success" data-dismiss="modal" >Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <script src="../../models/users/editUser.js" type="text/javascript"></script>
+  <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
