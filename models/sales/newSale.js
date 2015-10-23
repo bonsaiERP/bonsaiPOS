@@ -93,15 +93,42 @@ function showAlertMessage(tipeMessage)
       showAlertMessage("danger");
     }
   });
+  //////////////////
+
+  $('#btn-client').click(function(){
+    event.preventDefault();
+    name=$('#name-field').val();
+      var data_table = $("#tblclient");
+  data_table.append("<tr> <td> <b> Cliente: </b></td><td>" + name +"</td></tr>")
+
+
+
+
+  });
+/////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
 
 $("#add_btn").click(function () {
   showAlertMessage("danger");
 });
   $("#btn_confirm").click(function () {
+var name= document.getElementById("tblclient").rows[0].cells[1].innerText;
       var mySales = db.getTable("sales",'\\views\\sales',2);
       var date = new Date().toUTCString();
+      var client= name;
       var size = mySales.length;
-      var sale = { "id": size + 1, "date": date, "total": total };
+      var sale = { "id": size + 1, "date": date, "total": total , "client":client};
       mySales.push(sale);
       db.putTable("sales", mySales,'\\views\\sales',2);
       db.putTable("products", myObject,'\\views\\sales',2);
@@ -183,13 +210,19 @@ function fnselect(value, amount_value) {
 }
 
 $(document).ready(function() {
-		var stock = [
-		"Tijeras 12\" Tramontina",
-		"Bolsa de cemento de 50kg",
-		"Parlantes multimedia AKIO 12w USB",
-		"Yogurt Frutado de 1 lt"
-		];
-		$('#name_product').autocomplete({
-			source: stock
-		});
+
+
+
+
+
+
+
+
+  var stock = db.getTable("products",'\\views\\sales',2);
+
+  var data = new Array("");
+  for (var cont = 0; cont < myObject.length; cont++) {
+    data.push(myObject[cont].name.toString());
+  }
+	$("#name_product").autocomplete({ source: data });
 	});
