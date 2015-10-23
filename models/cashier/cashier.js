@@ -24,7 +24,7 @@ function showAlertMessage(tipeMessage)
     $("#alertMessage").hide();
     event.preventDefault();
     var money = $("#money").val();
-
+    console.log("ENTRO AL CASHIER");
     if(money > 0){
        create_cashier(money);
        location.href = "../../views/cashier/closecashier.html";

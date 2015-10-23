@@ -51,7 +51,13 @@ $(document).ready(function(){
       var myUser = db.getTable("users",'\\views\\users',2);
       var date = new Date().toUTCString();
       var size = myUser.length;
-      var user = { "id": size + 1, "name": name, "lastname": lastname, "ci" : ci, "date": date };
+			var id = 1;
+      if(myUser.length != 0)
+      {
+        var aux = myUser.length;
+        id = mySales[aux-1].id + 1;
+      }
+      var user = { "id": id, "name": name, "lastname": lastname, "ci" : ci, "date": date };
       myUser.push(user);
       db.putTable("users", myUser,'\\views\\users',2);
       location.reload();

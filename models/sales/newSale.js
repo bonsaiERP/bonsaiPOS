@@ -128,7 +128,15 @@ var name= document.getElementById("tblclient").rows[0].cells[1].innerText;
       var date = new Date().toUTCString();
       var client= name;
       var size = mySales.length;
-      var sale = { "id": size + 1, "date": date, "total": total , "client":client};
+
+      var id = 1;
+      if(mySales.length != 0)
+      {
+        var aux = mySales.length;
+        id = mySales[aux-1].id + 1;
+      }
+      var sale = { "id": id, "date": date, "total": total , "client":client};
+
       mySales.push(sale);
       db.putTable("sales", mySales,'\\views\\sales',2);
       db.putTable("products", myObject,'\\views\\sales',2);
