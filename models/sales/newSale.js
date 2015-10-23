@@ -101,7 +101,13 @@ $("#add_btn").click(function () {
       var mySales = db.getTable("sales",'\\views\\sales',2);
       var date = new Date().toUTCString();
       var size = mySales.length;
-      var sale = { "id": size + 1, "date": date, "total": total };
+      var id = 1;
+      if(mySales.length != 0)
+      {
+        var aux = mySales.length;
+        id = mySales[aux-1].id + 1;
+      }
+      var sale = { "id": id, "date": date, "total": total };
       mySales.push(sale);
       db.putTable("sales", mySales,'\\views\\sales',2);
       db.putTable("products", myObject,'\\views\\sales',2);
