@@ -7,7 +7,7 @@
   <script>
     window.$ = window.jQuery = require('../../libs/jquery.min.js');
   </script>
-  
+
   <script src="../../models/cashier/cashier.js" type="text/javascript"></script>
   <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -100,9 +100,11 @@ function verify_cashier(){
       <form>
 
         <!-- <input type="text" class="form-control" id="url" placeholder="URL"><br> -->
-        <select id="list">
+        <select id="list" class="form-control">
           <!-- Lista de Almacenes del usuario -->
-        </select> 
+          
+        </select>
+        <br>
         <center><input type="button" class="btn btn-success" id="get_name"value="Conectar"></center>
       </form>
     </div>
