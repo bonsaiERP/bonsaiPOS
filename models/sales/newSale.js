@@ -106,7 +106,7 @@ function showAlertMessage(tipeMessage)
   else {
     $("#modalBodyMessageDanger")[0].innerHTML='<p> Usted ya anadio un cliente a la venta.</p>';
     $('#myDangerModal').modal('show');
-    showAlertMessage("danger");
+    
   }
 
 
