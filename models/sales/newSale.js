@@ -97,9 +97,17 @@ function showAlertMessage(tipeMessage)
 
   $('#btn-client').click(function(){
     event.preventDefault();
+    var rowCount = $('#tblclient tr').length;
+    if(rowCount<1){
     name=$('#name-field').val();
       var data_table = $("#tblclient");
   data_table.append("<tr> <td> <b> Cliente: </b></td><td>" + name +"</td></tr>")
+  }
+  else {
+    $("#modalBodyMessageDanger")[0].innerHTML='<p> Usted ya anadio un cliente a la venta.</p>';
+    $('#myDangerModal').modal('show');
+    showAlertMessage("danger");
+  }
 
 
 
