@@ -230,7 +230,7 @@ $(document).ready(function() {
 
   var data2 = new Array("");
   for (var cont = 0; cont < clients.length; cont++) {
-    data2.push(clients[cont].name.toString());
+    data2.push(clients[cont].name.toString()+" "+clients[cont].lastname.toString());
  }
  $("#name-field").autocomplete({ source: data2 });
 
