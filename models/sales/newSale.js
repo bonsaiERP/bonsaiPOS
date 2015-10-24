@@ -60,7 +60,7 @@ function showAlertMessage(tipeMessage)
     if(amount_product > 0){
       for (var cont = 0; cont < myObject.length; cont++) {
         if (name_product == myObject[cont].id) {
-          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].id + "</td><td>" + myObject[cont].code + '</td><td style="text-align: center;">' + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price  + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].id + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
+          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].id + "</td><td>" + myObject[cont].code + '</td><td style="text-align: center;">' + myObject[cont].name + '</td><td style="text-align: center;">' +    '<input type="number" name="quantity"   style="width : 60px; heigth : 1px" min="1" id=' + myObject[cont].id  + '  value=' + amount_product +     '    >  </td><td style="text-align: center;">' + myObject[cont].price  + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].id + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
           myObject[cont].amount = myObject[cont].amount - amount_product;
           total = total + (myObject[cont].price * amount_product);
           $("#btn_confirm").show();
@@ -69,6 +69,30 @@ function showAlertMessage(tipeMessage)
           $("#name_product").val("");
           $("#amount_product").val("");
           showAlertMessage("success");
+          alert(myObject[cont].id);
+          var lastQuantity = amount_product;
+
+          $("input[name=quantity]").change(function () {
+            var currentId = $(this).attr('id');
+            var este= myObject[cont].id;
+            alert(currentId);
+                if (lastQuantity > $(this).val()) {
+                  myObject[este].amount = myObject[este].amount + amount_product;
+                  total = total - (myObject[este].price*amount_product);
+                  $("#total").text(total);
+                  lastQuantity = $(this).val();
+                }
+                if (lastQuantity < $(this).val()) {
+                  alert(myObject[currentId].name);
+                  alert(myObject[currentId].price);
+                  myObject[este].amount = myObject[este].amount - amount_product;
+                  total = total + (myObject[este].price * amount_product);
+                  $("#total").text(total);
+                  lastQuantity = $(this).val();
+
+                }
+
+          });
 
           if (myObject[cont].amount <= 0) {
             showAlertMessage("warning");
