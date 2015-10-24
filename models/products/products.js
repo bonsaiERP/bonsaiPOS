@@ -55,6 +55,17 @@ $(document).ready(function () {
   			}
   		};
 
+      var stores = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://catolica.bonsaierp.com:3000/api/v1/stores",
+        "method": "GET",
+        "headers": {
+          "token": user[0].token,
+          "cache-control": "no-cache"
+        }
+      };
+
     $('#progressbardiv').show();
     $('#progressbar-2').animate({ width: '100%' }, 1, 'linear').html("Cargando...");
 
@@ -74,6 +85,12 @@ $(document).ready(function () {
             $('#progressbar-2').html("Descarga Completa.");
         }, 1000);
 			});
+      $.ajax(stores).done(function (response) {
+        var stores = response;
+
+        console.log(response[0].name);
+        
+      });
 		})
     .fail(function (ajaxContext){
       //showAlertMessage("errorProductUpdate");

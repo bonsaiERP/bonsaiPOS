@@ -6,8 +6,8 @@
   <title>BonsaiPOS</title>
   <script>
     window.$ = window.jQuery = require('../../libs/jquery.min.js');
-
   </script>
+  
   <script src="../../models/cashier/cashier.js" type="text/javascript"></script>
   <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -22,6 +22,7 @@ function verify_cashier(){
      document.getElementById("cash_open").style.display = "block"
   }
 }
+
 </script>
 <link href="../../libs/jquery-ui.css" rel="stylesheet">
 
@@ -77,6 +78,11 @@ function verify_cashier(){
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a title="" id="almacen"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>?????</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario</a></li>
           </ul>
         </div>
@@ -93,8 +99,11 @@ function verify_cashier(){
     <div class="col-md-6">
       <form>
 
-        <input type="text" class="form-control" id="name-field" placeholder="URL"><br>
-        <center><input type="submit" class="btn btn-success" id="btn-new-user"value="Conectar"></center>
+        <!-- <input type="text" class="form-control" id="url" placeholder="URL"><br> -->
+        <select id="list">
+          <!-- Lista de Almacenes del usuario -->
+        </select> 
+        <center><input type="button" class="btn btn-success" id="get_name"value="Conectar"></center>
       </form>
     </div>
   </div>
@@ -103,6 +112,7 @@ function verify_cashier(){
 
   <script src="../../models/database/database.js" type="text/javascript"></script>
   <script src="../../models/products/stock.js" type="text/javascript"></script>
+  <script src="../../models/connections/connections.js" type="text/javascript"></script>
   <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 
