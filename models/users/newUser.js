@@ -16,22 +16,22 @@ $(document).ready(function(){
 		if (!$('#name-field').val()) {
 			$('#modalBodyMessageDanger').append('<p>El campo <b>nombre</b> deben estar lleno.</p>');
 			error=true;
-		};
+		}
 
 		if (!$('#lastname-field').val()) {
 			$('#modalBodyMessageDanger').append('<p>El campo <b>apellido</b> deben estar lleno</p>');
 			error=true;
-		};
+		}
 
 		if (!$('#ci-field').val()) {
 			$('#modalBodyMessageDanger').append('<p>El campo <b>CI</b> deben estar lleno</p>');
 			error=true;
-		};
+		}
 
 		if (!$.isNumeric($('#ci-field').val())) {
 			$('#modalBodyMessageDanger').append('<p>El <b>CI</b> debe ser un valor numerico.</p>');
 			error=true;
-		};
+		}
 		if (error) {
 			$('#myDangerModal').modal('show');
 		} else{
@@ -44,7 +44,7 @@ $(document).ready(function(){
 			// 	ci=0;
 			// };
 			saveUser();
-		};
+		}
 	});
 
 	function saveUser() {
@@ -55,7 +55,7 @@ $(document).ready(function(){
       if(myUser.length != 0)
       {
         var aux = myUser.length;
-        id = mySales[aux-1].id + 1;
+        id = myUser[aux-1].id + 1;
       }
       var user = { "id": id, "name": name, "lastname": lastname, "ci" : ci, "date": date };
       myUser.push(user);

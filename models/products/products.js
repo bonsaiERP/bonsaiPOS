@@ -31,38 +31,60 @@ $(document).ready(function () {
 	$("#update").click(function () {
 
 
-		var settings = {
-			"async": true,
-			"crossDomain": true,
-			"url": "http://demo.bonsaierp.com/api/v1/items",
-			"method": "GET",
-			"headers": {
-			"token": "dLXE2gSxDTN0w0as2YrkEdi18m8GlacZ3UrZvBd3y2A",
-			"cache-control": "no-cache"
-			}
-		};
+    user = db.getTable('token','',2);
+
+  		var items = {
+  			"async": true,
+  			"crossDomain": true,
+  			"url": "http://catolica.bonsaierp.com:3000/api/v1/items",
+  			"method": "GET",
+  			"headers": {
+  				"token": user[0].token,
+  				"cache-control": "no-cache"
+  			}
+  		};
+
+  		var stocks = {
+  			"async": true,
+  			"crossDomain": true,
+  			"url": "http://catolica.bonsaierp.com:3000/api/v1/stocks",
+  			"method": "GET",
+  			"headers": {
+  				"token": user[0].token,
+  				"cache-control": "no-cache"
+  			}
+  		};
+
     $('#progressbardiv').show();
     $('#progressbar-2').animate({ width: '100%' }, 1, 'linear').html("Cargando...");
-		$.ajax(settings)
-      .done(function (response) {
-  			var products =response;
-  			products = agregarAmount(products);
-  			db.putTable('products',products,'',2);
+
+    $.ajax(items).done(function (response) {
+			var products = response;
+
+			$.ajax(stocks).done(function (response) {
+				var stocks = response;
+				products_pos = agregarAmount(products, stocks);
+
+				db.putTable('products',products_pos,'',2);
+				// console.log(response);
         setTimeout(function(){
             //showAlertMessage("successProductUpdate");
-     			  //$("#alertMessage").show();
-            alert("Los productos fueron actualizados exitosamente.")
+            //$("#alertMessage").show();
+            alert("Los productos fueron actualizados exitosamente.");
             $('#progressbar-2').html("Descarga Completa.");
         }, 1000);
-  		})
-      .fail(function (ajaxContext){
-        //showAlertMessage("errorProductUpdate");
-        //$("#alertMessage").show();
-        alert("Error al Actualizar los productos.");
-        $('#progressbar-2').html("Error en la Descarga.");
-      });
-	  });
-	var json = JSON.stringify(getProducts());
+			});
+		})
+    .fail(function (ajaxContext){
+      //showAlertMessage("errorProductUpdate");
+      //$("#alertMessage").show();
+      alert("Error al Actualizar los productos.");
+      $('#progressbar-2').html("Error en la Descarga.");
+    });
+	});
+
+
+  var json = JSON.stringify(getProducts());
 	var blob = new Blob([json], {type: "application/json"});
 	var url  = URL.createObjectURL(blob);
 
@@ -72,12 +94,40 @@ $(document).ready(function () {
 	file.textContent = "Items.json";
 
 	document.getElementById('download').appendChild(file);
-
 });
 
-function agregarAmount(products){
-	for (var i = 0; i < products.length; i++) {
-		products[i]["amount"]= 10;
+function stock_pos(stocks){
+	var stock = [];
+	var pos = 0;
+	for (var i = 0; i < stocks.length; i++) {
+		if (stocks[i].store_id == 1)
+		{
+			stock[pos] = stocks[i];
+			pos++;
+		}
 	}
-	return products;
+	return stock;
+}
+
+function agregarAmount(products, stocks){
+
+	var products_pos = [];
+	var cont = 0;
+
+stock = stock_pos(stocks);
+for (var i = 0; i < stock.length; i++) {
+	for (var j = 0; j < products.length; j++) {
+       if (stock[i].item_id == products[j].id)
+			 {
+				 products_pos[cont] = products[j];
+				 products_pos[cont]["amount"] = stock[i].quantity;
+				 cont++;
+			 }
+}
+}
+	console.log(products_pos.length);
+
+	return products_pos;
+	// console.log(products[0]);
+
 }
