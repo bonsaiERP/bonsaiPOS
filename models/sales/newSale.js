@@ -219,7 +219,13 @@ function fnselect(value, amount_value) {
 
 $(document).ready(function() {
 
+  var clients = db.getTable("users",'\\views\\sales',2);
 
+  var data2 = new Array("");
+  for (var cont = 0; cont < clients.length; cont++) {
+    data2.push(clients[cont].name.toString());
+  }
+  $("#btn-client").autocomplete({ source: data2 });
 
 
 
