@@ -69,30 +69,6 @@ function showAlertMessage(tipeMessage)
           $("#name_product").val("");
           $("#amount_product").val("");
           showAlertMessage("success");
-          alert(myObject[cont].id);
-          var lastQuantity = amount_product;
-
-          $("input[name=quantity]").change(function () {
-            var currentId = $(this).attr('id');
-            var este= myObject[cont].id;
-            alert(currentId);
-                if (lastQuantity > $(this).val()) {
-                  myObject[este].amount = myObject[este].amount + amount_product;
-                  total = total - (myObject[este].price*amount_product);
-                  $("#total").text(total);
-                  lastQuantity = $(this).val();
-                }
-                if (lastQuantity < $(this).val()) {
-                  alert(myObject[currentId].name);
-                  alert(myObject[currentId].price);
-                  myObject[este].amount = myObject[este].amount - amount_product;
-                  total = total + (myObject[este].price * amount_product);
-                  $("#total").text(total);
-                  lastQuantity = $(this).val();
-
-                }
-
-          });
 
           if (myObject[cont].amount <= 0) {
             showAlertMessage("warning");
@@ -116,6 +92,24 @@ function showAlertMessage(tipeMessage)
       $('#myDangerModal').modal('show');
       showAlertMessage("danger");
     }
+    var lastQuantity = amount_product;
+            $("input[id=" + myObject[cont].id + "]").change(function () {
+
+                  if (lastQuantity > $(this).val()) {
+                    myObject[cont].amount = myObject[cont].amount + $(this).val();
+                    total = total - (myObject[cont].price*$(this).val());
+                    $("#total").text(total);
+                    lastQuantity = $(this).val();
+                  }
+                  if (lastQuantity < $(this).val()) {
+                    myObject[cont].amount = myObject[cont].amount - amount_product;
+                    total = total + (myObject[cont].price * amount_product);
+                    $("#total").text(total);
+                    lastQuantity = $(this).val();
+                  }
+                  amount_product = lastQuantity;
+
+            });
   });
   //////////////////
 
@@ -130,7 +124,7 @@ function showAlertMessage(tipeMessage)
   else {
     $("#modalBodyMessageDanger")[0].innerHTML='<p> Usted ya anadio un cliente a la venta.</p>';
     $('#myDangerModal').modal('show');
-    
+
   }
 
 
