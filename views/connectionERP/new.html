@@ -78,12 +78,12 @@ function verify_cashier(){
 
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
             <li>
               <a title="" id="almacen"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>?????</a>
             </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario</a></li>
           </ul>
         </div>
       </div>
@@ -94,18 +94,21 @@ function verify_cashier(){
     <div class="alert alert-dismissible alert-success" id="alertMessage" hidden="true">
       <button type="button" class="close" data-dismiss="alert">×</button>
     </div>
-    <h1 align="center">CONEXION</h1><br/>
+    <h1 align="center">CONEXION</h1>
+    <br/>
     <div class="col-md-3"></div>
     <div class="col-md-6">
       <form>
-
-        <!-- <input type="text" class="form-control" id="url" placeholder="URL"><br> -->
+   <!--action="../../index.html"-->
+        <input type="text" class="form-control" id="token" placeholder="Ingrese su token del usuario en BonsaiERP" autofocus>
+        <br>
         <select id="list" class="form-control">
           <!-- Lista de Almacenes del usuario -->
-          
         </select>
         <br>
-        <center><input type="button" class="btn btn-success" id="get_name"value="Conectar"></center>
+        <center>
+          <input type="button" class="btn btn-success" id="get_name" value="Conectar">
+        </center>
       </form>
     </div>
   </div>

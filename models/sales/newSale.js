@@ -60,7 +60,7 @@ function showAlertMessage(tipeMessage)
     if(amount_product > 0){
       for (var cont = 0; cont < myObject.length; cont++) {
         if (name_product == myObject[cont].id) {
-          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].id + "</td><td>" + myObject[cont].code + '</td><td style="text-align: center;">' + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price  + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].id + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
+          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].id + "</td><td>" + myObject[cont].code + '</td><td style="text-align: center;">' + myObject[cont].name + '</td><td style="text-align: center;">' +    '<input type="number" name="quantity"   style="width : 60px; heigth : 1px" min="1" id=' + myObject[cont].id  + '  value=' + amount_product +     '    >  </td><td style="text-align: center;">' + myObject[cont].price  + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].id + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
           myObject[cont].amount = myObject[cont].amount - amount_product;
           total = total + (myObject[cont].price * amount_product);
           $("#btn_confirm").show();
@@ -92,6 +92,24 @@ function showAlertMessage(tipeMessage)
       $('#myDangerModal').modal('show');
       showAlertMessage("danger");
     }
+    var lastQuantity = amount_product;
+            $("input[id=" + myObject[cont].id + "]").change(function () {
+
+                  if (lastQuantity > $(this).val()) {
+                    myObject[cont].amount = myObject[cont].amount + $(this).val();
+                    total = total - (myObject[cont].price*$(this).val());
+                    $("#total").text(total);
+                    lastQuantity = $(this).val();
+                  }
+                  if (lastQuantity < $(this).val()) {
+                    myObject[cont].amount = myObject[cont].amount - amount_product;
+                    total = total + (myObject[cont].price * amount_product);
+                    $("#total").text(total);
+                    lastQuantity = $(this).val();
+                  }
+                  amount_product = lastQuantity;
+
+            });
   });
   //////////////////
 
@@ -106,7 +124,7 @@ function showAlertMessage(tipeMessage)
   else {
     $("#modalBodyMessageDanger")[0].innerHTML='<p> Usted ya anadio un cliente a la venta.</p>';
     $('#myDangerModal').modal('show');
-    
+
   }
 
 
