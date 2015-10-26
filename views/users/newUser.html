@@ -62,9 +62,9 @@ function verify_cashier(){
             </ul>
           </li> -->
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Usuario <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Cliente <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="views/users/newUser.html">Nuevo Usuario</a></li>
+              <li><a href="views/users/newUser.html">Nuevo Cliente</a></li>
             </ul>
           </li>
         </ul>
@@ -97,15 +97,14 @@ function verify_cashier(){
   <!-- Modal Danger -->
     <div class="modal" id="myDangerModal" role="dialog">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="alert alert-danger modal-content " role="alert">
           <div class="modal-header">
-            <h4 class="modal-title"><span class="label label-danger" id="modalTitleMessageDanger"></span></h4>
+            <h3 class="modal-title"><span class="label label-danger" id="modalTitleMessageDanger">ERROR, por favor verfique los datos ingresados</span></h3>
           </div>
           <div class="modal-body" id="modalBodyMessageDanger">
           </div>
           <div class="modal-footer">
-            <button id="btn_cancelSale" type="button" class="btn btn-info" style="display:none;"></button>
-            <button id="btn_cancelAndAccept" type="button" class="btn btn-danger" data-dismiss="modal" ></button>
+            <button id="btn_cancelAndAccept" type="button" class="btn btn-danger" data-dismiss="modal" >Aceptar</button>
           </div>
         </div>
       </div>

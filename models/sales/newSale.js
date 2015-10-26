@@ -60,7 +60,7 @@ function showAlertMessage(tipeMessage)
     if(amount_product > 0){
       for (var cont = 0; cont < myObject.length; cont++) {
         if (name_product == myObject[cont].id) {
-          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].id + "</td><td>" + myObject[cont].code + '</td><td style="text-align: center;">' + myObject[cont].name + '</td><td style="text-align: center;">' + amount_product + '</td><td style="text-align: center;">' + myObject[cont].price  + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].id + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
+          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].id + "</td><td>" + myObject[cont].code + '</td><td style="text-align: center;">' + myObject[cont].name + '</td><td style="text-align: center;">' +    '<input type="number" name="quantity"   style="width : 60px; heigth : 1px" min="1" id=' + myObject[cont].id  + '  value=' + amount_product +     '    >  </td><td style="text-align: center;">' + myObject[cont].price  + '</td><td style="text-align: center;">' + myObject[cont].price * amount_product + '</td><td><button class="btn btn-danger btn-sm" onclick=' + "fnselect(" + myObject[cont].id + "," + amount_product +")" + ">" + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>' + "</button></td></tr>");
           myObject[cont].amount = myObject[cont].amount - amount_product;
           total = total + (myObject[cont].price * amount_product);
           $("#btn_confirm").show();
@@ -92,16 +92,77 @@ function showAlertMessage(tipeMessage)
       $('#myDangerModal').modal('show');
       showAlertMessage("danger");
     }
+    var lastQuantity = amount_product;
+            $("input[id=" + myObject[cont].id + "]").change(function () {
+
+                  if (lastQuantity > $(this).val()) {
+                    myObject[cont].amount = myObject[cont].amount + $(this).val();
+                    total = total - (myObject[cont].price*$(this).val());
+                    $("#total").text(total);
+                    lastQuantity = $(this).val();
+                  }
+                  if (lastQuantity < $(this).val()) {
+                    myObject[cont].amount = myObject[cont].amount - amount_product;
+                    total = total + (myObject[cont].price * amount_product);
+                    $("#total").text(total);
+                    lastQuantity = $(this).val();
+                  }
+                  amount_product = lastQuantity;
+
+            });
   });
+  //////////////////
+
+  $('#btn-client').click(function(){
+    event.preventDefault();
+    var rowCount = $('#tblclient tr').length;
+    if(rowCount<1){
+    name=$('#name-field').val();
+      var data_table = $("#tblclient");
+  data_table.append("<tr> <td> <b> Cliente: </b></td><td>" + name +"</td></tr>")
+  }
+  else {
+    $("#modalBodyMessageDanger")[0].innerHTML='<p> Usted ya anadio un cliente a la venta.</p>';
+    $('#myDangerModal').modal('show');
+
+  }
+
+
+
+
+  });
+/////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
 
 $("#add_btn").click(function () {
   showAlertMessage("danger");
 });
   $("#btn_confirm").click(function () {
+var name= document.getElementById("tblclient").rows[0].cells[1].innerText;
       var mySales = db.getTable("sales",'\\views\\sales',2);
       var date = new Date().toUTCString();
+      var client= name;
       var size = mySales.length;
-      var sale = { "id": size + 1, "date": date, "total": total };
+
+      var id = 1;
+      if(mySales.length != 0)
+      {
+        var aux = mySales.length;
+        id = mySales[aux-1].id + 1;
+      }
+      var sale = { "id": id, "date": date, "total": total , "client":client};
+
       mySales.push(sale);
       db.putTable("sales", mySales,'\\views\\sales',2);
       db.putTable("products", myObject,'\\views\\sales',2);
@@ -183,13 +244,32 @@ function fnselect(value, amount_value) {
 }
 
 $(document).ready(function() {
-		var stock = [
-		"Tijeras 12\" Tramontina",
-		"Bolsa de cemento de 50kg",
-		"Parlantes multimedia AKIO 12w USB",
-		"Yogurt Frutado de 1 lt"
-		];
-		$('#name_product').autocomplete({
-			source: stock
-		});
+
+
+
+
+
+
+
+
+  var clients = db.getTable("users",'\\views\\sales',2);
+
+  var data2 = new Array("");
+  for (var cont = 0; cont < clients.length; cont++) {
+    data2.push(clients[cont].name.toString()+" "+clients[cont].lastname.toString());
+ }
+ $("#name-field").autocomplete({ source: data2 });
+
+
+
+
+
+
+  var stock = db.getTable("products",'\\views\\sales',2);
+
+  var data = new Array("");
+  for (var cont = 0; cont < myObject.length; cont++) {
+    data.push(myObject[cont].name.toString());
+  }
+	$("#name_product").autocomplete({ source: data });
 	});
