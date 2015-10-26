@@ -92,24 +92,21 @@ function verify_cashier(){
       <tr>
         <th style="text-align: center;">Hora</th>
         <th style="text-align: center;">Numero de Venta</th>
+        <th style="text-align: center;">Cliente</th>
         <th style="text-align: center;">Total Venta</th>
       </tr>
       <script>
          var list_of_sales = returnlistofsalesofdate(new Date());
          list_of_sales = orderlistbyhour(list_of_sales);
          var data_table = $("#tblDatos");
-         console.log("Llego hasta aqui");
          for (var cont = 0; cont < list_of_sales.length; cont++) {
            var aux = convertdatetoformatofso(list_of_sales[cont].date);
-           data_table.append('<tr> <td style="text-align: center;">' + getactualtime(aux) + '</td> <td style="text-align: center;">' + list_of_sales[cont].id + '</td> <td style="text-align: center;">' + list_of_sales[cont].total + '</td></tr>');
+           data_table.append('<tr> <td style="text-align: center;">' + getactualtime(aux) + '</td> <td style="text-align: center;">' + list_of_sales[cont].id + '</td> <td style="text-align: center;">' + list_of_sales[cont].client + '</td> <td style="text-align: center;">' + list_of_sales[cont].total + '</td> </tr>');
          }
          data_table.append('<tr><td></td><td style="text-align: right;"><strong>Total acomulado:</strong></td><td style="text-align: center;">'+gettotalofsales(list_of_sales)+'</td>');
       </script>
     </table>
 
-     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" align="left">
-        <button class="btn btn-success" id="btn_acualizar_venta_erp" >Actualiar Venta con Erp</button>
-      </div>
   </div>
 </body>
 </html>
