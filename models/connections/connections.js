@@ -81,10 +81,13 @@ $(document).ready(function () {
     if (nombre_almacen == ""){
       // alert("Conexion erronea");
       mensaje();
-      $("#almacen").text("???????");
+      set_data_to_push_nameoffice("Conectar ERP",'\\views\\connectionERP',2);
+      $("#almacen").text("Conectar ERP");
     }
-    else
+    else{
+      set_data_to_push_nameoffice(nombre_almacen,'\\views\\connectionERP',2);
       $("#almacen").text(nombre_almacen);
+    }
   });
 });
 
