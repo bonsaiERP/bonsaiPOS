@@ -3,6 +3,7 @@
 var fs = require('fs');
 var total = 0;
 
+var ci;
 
 var db = new DataBase();
 var myObject = db.getTable("products",'\\views\\sales',2);
@@ -131,7 +132,7 @@ function showAlertMessage(tipeMessage)
     if (aux == name) {
       client_id=clients[cont].ci
     }
-
+    ci=client_id;
   }
 data_table.append("<tr> <td> <b> Cliente: </b></td><td>" + name +"</td><td> <b>CI:</b>"+client_id +"</td> </tr>")
 
@@ -312,32 +313,34 @@ function generatePDF(sale,client)
   doc.setFontSize(16);
   doc.text(20, 50, 'NOMBRE: '+String(client).toUpperCase());
 
+  doc.text(20, 60, 'CI: '+String(ci));
+
   var detail=getProductsFromSalesTable();
 
   doc.setFontSize(18);
-  doc.text(20, 60, 'DETALLE');
-  doc.text(20, 65, '------------');
+  doc.text(20, 70, 'DETALLE');
+  doc.text(20, 75, '------------');
 
   doc.setFontSize(16);
 
   var i;
 
   for (i = 0; i < detail.length ; i++) {
-    doc.text(20, 70+60*i, 'ID:'+detail[i].id);
-    doc.text(20, (70+10)+60*i, 'CODIGO: '+detail[i].code);
-    doc.text(20, (70+20)+60*i, 'NOMBRE: '+detail[i].name.toUpperCase());
-    doc.text(20, (70+30)+60*i, 'CANTIDAD: '+detail[i].quantity);
-    doc.text(20, (70+40)+60*i, 'PRECIO: '+detail[i].price);
-    doc.text(20, (70+50)+60*i, 'SUBTOTAL: '+detail[i].total);
-    doc.text(20, (75+50)+60*i, '----');
+    doc.text(20, 80+60*i, 'ID:'+detail[i].id);
+    doc.text(20, (80+10)+60*i, 'CODIGO: '+detail[i].code);
+    doc.text(20, (80+20)+60*i, 'NOMBRE: '+detail[i].name.toUpperCase());
+    doc.text(20, (80+30)+60*i, 'CANTIDAD: '+detail[i].quantity);
+    doc.text(20, (80+40)+60*i, 'PRECIO: '+detail[i].price);
+    doc.text(20, (80+50)+60*i, 'SUBTOTAL: '+detail[i].total);
+    doc.text(20, (85+50)+60*i, '----');
 
     
   };
 
-  doc.text(20, i*60+80, '------------');
+  doc.text(20, i*60+90, '------------');
 
   doc.setFontSize(18);
-  doc.text(20, i*60+90, 'TOTAL: '+ sale.total);
+  doc.text(20, i*60+100, 'TOTAL: '+ sale.total);
 
 
   doc.save('NotaDeVenta'+String(sale.id)+'.pdf');
