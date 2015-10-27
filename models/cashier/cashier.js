@@ -27,7 +27,7 @@ function showAlertMessage(tipeMessage)
     console.log("ENTRO AL CASHIER");
     if(money > 0){
        create_cashier(money);
-       location.href = "../../views/cashier/closecashier.html";
+       location.href = "../../index.html";
     }else {
        showAlertMessage("warningAmount");
     }
