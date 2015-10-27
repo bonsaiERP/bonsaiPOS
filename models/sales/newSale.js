@@ -127,13 +127,16 @@ if(rowCount<1){
     var data_table = $("#tblclient");
 
 
-<<<<<<< HEAD
+
               for (var cont = 0; cont < clients.length; cont++) {
                 aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
                 if (aux == name) {
                   client_id=clients[cont].ci
+
                 }
+                ci=client_id;
               }
+
 
       if (!$('#name-field').val()) {
         name="sin cliente"
@@ -145,16 +148,8 @@ if(rowCount<1){
 
       }
 
-=======
-  for (var cont = 0; cont < clients.length; cont++) {
-    aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
-    if (aux == name) {
-      client_id=clients[cont].ci
-    }
-    ci=client_id;
-  }
-data_table.append("<tr> <td> <b> Cliente: </b></td><td>" + name +"</td><td> <b>CI:</b>"+client_id +"</td> </tr>")
->>>>>>> 3ca40f70812df2b043a9a06157a5e4518afb6389
+
+
 
   }
   else {
