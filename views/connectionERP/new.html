@@ -127,7 +127,21 @@ function verify_cashier(){
     </div>
   </div>
 
-
+  <!-- Modal Danger -->
+    <div class="modal" id="myDangerModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="alert alert-danger modal-content " role="alert">
+          <div class="modal-header">
+            <h3 class="modal-title"><span class="label label-danger" id="modalTitleMessageDanger">ERROR, por favor verfique los datos ingresados</span></h3>
+          </div>
+          <div class="modal-body" id="modalBodyMessageDanger">
+          </div>
+          <div class="modal-footer">
+            <button id="btn_cancelAndAccept" type="button" class="btn btn-danger" data-dismiss="modal" >Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   <script src="../../models/database/database.js" type="text/javascript"></script>
   <script src="../../models/products/stock.js" type="text/javascript"></script>

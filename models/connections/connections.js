@@ -14,20 +14,20 @@ function tokenIsHere(table_name, value) {
   return false;
 }
 
-        
+
 function resetDropList(){
   $("#list").html("");
-} 
+}
 
 $(document).ready(function () {
 
 
   $("#token").blur(function () {
 
-    
-    
+
+
     var token = $("#token").val();
-    
+
     if (tokenIsHere("token", token))
       console.log("ya estas logueado");
     else {
@@ -58,11 +58,11 @@ $(document).ready(function () {
           if(stores.length != 0){
             for (var i = 0; i < stores.length; i++) {
               $("#list").append("<option value=" + response[i].name + ">" + response[i].name + "</option>");
-            };  
+            };
           }
-          
-          
-          
+
+
+
         });
       }else{
         var list = [];
@@ -79,10 +79,16 @@ $(document).ready(function () {
 
     var nombre_almacen = $("#list option:selected").text();
     if (nombre_almacen == ""){
-      alert("Conexion erronea");
-      $("#almacen").text("???????");            
+      // alert("Conexion erronea");
+      mensaje();
+      $("#almacen").text("???????");
     }
     else
       $("#almacen").text(nombre_almacen);
   });
 });
+
+function mensaje(){
+	$('#modalBodyMessageDanger').html("<p>No se puede realizar la conexion</p>");
+  $('#myDangerModal').modal('show');
+}
