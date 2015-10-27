@@ -6,9 +6,11 @@
 window.$ = window.jQuery = require('./libs/jquery.min.js');
 </script>
 <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="./models/nameoffice.js" type="text/javascript"></script>
+<script src="./models/database/database.js" type="text/javascript"></script>
 <script type="text/javascript">
 function verify_cashier(){
-  if(exist_active_cashier('\\views\\cashier',2)){
+  if(exist_active_cashier('',0)){
      document.getElementById("cash_close").style.display = "block"
      document.getElementById("cash_open").style.display = "none"
   }else{
@@ -61,7 +63,7 @@ function verify_cashier(){
             </ul>
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Productos <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Sicronizar <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="#" id="update">Sincronizar Productos </a></li>
               <li><a href="#" id="download"></a></li>
@@ -80,7 +82,8 @@ function verify_cashier(){
           <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="views/connectionERP/new.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Conectar ERP</a></li>
+          <li><a href="views/connectionERP/new.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          <script>document.write(get_data_nameoffice('',0));</script></a></li>
         </ul>
       </div>
     </div>

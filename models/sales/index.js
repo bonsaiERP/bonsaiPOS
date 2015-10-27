@@ -43,6 +43,7 @@ $(document).ready(function(){
 			};
 		};
       	db.putTable("sales", mySales,'\\views\\sales',2);
+      	updateStock(id);
       	location.reload();
      	localStorage.setItem('reload',1);
 	});
@@ -51,3 +52,20 @@ $(document).ready(function(){
 		$('#deleteModal').modal('hide');
 	});
 });
+
+function updateStock(id)
+{
+	var salesProducts=db.getTable("saleProducts",'\\views\\sales',2);
+	var products=db.getTable("products",'\\views\\sales',2);
+
+	for (var i = salesProducts.length - 1; i >= 0; i--) {
+		if (String(salesProducts[i].sale_id)==String(id)) {
+			for (var j = products.length - 1; j >= 0; j--) {
+				if (String(products[j].id)== String(saleProducts[i].product_id)) {
+					products[j].amount=parseInt(products[j].amount)+parseInt(salesProducts[i].quantity);
+				};
+			};
+		};
+	};
+	db.putTable('products',products,'\\views\\sales',2);
+}
