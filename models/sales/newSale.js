@@ -101,17 +101,19 @@ function showAlertMessage(tipeMessage)
             $("input[id=" + myObject[cont].id + "]").change(function () {
 
                   if (lastQuantity > $(this).val()) {
-                    myObject[cont].amount = myObject[cont].amount + $(this).val();
-                    total = total - (myObject[cont].price*$(this).val());
-                    $("#total").text(total);
+                    total_sale = $("#total").text();
+                    //myObject[cont].amount = myObject[cont].amount + $(this).val();
+                    total_sale = total_sale - (myObject[cont].price*(lastQuantity-$(this).val()));
+                    $("#total").text(total_sale);
                     lastQuantity = $(this).val();
                     totalprice= myObject[cont].price * lastQuantity;
                     $("#td_id_"+cont.toString()).text(totalprice);
                   }
                   if (lastQuantity < $(this).val()) {
-                    myObject[cont].amount = myObject[cont].amount - amount_product;
-                    total = total + (myObject[cont].price * amount_product);
-                    $("#total").text(total);
+                    total_sale = $("#total").text();
+                    //myObject[cont].amount = myObject[cont].amount - $(this).val();
+                    total_sale = parseInt(total_sale) + (parseInt(myObject[cont].price) * (parseInt($(this).val())-lastQuantity));
+                    $("#total").text(total_sale);
                     lastQuantity = $(this).val();
                     totalprice= myObject[cont].price * lastQuantity;
                     $("#td_id_"+cont.toString()).text(totalprice);
