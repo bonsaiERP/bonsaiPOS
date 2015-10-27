@@ -3,7 +3,8 @@ var fs = require('fs');
 var db = new DataBase();
 
 function tokenIsHere(table_name, value) {
-  lista = db.getTableDos(table_name);
+  // lista = db.getTableDos(table_name);
+  lista = db.getTable(table_name,'\\views\\connectionERP',2);
 
   for (var i = 0; i < lista.length; i++) {
     if (lista[i].token == value) {
@@ -34,10 +35,11 @@ $(document).ready(function () {
         var new_token = { "token": token };
         var list = []
         list.push(new_token);
-        db.putTableDos("token", list);
-        // alert("Token registrado");
+        // db.putTableDos("token", list);
+        db.putTable("token", list, '\\views\\connectionERP',2);
 
-        var user = db.getTableDos("token");
+        // var user = db.getTableDos("token");
+        var user = db.getTable("token",'\\views\\connectionERP',2);
         var stores = {
           "async": true,
           "crossDomain": true,
@@ -63,7 +65,8 @@ $(document).ready(function () {
         });
       }else{
         var list = [];
-        db.putTableDos("token", list);
+        // db.putTableDos("token", list);
+        db.putTable("token", list, '\\views\\connectionERP',2);
         resetDropList();
       }
     }
