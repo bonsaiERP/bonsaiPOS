@@ -27,34 +27,33 @@ function verify_cashier(){
 </head>
 
 <body onload="verify_cashier()">
-  <div class="">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="../../index.html">BonsaiPOS</a>
-        </div>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="../../index.html">BonsaiPOS</a>
+      </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Productos <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="../../views/products/stock.html">Stock</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Venta <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="../../views/reports/newSale.html">Nueva Venta</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Reportes <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="../../views/reports/daySales.html">Ventas del dia</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Productos <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="stock.html">Stock</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Venta <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="../sales/newSale.html">Nueva Venta</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Reportes <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="../reports/daySales.html">Ventas del dia</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
             <a href="#" class="dropdown-toggle" id="cash_open" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
              <ul class="dropdown-menu" role="menu">
                <li><a href="../cashier/opencashier.html">Abrir Caja</a></li>
@@ -68,19 +67,37 @@ function verify_cashier(){
             </ul>
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Cliente <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Productos <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="../users/newUser.html">Nuevo cliente</a></li>
+              <li><a href="#" id="update">Sincronizar Productos </a></li>
+              <li><a href="#" id="download"></a></li>
             </ul>
           </li>
 
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario</a></li>
-          </ul>
-        </div>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Cliente <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="../users/newUser.html">Nuevo cliente</a></li>
+              <li><a href="../users/listusers.html">Lista clientes</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="../connectionERP/new.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Conectar ERP</a></li>
+        </ul>
       </div>
-    </nav>
+    </div>
+  </nav>
+  <div class="container">
+    <div id="progressbardiv" class="progress progress-striped active" hidden="true">
+      <div id="progressbar-2" class="progress-bar" style="transition-duration: 1s; -webkit-transition-duration: 1s; width: 45%">Cargando...</div>
+    </div>
+    <div class="alert alert-dismissible alert-success" id="alertMessage" hidden="true">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+    </div>
   </div>
 
 
