@@ -122,11 +122,30 @@ function showAlertMessage(tipeMessage)
     var clients = db.getTable("users",'\\views\\sales',2);
     var client_id=0
     var aux=""
-    if(rowCount<1){
+if(rowCount<1){
     name=$('#name-field').val();
-      var data_table = $("#tblclient");
+    var data_table = $("#tblclient");
 
 
+<<<<<<< HEAD
+              for (var cont = 0; cont < clients.length; cont++) {
+                aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
+                if (aux == name) {
+                  client_id=clients[cont].ci
+                }
+              }
+
+      if (!$('#name-field').val()) {
+        name="sin cliente"
+        data_table.append("<tr style='display:none'> <td> <b> Cliente: </b></td><td>" + name +"</td><td> <b>CI:</b>"+client_id +"</td> </tr>")
+
+      }
+      else {
+        data_table.append("<tr> <td> <b> Cliente: </b></td><td>" + name +"</td><td> <b>CI:</b>"+client_id +"</td> </tr>")
+
+      }
+
+=======
   for (var cont = 0; cont < clients.length; cont++) {
     aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
     if (aux == name) {
@@ -135,11 +154,13 @@ function showAlertMessage(tipeMessage)
     ci=client_id;
   }
 data_table.append("<tr> <td> <b> Cliente: </b></td><td>" + name +"</td><td> <b>CI:</b>"+client_id +"</td> </tr>")
+>>>>>>> 3ca40f70812df2b043a9a06157a5e4518afb6389
 
   }
   else {
-    $("#modalBodyMessageDanger")[0].innerHTML='<p> Usted ya anadio un cliente a la venta.</p>';
-    $('#myDangerModal').modal('show');
+
+
+    $('#myDangerModal2').modal('show');
 
   }
 
@@ -165,13 +186,21 @@ $("#add_btn").click(function () {
   showAlertMessage("danger");
 });
   $("#btn_confirm").click(function () {
-      var name= document.getElementById("tblclient").rows[0].cells[1].innerText;
+
       var mySales = db.getTable("sales",'\\views\\sales',2);
       var date = new Date().toUTCString();
-      var client= name;
+      var client= "sin cliente";
       var size = mySales.length;
 
       var id = 1;
+
+      if ($('#name-field').val()) {
+         client=document.getElementById("tblclient").rows[0].cells[1].innerText;
+
+      }
+
+
+
       if(mySales.length != 0)
       {
         var aux = mySales.length;
@@ -334,7 +363,7 @@ function generatePDF(sale,client)
     doc.text(20, (80+50)+60*i, 'SUBTOTAL: '+detail[i].total);
     doc.text(20, (85+50)+60*i, '----');
 
-    
+
   };
 
   doc.text(20, i*60+90, '------------');
