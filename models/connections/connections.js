@@ -24,13 +24,14 @@ $(document).ready(function () {
 
   $("#token").blur(function () {
 
-    resetDropList();
+    
     
     var token = $("#token").val();
     
     if (tokenIsHere("token", token))
       console.log("ya estas logueado");
     else {
+      resetDropList();
       if (token != "") {
         var new_token = { "token": token };
         var list = []
