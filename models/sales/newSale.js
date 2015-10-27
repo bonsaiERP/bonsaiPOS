@@ -180,7 +180,9 @@ $("#add_btn").click(function () {
       var sale = { "id": id, "date": date, "total": total , "client":client};
 
       mySales.push(sale);
+
       db.putTable("sales", mySales,'\\views\\sales',2);
+      registerSalesProducts(sale.id)
       db.putTable("products", myObject,'\\views\\sales',2);
       generatePDF(sale,client);
       location.reload();
@@ -293,6 +295,19 @@ function getProductsFromSalesTable()
   return products;
 }
 
+function getSaleProducts(id)
+{
+  var table = document.getElementById('tblDatos')
+  var products = [];
+  for (var i = 1, row; row = table.rows[i]; i++) {
+    row
+    var product = { "id": row.cells[0].innerHTML, "sale_id": id, "quantity": String(parseInt(row.cells[5].innerHTML)/parseInt(row.cells[4].innerHTML))};
+    products.push(product);
+  };
+  return products;
+}
+
+
 function getTotal()
 {
   return $('#total').html();
@@ -344,4 +359,13 @@ function generatePDF(sale,client)
 
 
   doc.save('NotaDeVenta'+String(sale.id)+'.pdf');
+}
+
+function registerSalesProducts(id)
+{
+  var saleproducts = db.getTable("saleProducts",'\\views\\sales',2);
+  var auxArray = getSaleProducts(id);
+  console.log(auxArray);
+  saleproducts.concat(auxArray);
+  db.putTable("saleProducts", saleproducts,'\\views\\sales',2);
 }
