@@ -2,6 +2,8 @@
 
 var fs = require('fs');
 var total = 0;
+
+
 var db = new DataBase();
 var myObject = db.getTable("products",'\\views\\sales',2);
 
@@ -116,10 +118,23 @@ function showAlertMessage(tipeMessage)
   $('#btn-client').click(function(){
     event.preventDefault();
     var rowCount = $('#tblclient tr').length;
+    var clients = db.getTable("users",'\\views\\sales',2);
+    var client_id=0
+    var aux=""
     if(rowCount<1){
     name=$('#name-field').val();
       var data_table = $("#tblclient");
-  data_table.append("<tr> <td> <b> Cliente: </b></td><td>" + name +"</td></tr>")
+
+
+  for (var cont = 0; cont < clients.length; cont++) {
+    aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
+    if (aux == name) {
+      client_id=clients[cont].ci
+    }
+
+  }
+data_table.append("<tr> <td> <b> Cliente: </b></td><td>" + name +"</td><td> <b>CI:</b>"+client_id +"</td> </tr>")
+
   }
   else {
     $("#modalBodyMessageDanger")[0].innerHTML='<p> Usted ya anadio un cliente a la venta.</p>';
@@ -246,32 +261,21 @@ function fnselect(value, amount_value) {
 
 $(document).ready(function() {
 
-
-
-
-
-
-
-
   var clients = db.getTable("users",'\\views\\sales',2);
 
   var data2 = new Array("");
   for (var cont = 0; cont < clients.length; cont++) {
     data2.push(clients[cont].name.toString()+" "+clients[cont].lastname.toString());
- }
+  }
+
  $("#name-field").autocomplete({ source: data2 });
-
-
-
-
-
 
   var stock = db.getTable("products",'\\views\\sales',2);
 
   var data = new Array("");
   for (var cont = 0; cont < myObject.length; cont++) {
     data.push(myObject[cont].name.toString());
-  }
+    }
 	$("#name_product").autocomplete({ source: data });
 	});
 
