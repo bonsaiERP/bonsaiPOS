@@ -79,9 +79,9 @@ $(document).ready(function () {
 
     var nombre_almacen = $("#list option:selected").text();
     if (nombre_almacen == ""){
-      alert("Conexion erronea");
+      // alert("Conexion erronea");
+      mensaje();
       set_data_to_push_nameoffice("Conectar ERP",'\\views\\connectionERP',2);
-      //$("#almacen").text("???????");
       $("#almacen").text("Conectar ERP");
     }
     else{
@@ -90,3 +90,8 @@ $(document).ready(function () {
     }
   });
 });
+
+function mensaje(){
+	$('#modalBodyMessageDanger').html("<p>No se puede realizar la conexion</p>");
+  $('#myDangerModal').modal('show');
+}
