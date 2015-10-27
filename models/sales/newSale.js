@@ -149,7 +149,7 @@ $("#add_btn").click(function () {
   showAlertMessage("danger");
 });
   $("#btn_confirm").click(function () {
-var name= document.getElementById("tblclient").rows[0].cells[1].innerText;
+      var name= document.getElementById("tblclient").rows[0].cells[1].innerText;
       var mySales = db.getTable("sales",'\\views\\sales',2);
       var date = new Date().toUTCString();
       var client= name;
@@ -166,6 +166,7 @@ var name= document.getElementById("tblclient").rows[0].cells[1].innerText;
       mySales.push(sale);
       db.putTable("sales", mySales,'\\views\\sales',2);
       db.putTable("products", myObject,'\\views\\sales',2);
+      generatePDF(sale,client);
       location.reload();
       localStorage.setItem('reload',1);
   });
@@ -273,3 +274,67 @@ $(document).ready(function() {
   }
 	$("#name_product").autocomplete({ source: data });
 	});
+
+
+function getProductsFromSalesTable()
+{
+  var table = document.getElementById('tblDatos')
+  var products = [];
+  for (var i = 1, row; row = table.rows[i]; i++) {
+    row
+    var product = { "id": row.cells[0].innerHTML, "code": row.cells[1].innerHTML, "name": row.cells[2].innerHTML , "quantity": String(parseInt(row.cells[5].innerHTML)/parseInt(row.cells[4].innerHTML)), "price": row.cells[4].innerHTML, "total": row.cells[5].innerHTML};
+    products.push(product);
+  };
+  return products;
+}
+
+function getTotal()
+{
+  return $('#total').html();
+}
+
+function generatePDF(sale,client)
+{
+  var doc = new jsPDF();
+  doc.setFontSize(22);
+  doc.text(20, 20, 'NOTA DE VENTA');
+
+  doc.setFontSize(16);
+  doc.text(20, 30, 'FECHA: '+String(sale.date).toUpperCase());
+
+  doc.setFontSize(18);
+  doc.text(20, 40, 'DATOS DEL CLIENTE:');
+
+  doc.setFontSize(16);
+  doc.text(20, 50, 'NOMBRE: '+String(client).toUpperCase());
+
+  var detail=getProductsFromSalesTable();
+
+  doc.setFontSize(18);
+  doc.text(20, 60, 'DETALLE');
+  doc.text(20, 65, '------------');
+
+  doc.setFontSize(16);
+
+  var i;
+
+  for (i = 0; i < detail.length ; i++) {
+    doc.text(20, 70+60*i, 'ID:'+detail[i].id);
+    doc.text(20, (70+10)+60*i, 'CODIGO: '+detail[i].code);
+    doc.text(20, (70+20)+60*i, 'NOMBRE: '+detail[i].name.toUpperCase());
+    doc.text(20, (70+30)+60*i, 'CANTIDAD: '+detail[i].quantity);
+    doc.text(20, (70+40)+60*i, 'PRECIO: '+detail[i].price);
+    doc.text(20, (70+50)+60*i, 'SUBTOTAL: '+detail[i].total);
+    doc.text(20, (75+50)+60*i, '----');
+
+    
+  };
+
+  doc.text(20, i*60+80, '------------');
+
+  doc.setFontSize(18);
+  doc.text(20, i*60+90, 'TOTAL: '+ sale.total);
+
+
+  doc.save('NotaDeVenta'+String(sale.id)+'.pdf');
+}
