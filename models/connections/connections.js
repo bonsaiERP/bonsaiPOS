@@ -14,23 +14,24 @@ function tokenIsHere(table_name, value) {
   return false;
 }
 
-        
+
 function resetDropList(){
   $("#list").html("");
-} 
+}
 
 $(document).ready(function () {
 
 
   $("#token").blur(function () {
 
-    resetDropList();
-    
+
+
     var token = $("#token").val();
-    
+
     if (tokenIsHere("token", token))
       console.log("ya estas logueado");
     else {
+      resetDropList();
       if (token != "") {
         var new_token = { "token": token };
         var list = []
@@ -57,11 +58,11 @@ $(document).ready(function () {
           if(stores.length != 0){
             for (var i = 0; i < stores.length; i++) {
               $("#list").append("<option value=" + response[i].name + ">" + response[i].name + "</option>");
-            };  
+            };
           }
-          
-          
-          
+
+
+
         });
       }else{
         var list = [];
@@ -79,9 +80,13 @@ $(document).ready(function () {
     var nombre_almacen = $("#list option:selected").text();
     if (nombre_almacen == ""){
       alert("Conexion erronea");
-      $("#almacen").text("???????");            
+      set_data_to_push_nameoffice("Conectar ERP",'\\views\\connectionERP',2);
+      //$("#almacen").text("???????");
+      $("#almacen").text("Conectar ERP");
     }
-    else
+    else{
+      set_data_to_push_nameoffice(nombre_almacen,'\\views\\connectionERP',2);
       $("#almacen").text(nombre_almacen);
+    }
   });
 });

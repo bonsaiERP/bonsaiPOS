@@ -3,6 +3,7 @@
 var fs = require('fs');
 var total = 0;
 
+var ci;
 
 var db = new DataBase();
 var myObject = db.getTable("products",'\\views\\sales',2);
@@ -126,6 +127,7 @@ if(rowCount<1){
     var data_table = $("#tblclient");
 
 
+<<<<<<< HEAD
               for (var cont = 0; cont < clients.length; cont++) {
                 aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
                 if (aux == name) {
@@ -143,6 +145,16 @@ if(rowCount<1){
 
       }
 
+=======
+  for (var cont = 0; cont < clients.length; cont++) {
+    aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
+    if (aux == name) {
+      client_id=clients[cont].ci
+    }
+    ci=client_id;
+  }
+data_table.append("<tr> <td> <b> Cliente: </b></td><td>" + name +"</td><td> <b>CI:</b>"+client_id +"</td> </tr>")
+>>>>>>> 3ca40f70812df2b043a9a06157a5e4518afb6389
 
   }
   else {
@@ -175,7 +187,6 @@ $("#add_btn").click(function () {
 });
   $("#btn_confirm").click(function () {
 
-
       var mySales = db.getTable("sales",'\\views\\sales',2);
       var date = new Date().toUTCString();
       var client= "sin cliente";
@@ -200,6 +211,7 @@ $("#add_btn").click(function () {
       mySales.push(sale);
       db.putTable("sales", mySales,'\\views\\sales',2);
       db.putTable("products", myObject,'\\views\\sales',2);
+      generatePDF(sale,client);
       location.reload();
       localStorage.setItem('reload',1);
   });
@@ -296,3 +308,69 @@ $(document).ready(function() {
     }
 	$("#name_product").autocomplete({ source: data });
 	});
+
+
+function getProductsFromSalesTable()
+{
+  var table = document.getElementById('tblDatos')
+  var products = [];
+  for (var i = 1, row; row = table.rows[i]; i++) {
+    row
+    var product = { "id": row.cells[0].innerHTML, "code": row.cells[1].innerHTML, "name": row.cells[2].innerHTML , "quantity": String(parseInt(row.cells[5].innerHTML)/parseInt(row.cells[4].innerHTML)), "price": row.cells[4].innerHTML, "total": row.cells[5].innerHTML};
+    products.push(product);
+  };
+  return products;
+}
+
+function getTotal()
+{
+  return $('#total').html();
+}
+
+function generatePDF(sale,client)
+{
+  var doc = new jsPDF();
+  doc.setFontSize(22);
+  doc.text(20, 20, 'NOTA DE VENTA');
+
+  doc.setFontSize(16);
+  doc.text(20, 30, 'FECHA: '+String(sale.date).toUpperCase());
+
+  doc.setFontSize(18);
+  doc.text(20, 40, 'DATOS DEL CLIENTE:');
+
+  doc.setFontSize(16);
+  doc.text(20, 50, 'NOMBRE: '+String(client).toUpperCase());
+
+  doc.text(20, 60, 'CI: '+String(ci));
+
+  var detail=getProductsFromSalesTable();
+
+  doc.setFontSize(18);
+  doc.text(20, 70, 'DETALLE');
+  doc.text(20, 75, '------------');
+
+  doc.setFontSize(16);
+
+  var i;
+
+  for (i = 0; i < detail.length ; i++) {
+    doc.text(20, 80+60*i, 'ID:'+detail[i].id);
+    doc.text(20, (80+10)+60*i, 'CODIGO: '+detail[i].code);
+    doc.text(20, (80+20)+60*i, 'NOMBRE: '+detail[i].name.toUpperCase());
+    doc.text(20, (80+30)+60*i, 'CANTIDAD: '+detail[i].quantity);
+    doc.text(20, (80+40)+60*i, 'PRECIO: '+detail[i].price);
+    doc.text(20, (80+50)+60*i, 'SUBTOTAL: '+detail[i].total);
+    doc.text(20, (85+50)+60*i, '----');
+
+
+  };
+
+  doc.text(20, i*60+90, '------------');
+
+  doc.setFontSize(18);
+  doc.text(20, i*60+100, 'TOTAL: '+ sale.total);
+
+
+  doc.save('NotaDeVenta'+String(sale.id)+'.pdf');
+}
