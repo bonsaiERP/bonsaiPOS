@@ -61,7 +61,7 @@ function updateStock(id)
 	for (var i = salesProducts.length - 1; i >= 0; i--) {
 		if (String(salesProducts[i].sale_id)==String(id)) {
 			for (var j = products.length - 1; j >= 0; j--) {
-				if (String(products[j].id)== String(saleProducts[i].product_id)) {
+				if (String(products[j].id)== String(salesProducts[i].product_id)) {
 					products[j].amount=parseInt(products[j].amount)+parseInt(salesProducts[i].quantity);
 				};
 			};
