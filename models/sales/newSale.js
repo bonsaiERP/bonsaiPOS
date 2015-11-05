@@ -194,16 +194,11 @@ $("#add_btn").click(function () {
       var date = new Date().toUTCString();
       var client= "sin cliente";
       var size = mySales.length;
-
       var id = 1;
 
       if ($('#name-field').val()) {
          client=document.getElementById("tblclient").rows[0].cells[1].innerText;
-
       }
-
-
-
       if(mySales.length != 0)
       {
         var aux = mySales.length;
@@ -212,7 +207,6 @@ $("#add_btn").click(function () {
       var sale = { "id": id, "date": date, "total": total , "client":client};
 
       mySales.push(sale);
-
       db.putTable("sales", mySales,'\\views\\sales',2);
       registerSalesProducts(sale.id)
       db.putTable("products", myObject,'\\views\\sales',2);
@@ -333,7 +327,7 @@ function getSaleProducts(id)
   var products = [];
   for (var i = 1, row; row = table.rows[i]; i++) {
     row
-    var product = { "product_id": row.cells[0].innerHTML, "sale_id": id, "quantity": String(parseInt(row.cells[5].innerHTML)/parseInt(row.cells[4].innerHTML))};
+    var product = { "product_id": row.cells[0].innerHTML, "sale_id": id, "name": row.cells[2].innerHTML ,"quantity": String(parseInt(row.cells[5].innerHTML)/parseInt(row.cells[4].innerHTML)), "price": row.cells[4].innerHTML};
     products.push(product);
   };
   return products;
@@ -390,8 +384,6 @@ function generatePDF(sale,client)
 
   doc.setFontSize(18);
   doc.text(20, i*60+100, 'TOTAL: '+ sale.total);
-
-
   doc.save('NotaDeVenta'+String(sale.id)+'.pdf');
 }
 
