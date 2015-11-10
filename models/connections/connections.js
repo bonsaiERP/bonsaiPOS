@@ -32,9 +32,9 @@ $(document).ready(function () {
       console.log("ya estas logueado");
     else {
       resetDropList();
-      if (token != "") {
+      if (token !== "") {
         var new_token = { "token": token };
-        var list = []
+        var list = [];
         list.push(new_token);
         // db.putTableDos("token", list);
         db.putTable("token", list, '\\views\\connectionERP',2);
@@ -55,10 +55,10 @@ $(document).ready(function () {
         $.ajax(stores).done(function (response) {
           var stores = response;
           // $("#almacen").text(response[1].name);
-          if(stores.length != 0){
+          if(stores.length !== 0){
             for (var i = 0; i < stores.length; i++) {
               $("#list").append("<option value=" + response[i].name + ">" + response[i].name + "</option>");
-            };
+            }
           }
 
 
@@ -78,10 +78,10 @@ $(document).ready(function () {
   $("#get_name").click(function () {
 
     var nombre_almacen = $("#list option:selected").text();
-    if (nombre_almacen == ""){
+    if (nombre_almacen === ""){
       // alert("Conexion erronea");
       mensaje();
-      set_data_to_push_nameoffice("Conectar ERP",'\\views\\connectionERP',2);
+      set_data_to_push_nameoffice("Conectar ERP",'\\views\\bd\\token.json',2);
       $("#almacen").text("Conectar ERP");
     }
     else{
