@@ -3,6 +3,7 @@
 var fs = require('fs');
 var total = 0;
 
+
 var ci;
 
 var db = new DataBase();
@@ -14,7 +15,14 @@ if(localStorage.getItem('reload')==1)
   showAlertMessage("successSale");
   $("#alertMessage").show();
   localStorage.removeItem('reload');
+  var id_of_last_sale = get_data('\\views\\sales',2);
+  if(typeof id_of_last_sale === 'object' && id_of_last_sale.hasOwnProperty('id_sale'))
+  {
+    open_bill_view();
+  }
 }
+
+
 
 function showAlertMessage(tipeMessage)
 {
@@ -211,6 +219,10 @@ $("#add_btn").click(function () {
       registerSalesProducts(sale.id)
       db.putTable("products", myObject,'\\views\\sales',2);
       generatePDF(sale,client);
+
+      var to_bill = {"id_sale":id,"nit_buyer":"INGRESE NIT AQUI","name_buyer":"INGRESE NOMBRE AQUI","date":date};
+      set_data_to_push(to_bill,'\\views\\sales',2);
+
       location.reload();
       localStorage.setItem('reload',1);
   });
@@ -393,4 +405,11 @@ function registerSalesProducts(id)
   var auxArray = getSaleProducts(id);
   array=saleproducts.concat(auxArray);
   db.putTable("saleProducts", array,'\\views\\sales',2);
+
+}
+
+function open_bill_view()
+{
+  var path = getpathproyect('\\views\\sales',2) + converpath('\\views\\bill\\generatorbill.html',3);
+  window.open(path);
 }
