@@ -132,16 +132,35 @@ function showAlertMessage(tipeMessage)
   });
   //////////////////
 
+  //delete client
+  function deleteclient(){
+alert("frfr");
+
+
+  }
+
+  ////////////////////
+
   $('#btn-client').click(function(){
     event.preventDefault();
+    var data_table = $("#tblclient");
     var rowCount = $('#tblclient tr').length;
     var clients = db.getTable("users",'\\views\\sales',2);
     var client_id=0
     var aux=""
 if(rowCount<1){
     name=$('#name-field').val();
-    var data_table = $("#tblclient");
 
+    if (!isNaN(parseFloat(name)) && isFinite(name)) {
+      for (var cont = 0; cont < clients.length; cont++) {
+        if(clients[cont].ci==name){
+          client_id=clients[cont].ci;
+          name=clients[cont].name +" "+ clients[cont].lastname ;
+
+        }
+      }
+
+    }
 
 
               for (var cont = 0; cont < clients.length; cont++) {
@@ -151,36 +170,27 @@ if(rowCount<1){
 
                 }
                 ci=client_id;
+
               }
 
 
       if (!$('#name-field').val()) {
         name="sin cliente"
-        data_table.append("<tr style='display:none'> <td> <b> Cliente: </b></td><td>" + name +"</td><td> <b>CI:</b>"+client_id +"</td> </tr>")
 
       }
       else {
-        data_table.append("<tr> <td> <b> Cliente: </b></td><td>" + name +"</td><td> <b>CI:</b>"+client_id +"</td> </tr>")
+        data_table.append('<tr id=tr_client> <td> <b> Cliente: </b></td><td> '+ name +"</td><td> <b>CI:</b>"+client_id +'</td> <td> <input type="button" onclick= deleteclient() value="borrar"/> </td></tr>')
 
       }
 
-
-
-
   }
   else {
-
 
     $('#myDangerModal2').modal('show');
 
   }
 
-
-
-
   });
-/////////////////////////////////
-
 
 
 
