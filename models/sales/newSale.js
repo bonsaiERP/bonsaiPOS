@@ -130,16 +130,7 @@ function showAlertMessage(tipeMessage)
 
             });
   });
-  //////////////////
 
-  //delete client
-  function deleteclient(){
-alert("frfr");
-
-
-  }
-
-  ////////////////////
 
   $('#btn-client').click(function(){
     event.preventDefault();
@@ -174,12 +165,16 @@ if(rowCount<1){
               }
 
 
+
+
       if (!$('#name-field').val()) {
         name="sin cliente"
 
       }
       else {
-        data_table.append('<tr id=tr_client> <td> <b> Cliente: </b></td><td> '+ name +"</td><td> <b>CI:</b>"+client_id +'</td> <td> <input type="button" onclick= deleteclient() value="borrar"/> </td></tr>')
+        data_table.append('<tr id=tr_client> <td> <b> Cliente: </b></td><td> '+ name +"</td><td> <b>CI:</b>"+client_id +'</td> <td> <input type="button" id= "deleteclient" onclick= "deleteclient()" value="Borrar"/> </td></tr>')
+
+
 
       }
 
@@ -329,6 +324,15 @@ $(document).ready(function() {
     }
 	$("#name_product").autocomplete({ source: data });
 	});
+//delete client
+
+  function deleteclient(){
+    var element = document.getElementById("tr_client");
+    element.remove();
+
+
+  }
+  //
 
 
 function getProductsFromSalesTable()
