@@ -22,11 +22,21 @@ function verify_cashier(){
   }
 }
 </script>
+<script type="text/javascript">
+function key(event){
+  var keycode=event.keyCode;
+  if (keycode==113) {
+    $('#btn_cancel').click();
+    //alert(event.keyCode);
+  };
+  
+}
+</script>
 <link href="../../libs/jquery-ui.css" rel="stylesheet">
 
 </head>
 
-<body onload="verify_cashier()">
+<body onload="verify_cashier()", onkeypress="javascript:key(event);" >
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -207,7 +217,7 @@ function verify_cashier(){
         </div>
       </div>
     </div>
-
+  <p><center> c => Agregar Cliente ; p => Añadir Producto ; y => Confirmar Venta ; q => Cancelar Venta </center></p>
   </div>
   <script type="text/javascript" src="../../node_modules/jsPDF/jspdf.js"></script>
   <script type="text/javascript" src="../../node_modules/jsPDF/plugins/standard_fonts_metrics.js"></script>
