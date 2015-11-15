@@ -8,7 +8,8 @@
   </script>
   <script src="../../models/cashier/cashier.js" type="text/javascript"></script>
   <script src="../../models/nameoffice.js" type="text/javascript"></script>
-<script src="../../models/database/database.js" type="text/javascript"></script>
+  <script src="../../models/passvar.js" type="text/javascript"></script>
+  <script src="../../models/database/database.js" type="text/javascript"></script>
   <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript">
 function verify_cashier(){
@@ -21,11 +22,29 @@ function verify_cashier(){
   }
 }
 </script>
+<script type="text/javascript">
+function key(event){
+  var keycode=event.keyCode;
+  if (keycode==113) {
+    $('#btn_cancel').click();
+  };
+  if (keycode==99) {
+    $('#btn-client').click();
+  };
+  if (keycode==112) {
+    $('#form1').submit();
+  };
+  if (keycode==121) {
+    $('#btn_confirm').click();
+  };
+  //alert(event.keyCode);
+}
+</script>
 <link href="../../libs/jquery-ui.css" rel="stylesheet">
 
 </head>
 
-<body onload="verify_cashier()">
+<body onload="verify_cashier(), document.getElementById('name-field').focus()", onkeypress="javascript:key(event);" >
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -111,12 +130,13 @@ function verify_cashier(){
       <button type="button" class="close" data-dismiss="alert">×</button>
     </div>
     <h1 align="center">Nueva Venta</h1><br/>
-    
+
       <form id="form1">
 
         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2  col-lg-3 col-md-3 col-sm-3 col-xs-12" align="right">
           <input class="form-control" type="text" name="business_name" id="business_name" placeholder="Razon Social"/>
         </div>
+
 
         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2  col-lg-3 col-md-3 col-sm-3 col-xs-12" align="right">
           <input class="form-control" type="text" name="nit" id="nit" placeholder="Nit"/>
@@ -216,7 +236,8 @@ function verify_cashier(){
         </div>
       </div>
     </div>
-
+    <br>
+  <p><center> c => Agregar Cliente ; p => Añadir Producto ; y => Confirmar Venta ; q => Cancelar Venta ; TAB => Navegar </center></p>
   </div>
   <script type="text/javascript" src="../../node_modules/jsPDF/jspdf.js"></script>
   <script type="text/javascript" src="../../node_modules/jsPDF/plugins/standard_fonts_metrics.js"></script>

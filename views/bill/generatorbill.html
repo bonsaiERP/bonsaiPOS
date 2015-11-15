@@ -1,0 +1,76 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<title>BonsaiPOS</title>
+<script>
+window.$ = window.jQuery = require('../../libs/jquery.min.js');
+</script>
+<script src="../../models/bill/generatorbill.js" type="text/javascript"></script>
+<script src="../../models/database/database.js" type="text/javascript"></script>
+<script src="../../models/passvar.js" type="text/javascript"></script>
+<link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</script>
+</head>
+<body>
+
+<script>
+
+  get_initial_data();
+
+  //Generamos la cabecera de la factura
+  document.write(get_name_company());
+  document.write("<br>");
+  document.write(get_direction_company());
+  document.write("<br>");
+  document.write(get_city_and_county());
+  document.write("<br>");
+
+  //Generamos datos de facturacion de la empresa
+  document.write("NIT: "+ get_nit_company());
+  document.write("<br>");
+  document.write("FACTURA: "+ get_number_bill());
+  document.write("<br>");
+  document.write("AUTORIZACION: "+ get_number_of_authorization());
+  document.write("<br>");
+
+  //Generamos datos de facturacion del cliente
+  document.write("FECHA: "+ get_date_of_sell());
+  document.write("<br>");
+  document.write("NOMBRE: "+ get_name_buyer());
+  document.write("<br>");
+  document.write("NIT: "+ get_nit_buyer());
+  document.write("<br>");
+
+  //Generamos detalle de venta
+  var detail = get_detail_of_sale();
+  document.write("Cant    Descripcion   Unit    Importe");
+  document.write("<br>");
+  for(var i = 0; i < detail.length; i++)
+  {
+    document.write(detail[i].quantity + " " + detail[i].name + " " + detail[i].price + " " + detail[i].price*detail[i].quantity);
+    document.write("<br>");
+  }
+
+  //Generamos total de venta, el dinero recibido, el cambio recibido y el total en literal
+  document.write("TOTAL A PAGAR: "+ get_total_of_sale());
+  document.write("<br>");
+  document.write("EFECTIVO: "+ get_total_of_money_buyer_gave());
+  document.write("<br>");
+  document.write("CAMBIO: "+ get_change());
+  document.write("<br>");
+  document.write("SON: "+ get_literal_number(get_total_of_sale()));
+  document.write("<br>");
+  //Generamos código de control y fecha límite de edición
+  document.write("CODIGO DE CONTROL: "+ get_secure_code());
+  document.write("<br>");
+  //Generamos cosas extra
+
+
+
+
+  generatebill();
+</script>
+
+</body>
+</html>
