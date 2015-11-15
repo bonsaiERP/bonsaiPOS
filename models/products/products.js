@@ -89,7 +89,7 @@ $(document).ready(function () {
         var stores = response;
 
         console.log(response[0].name);
-        
+
       });
 		})
     .fail(function (ajaxContext){
@@ -101,16 +101,7 @@ $(document).ready(function () {
 	});
 
 
-  var json = JSON.stringify(getProducts());
-	var blob = new Blob([json], {type: "application/json"});
-	var url  = URL.createObjectURL(blob);
 
-	var file = document.createElement('a');
-	file.download    = "_items.json";
-	file.href        = url;
-	file.textContent = "Items.json";
-
-	document.getElementById('download').appendChild(file);
 });
 
 function stock_pos(stocks){
