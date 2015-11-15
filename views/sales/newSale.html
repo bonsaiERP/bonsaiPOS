@@ -22,11 +22,29 @@ function verify_cashier(){
   }
 }
 </script>
+<script type="text/javascript">
+function key(event){
+  var keycode=event.keyCode;
+  if (keycode==113) {
+    $('#btn_cancel').click();
+  };
+  if (keycode==99) {
+    $('#btn-client').click();
+  };
+  if (keycode==112) {
+    $('#form1').submit();
+  };
+  if (keycode==121) {
+    $('#btn_confirm').click();
+  };
+  //alert(event.keyCode);
+}
+</script>
 <link href="../../libs/jquery-ui.css" rel="stylesheet">
 
 </head>
 
-<body onload="verify_cashier()">
+<body onload="verify_cashier(), document.getElementById('business_name').focus()", onkeypress="javascript:key(event);" >
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -111,20 +129,31 @@ function verify_cashier(){
     <div class="alert alert-dismissible alert-success" id="alertMessage" hidden="true">
       <button type="button" class="close" data-dismiss="alert">×</button>
     </div>
+    <form id="form3">
+      <label>Nombre:</label>
+
+      <input type="text" class="form-control" id="name-field" placeholder="Nombre cliente"><br>
+
+      <center><input type="submit" name="btn-client" class="btn btn-success" id="btn-client" value="Agregar Cliente"  ></center>
+    </form>
+    <table class="table table-striped table-hover" style="width:100%" id="tblclient">
+        </table>
+
     <h1 align="center">Nueva Venta</h1><br/>
 
-
-      <form id="form3">
-        <label>Nombre:</label>
-
-        <input type="text" class="form-control" id="name-field" placeholder="Nombre cliente"><br>
-
-        <center><input type="submit" name="btn-client" class="btn btn-success" id="btn-client" value="Agregar Cliente"  ></center>
-      </form>
-      <table class="table table-striped table-hover" style="width:100%" id="tblclient">
-          </table>
-
       <form id="form1">
+
+        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2  col-lg-3 col-md-3 col-sm-3 col-xs-12" align="right">
+          <input class="form-control" type="text" name="business_name" id="business_name" placeholder="Razon Social"/>
+        </div>
+
+
+        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2  col-lg-3 col-md-3 col-sm-3 col-xs-12" align="right">
+          <input class="form-control" type="text" name="nit" id="nit" placeholder="Nit"/>
+        </div>
+        <br><br><br>
+
+        <h2 align="center">Introducir productos</h2><br/>
         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2  col-lg-3 col-md-3 col-sm-3 col-xs-12" align="right">
           <input class="form-control" type="text" name="name_product" id="name_product" placeholder="Nombre de producto o codigo"/>
         </div>
@@ -162,6 +191,17 @@ function verify_cashier(){
         <button class="btn btn-danger" id="btn_cancel" style="display:none;">Cancelar Venta</button>
       </div>
     </div>
+
+
+    <form id="form3" onsubmit="return false">
+      <label>Nombre:</label>
+
+      <input type="text" class="form-control" id="name-field" placeholder="Nombre cliente"><br>
+
+      <center><input type="submit" name="btn-client" class="btn btn-success" id="btn-client" value="Agregar Cliente"  ></center>
+    </form>
+    <table class="table table-striped table-hover" style="width:100%" id="tblclient">
+        </table>
 
 
 
@@ -207,7 +247,8 @@ function verify_cashier(){
         </div>
       </div>
     </div>
-
+    <br>
+  <p><center> c => Agregar Cliente ; p => Añadir Producto ; y => Confirmar Venta ; q => Cancelar Venta ; TAB => Navegar </center></p>
   </div>
   <script type="text/javascript" src="../../node_modules/jsPDF/jspdf.js"></script>
   <script type="text/javascript" src="../../node_modules/jsPDF/plugins/standard_fonts_metrics.js"></script>

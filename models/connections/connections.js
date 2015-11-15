@@ -4,7 +4,7 @@ var db = new DataBase();
 
 function tokenIsHere(table_name, value) {
   // lista = db.getTableDos(table_name);
-  lista = db.getTable(table_name,'\\views\\connectionERP',2);
+  lista = db.getTable(table_name, '\\views\\connectionERP', 2);
 
   for (var i = 0; i < lista.length; i++) {
     if (lista[i].token == value) {
@@ -15,7 +15,7 @@ function tokenIsHere(table_name, value) {
 }
 
 
-function resetDropList(){
+function resetDropList() {
   $("#list").html("");
 }
 
@@ -37,10 +37,10 @@ $(document).ready(function () {
         var list = [];
         list.push(new_token);
         // db.putTableDos("token", list);
-        db.putTable("token", list, '\\views\\connectionERP',2);
+        db.putTable("token", list, '\\views\\connectionERP', 2);
 
         // var user = db.getTableDos("token");
-        var user = db.getTable("token",'\\views\\connectionERP',2);
+        var user = db.getTable("token", '\\views\\connectionERP', 2);
         var stores = {
           "async": true,
           "crossDomain": true,
@@ -52,22 +52,38 @@ $(document).ready(function () {
           }
         };
 
+        var contactos = {
+          "async": true,
+          "crossDomain": true,
+          "url": "http://catolica.bonsaierp.com:3000/api/v1/contacts",
+          "method": "GET",
+          "headers": {
+            "token": user[0].token,
+            "cache-control": "no-cache"
+          }
+        };
+
         $.ajax(stores).done(function (response) {
           var stores = response;
           // $("#almacen").text(response[1].name);
-          if(stores.length !== 0){
+          if (stores.length !== 0) {
             for (var i = 0; i < stores.length; i++) {
               $("#list").append("<option value=" + response[i].name + ">" + response[i].name + "</option>");
             }
           }
-
-
-
         });
-      }else{
+
+        $.ajax(contactos).done(function (response) {
+          var contactos = response;
+          alert("sssssssssssssssss");
+          // $("#almacen").text(response[1].name);
+          console.log(contactos);
+        });
+        
+      } else {
         var list = [];
         // db.putTableDos("token", list);
-        db.putTable("token", list, '\\views\\connectionERP',2);
+        db.putTable("token", list, '\\views\\connectionERP', 2);
         resetDropList();
       }
     }
@@ -78,20 +94,25 @@ $(document).ready(function () {
   $("#get_name").click(function () {
 
     var nombre_almacen = $("#list option:selected").text();
-    if (nombre_almacen === ""){
+    if (nombre_almacen === "") {
       // alert("Conexion erronea");
       mensaje();
-      set_data_to_push_nameoffice("Conectar ERP",'\\views\\bd\\token.json',2);
+      set_data_to_push_nameoffice("Conectar ERP", '\\views\\bd\\token.json', 2);
       $("#almacen").text("Conectar ERP");
     }
-    else{
-      set_data_to_push_nameoffice(nombre_almacen,'\\views\\connectionERP',2);
+    else {
+      set_data_to_push_nameoffice(nombre_almacen, '\\views\\connectionERP', 2);
       $("#almacen").text(nombre_almacen);
     }
   });
+
+
+
+
+
 });
 
-function mensaje(){
-	$('#modalBodyMessageDanger').html("<p>No se puede realizar la conexion</p>");
+function mensaje() {
+  $('#modalBodyMessageDanger').html("<p>No se puede realizar la conexion</p>");
   $('#myDangerModal').modal('show');
 }

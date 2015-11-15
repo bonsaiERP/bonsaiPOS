@@ -1,14 +1,11 @@
 /* global DataBase */
-
 var fs = require('fs');
 var total = 0;
-
-
 var ci;
-
 var db = new DataBase();
 var myObject = db.getTable("products",'\\views\\sales',2);
-
+var business_name;
+var nit;
 
 if(localStorage.getItem('reload')==1)
 {
@@ -21,8 +18,6 @@ if(localStorage.getItem('reload')==1)
     open_bill_view();
   }
 }
-
-
 
 function showAlertMessage(tipeMessage)
 {
@@ -58,6 +53,8 @@ function showAlertMessage(tipeMessage)
     var data_table = $("#tblDatos");
     var amount_product = $("#amount_product").val();
     var name_product = $("#name_product").val();
+    business_name = $("#business_name").val();
+    nit = $("#nit").val();
 
     if(Number(name_product) != true){
       for (var cont = 0; cont < myObject.length; cont++) {
@@ -153,7 +150,6 @@ if(rowCount<1){
 
     }
 
-
               for (var cont = 0; cont < clients.length; cont++) {
                 aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
                 if (aux == name) {
@@ -163,9 +159,6 @@ if(rowCount<1){
                 ci=client_id;
 
               }
-
-
-
 
       if (!$('#name-field').val()) {
         name="sin cliente"
@@ -184,19 +177,7 @@ if(rowCount<1){
     $('#myDangerModal2').modal('show');
 
   }
-
-  });
-
-
-
-
-
-
-
-
-
-
-
+});
 
   $("#add_btn").click(function () {
     showAlertMessage("danger");
@@ -218,7 +199,7 @@ if(rowCount<1){
         var aux = mySales.length;
         id = mySales[aux-1].id + 1;
       }
-      var sale = { "id": id, "date": date, "total": total , "client":client};
+      var sale = { "id": id, "date": date, "total": total , "client":client, "business_name":business_name, "nit":nit};
 
       mySales.push(sale);
       db.putTable("sales", mySales,'\\views\\sales',2);
@@ -226,7 +207,7 @@ if(rowCount<1){
       db.putTable("products", myObject,'\\views\\sales',2);
       //generatePDF(sale,client);
 
-      var to_bill = {"id_sale":id,"nit_buyer":"INGRESE NIT AQUI","name_buyer":"INGRESE NOMBRE AQUI","date":date, "sale": sale, "cliente": client};
+      var to_bill = {"id_sale":id,"nit_buyer":nit,"name_buyer":business_name,"date":date};
       set_data_to_push(to_bill,'\\views\\sales',2);
 
       location.reload();
@@ -307,7 +288,7 @@ function fnselect(value, amount_value) {
 }
 
 $(document).ready(function() {
-
+//Cargar datos cliente
   var clients = db.getTable("users",'\\views\\sales',2);
 
   var data2 = new Array("");
@@ -316,14 +297,31 @@ $(document).ready(function() {
   }
 
  $("#name-field").autocomplete({ source: data2 });
-
-  var stock = db.getTable("products",'\\views\\sales',2);
-
+//Cargar datos productos
+  var myObject = db.getTable("products",'\\views\\sales',2);
   var data = new Array("");
   for (var cont = 0; cont < myObject.length; cont++) {
     data.push(myObject[cont].name.toString());
     }
 	$("#name_product").autocomplete({ source: data });
+//Cargar nombre organizacion
+  var myOrganisation = db.getTable("organisations",'\\views\\sales',2);
+
+  var dataOrg = new Array("");
+  for (var cont = 0; cont < myOrganisation.length; cont++) {
+    dataOrg.push(myOrganisation[cont].name.toString());
+    }
+	$("#business_name").autocomplete({ source: dataOrg });
+
+  //Cargar nit organizacion
+    var myNit = db.getTable("organisations",'\\views\\sales',2);
+
+    var dataNit = new Array("");
+    for (var cont = 0; cont < myNit.length; cont++) {
+      dataNit.push(myNit[cont].nit.toString());
+      }
+  	$("#nit").autocomplete({ source: dataNit });
+
 	});
 //delete client
 
