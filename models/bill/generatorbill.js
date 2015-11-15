@@ -155,7 +155,7 @@ function get_change()
 
 function get_literal_number(tot)
 {
-  return "AQUI LITERAL DEL NUMERO"; //Cuando se obtenga el
+  return NumeroALetras(tot);
 }
 
 function get_secure_code()
