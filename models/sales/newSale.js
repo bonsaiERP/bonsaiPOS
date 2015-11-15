@@ -6,7 +6,9 @@ var total = 0;
 var ci;
 
 var db = new DataBase();
-var myObject = db.getTable("products",'\\views\\sales',2);
+
+
+
 
 
 if(localStorage.getItem('reload')==1)
@@ -50,6 +52,8 @@ function showAlertMessage(tipeMessage)
     var data_table = $("#tblDatos");
     var amount_product = $("#amount_product").val();
     var name_product = $("#name_product").val();
+    var business_name = $("#business_name").val();
+    var nit = $("#nit").val();
 
     if(Number(name_product) != true){
       for (var cont = 0; cont < myObject.length; cont++) {
@@ -289,7 +293,7 @@ function fnselect(value, amount_value) {
 }
 
 $(document).ready(function() {
-
+//Cargar datos cliente
   var clients = db.getTable("users",'\\views\\sales',2);
 
   var data2 = new Array("");
@@ -298,14 +302,31 @@ $(document).ready(function() {
   }
 
  $("#name-field").autocomplete({ source: data2 });
-
-  var stock = db.getTable("products",'\\views\\sales',2);
-
+//Cargar datos productos
+  var myObject = db.getTable("products",'\\views\\sales',2);
   var data = new Array("");
   for (var cont = 0; cont < myObject.length; cont++) {
     data.push(myObject[cont].name.toString());
     }
 	$("#name_product").autocomplete({ source: data });
+//Cargar nombre organizacion
+  var myOrganisation = db.getTable("organisations",'\\views\\sales',2);
+
+  var dataOrg = new Array("");
+  for (var cont = 0; cont < myOrganisation.length; cont++) {
+    dataOrg.push(myOrganisation[cont].name.toString());
+    }
+	$("#business_name").autocomplete({ source: dataOrg });
+
+  //Cargar nit organizacion
+    var myNit = db.getTable("organisations",'\\views\\sales',2);
+
+    var dataNit = new Array("");
+    for (var cont = 0; cont < myNit.length; cont++) {
+      dataNit.push(myNit[cont].nit.toString());
+      }
+  	$("#nit").autocomplete({ source: dataNit });
+
 	});
 
 
