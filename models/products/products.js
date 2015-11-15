@@ -1,55 +1,54 @@
 window.$ = window.jQuery = require('./libs/jquery.min.js');
 var db = new DataBase();
 
-if(localStorage.getItem('reload')==1)
-{
+if (localStorage.getItem('reload') == 1) {
   showAlertMessage("successProductUpdate");
   $("#alertMessage").show();
   localStorage.removeItem('reload');
 }
 
-function showAlertMessage(tipeMessage)
-{
+function showAlertMessage(tipeMessage) {
   $("#alertMessage").removeClass();
-  if(tipeMessage=="successProductUpdate"){
+  if (tipeMessage == "successProductUpdate") {
     $("#alertMessage").addClass("alert alert-dismissible alert-success");
-    $("#alertMessage")[0].innerHTML='<p>Los productos fueron actualizados exitosamente.</p>';
+    $("#alertMessage")[0].innerHTML = '<p>Los productos fueron actualizados exitosamente.</p>';
   }
-  else{
+  else {
     $("#alertMessage").addClass("alert alert-dismissible alert-danger");
-    $("#alertMessage")[0].innerHTML='<p>Error al Actualizar los productos.</p>';
+    $("#alertMessage")[0].innerHTML = '<p>Error al Actualizar los productos.</p>';
   }
 }
 
 function getProducts() {
-	var products = db.getTable('products','',2);
-	return products;
+  var products = db.getTable('products', '', 2);
+  return products;
 }
 
-$(document).ready(function () {
+function mensaje() {
+  alert("mensaje de product js");
+}
 
-	$("#update").click(function () {
+function sincronizar() {
 
-
-    user = db.getTable('token','',2);
-
-  		var items = {
-  			"async": true,
-  			"crossDomain": true,
-  			"url": "http://catolica.bonsaierp.com:3000/api/v1/items",
-  			"method": "GET",
-  			"headers": {
+  var user = db.getTable('token', '', 2);
+  // var user = bd.getTableDos('token');
+  var items = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://catolica.bonsaierp.com:3000/api/v1/items",
+    "method": "GET",
+    "headers": {
   				"token": user[0].token,
   				"cache-control": "no-cache"
-  			}
-  		};
+    }
+  };
 
-  		var stocks = {
-  			"async": true,
-  			"crossDomain": true,
-  			"url": "http://catolica.bonsaierp.com:3000/api/v1/stocks",
-  			"method": "GET",
-  			"headers": {
+  var stocks = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://catolica.bonsaierp.com:3000/api/v1/stocks",
+    "method": "GET",
+    "headers": {
   				"token": user[0].token,
   				"cache-control": "no-cache"
   			}
@@ -92,50 +91,52 @@ $(document).ready(function () {
 
       });
 		})
-    .fail(function (ajaxContext){
+    .fail(function (ajaxContext) {
       //showAlertMessage("errorProductUpdate");
       //$("#alertMessage").show();
       alert("Error al Actualizar los productos.");
       $('#progressbar-2').html("Error en la Descarga.");
     });
-	});
+}
 
+$(document).ready(function () {
 
+  $("#update").click(function () {
+    sincronizar();
+  });
 
 });
 
-function stock_pos(stocks){
-	var stock = [];
-	var pos = 0;
-	for (var i = 0; i < stocks.length; i++) {
-		if (stocks[i].store_id == 1)
-		{
-			stock[pos] = stocks[i];
-			pos++;
-		}
-	}
-	return stock;
+function stock_pos(stocks) {
+  var stock = [];
+  var pos = 0;
+  for (var i = 0; i < stocks.length; i++) {
+    if (stocks[i].store_id == 1) {
+      stock[pos] = stocks[i];
+      pos++;
+    }
+  }
+  return stock;
 }
 
-function agregarAmount(products, stocks){
+function agregarAmount(products, stocks) {
 
-	var products_pos = [];
-	var cont = 0;
+  var products_pos = [];
+  var cont = 0;
 
-stock = stock_pos(stocks);
-for (var i = 0; i < stock.length; i++) {
-	for (var j = 0; j < products.length; j++) {
-       if (stock[i].item_id == products[j].id)
-			 {
-				 products_pos[cont] = products[j];
-				 products_pos[cont]["amount"] = stock[i].quantity;
-				 cont++;
-			 }
-}
-}
-	console.log(products_pos.length);
+  stock = stock_pos(stocks);
+  for (var i = 0; i < stock.length; i++) {
+    for (var j = 0; j < products.length; j++) {
+      if (stock[i].item_id == products[j].id) {
+        products_pos[cont] = products[j];
+        products_pos[cont]["amount"] = stock[i].quantity;
+        cont++;
+      }
+    }
+  }
+  console.log(products_pos.length);
 
-	return products_pos;
-	// console.log(products[0]);
+  return products_pos;
+  // console.log(products[0]);
 
 }
