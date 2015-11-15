@@ -198,9 +198,10 @@ if(rowCount<1){
 
 
 
-$("#add_btn").click(function () {
-  showAlertMessage("danger");
-});
+  $("#add_btn").click(function () {
+    showAlertMessage("danger");
+  });
+
   $("#btn_confirm").click(function () {
 
       var mySales = db.getTable("sales",'\\views\\sales',2);
@@ -223,9 +224,9 @@ $("#add_btn").click(function () {
       db.putTable("sales", mySales,'\\views\\sales',2);
       registerSalesProducts(sale.id)
       db.putTable("products", myObject,'\\views\\sales',2);
-      generatePDF(sale,client);
+      //generatePDF(sale,client);
 
-      var to_bill = {"id_sale":id,"nit_buyer":"INGRESE NIT AQUI","name_buyer":"INGRESE NOMBRE AQUI","date":date};
+      var to_bill = {"id_sale":id,"nit_buyer":"INGRESE NIT AQUI","name_buyer":"INGRESE NOMBRE AQUI","date":date, "sale": sale, "cliente": client};
       set_data_to_push(to_bill,'\\views\\sales',2);
 
       location.reload();
@@ -408,8 +409,12 @@ function generatePDF(sale,client)
 
   doc.text(20, i*60+90, '------------');
 
+
   doc.setFontSize(18);
   doc.text(20, i*60+100, 'TOTAL: '+ sale.total);
+  // var out = jsPDF.output();
+  // var url = 'data:application/pdf;base64,' + Base64.encode(out);
+  // document.location.href = url;
   doc.save('NotaDeVenta'+String(sale.id)+'.pdf');
 }
 
@@ -425,5 +430,5 @@ function registerSalesProducts(id)
 function open_bill_view()
 {
   var path = getpathproyect('\\views\\sales',2) + converpath('\\views\\bill\\generatorbill.html',3);
-  window.open(path);
+  window.open(path, '', 'width=400,height=600');
 }

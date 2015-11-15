@@ -14,33 +14,81 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
 </head>
 <body>
 
+<div class="container">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+    <h4 id="name_company"><strong></strong></h4>
+    <p id="direction_company"></p>
+    <p>Av. Libertador Bolivar Nro 1521</p>
+    <p>Telef: 4416565 - 66</p>
+    <p id="city_and_country"></p>
+    <p>------------------------------</p>
+    <p><strong>Factura</strong></p>
+    <p id="nit_company"></p>
+    <p id="bill_number"></p>
+    <p id="authorization_number"></p>
+    <p>------------------------------</p>
+    <p><strong>Actividad Economica</strong></p>
+    <p id="date_of_sale"> </p>
+    <p id="buyer_name"></p>
+    <p id="buyer_nit"></p>
+    <p>------------------------------</p>
+    <table id="detail_of_sale">
+      <tr>
+        <td>CANT</td>
+        <td>CONCEPTO</td>
+        <td>PRECIO</td>
+        <td>TOTAL</td>
+      </tr>
+    </table>
+    <p align="right">----------------</p>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">IMPORTE TOTAL Bs. </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="total_of_sale" style="text-align:right;"></div>
+    <br>
+    <label>DESCUENTO Bs. </label>
+    <label>0.00</label>
+    <p align="right">---------------</p>
+    <label >TOTAL Bs. </label>
+    <label>0.00</label>
+    <br>
+    <label>PAGADO Bs. </label>
+    <label id="total_of_buyer_gave" style="display: inline-block; text-align:right;">0.00</label>
+    <br>
+    <label>Cambio Bs. </label>
+    <label id="change" style="text-align:right;">0.00</label>
+    <br>
+    <p id="literal_number">Son: Doscientos Veintitres 50/100 BOLIVIANOS</p>
+    <p id="secure_code">Codigo de Control: </p>
+    <p id="seller">Vendedor: </p>
+  <div>
+</div>
+
 <script>
 
   get_initial_data();
 
   //Generamos la cabecera de la factura
-  document.write(get_name_company());
-  document.write("<br>");
-  document.write(get_direction_company());
-  document.write("<br>");
-  document.write(get_city_and_county());
-  document.write("<br>");
+  // document.write(get_name_company());
+  // document.write("<br>");
+  // document.write(get_direction_company());
+  // document.write("<br>");
+  // document.write(get_city_and_county());
+  // document.write("<br>");
 
   //Generamos datos de facturacion de la empresa
-  document.write("NIT: "+ get_nit_company());
-  document.write("<br>");
-  document.write("FACTURA: "+ get_number_bill());
-  document.write("<br>");
-  document.write("AUTORIZACION: "+ get_number_of_authorization());
-  document.write("<br>");
+  // document.write("NIT: "+ get_nit_company());
+  // document.write("<br>");
+  // document.write("FACTURA: "+ get_number_bill());
+  // document.write("<br>");
+  // document.write("AUTORIZACION: "+ get_number_of_authorization());
+  // document.write("<br>");
 
   //Generamos datos de facturacion del cliente
-  document.write("FECHA: "+ get_date_of_sell());
-  document.write("<br>");
-  document.write("NOMBRE: "+ get_name_buyer());
-  document.write("<br>");
-  document.write("NIT: "+ get_nit_buyer());
-  document.write("<br>");
+  // document.write("FECHA: "+ get_date_of_sell());
+  // document.write("<br>");
+  // document.write("NOMBRE: "+ get_name_buyer());
+  // document.write("<br>");
+  // document.write("NIT: "+ get_nit_buyer());
+  // document.write("<br>");
 
   //Generamos detalle de venta
   var detail = get_detail_of_sale();
@@ -53,17 +101,17 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
   }
 
   //Generamos total de venta, el dinero recibido, el cambio recibido y el total en literal
-  document.write("TOTAL A PAGAR: "+ get_total_of_sale());
-  document.write("<br>");
-  document.write("EFECTIVO: "+ get_total_of_money_buyer_gave());
-  document.write("<br>");
-  document.write("CAMBIO: "+ get_change());
-  document.write("<br>");
-  document.write("SON: "+ get_literal_number(get_total_of_sale()));
-  document.write("<br>");
+  // document.write("TOTAL A PAGAR: "+ get_total_of_sale());
+  // document.write("<br>");
+  // document.write("EFECTIVO: "+ get_total_of_money_buyer_gave());
+  // document.write("<br>");
+  // document.write("CAMBIO: "+ get_change());
+  // document.write("<br>");
+  // document.write("SON: "+ get_literal_number(get_total_of_sale()));
+  // document.write("<br>");
   //Generamos código de control y fecha límite de edición
-  document.write("CODIGO DE CONTROL: "+ get_secure_code());
-  document.write("<br>");
+  // document.write("CODIGO DE CONTROL: "+ get_secure_code());
+  // document.write("<br>");
   //Generamos cosas extra
 
 
@@ -71,6 +119,10 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
 
   generatebill();
 </script>
+
+<form> 
+  <input type='button' onclick='window.print();' value='Imprimir' />
+</form> 
 
 </body>
 </html>
