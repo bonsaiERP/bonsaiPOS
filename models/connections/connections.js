@@ -19,6 +19,8 @@ function resetDropList() {
   $("#list").html("");
 }
 
+
+
 $(document).ready(function () {
 
 
@@ -52,17 +54,6 @@ $(document).ready(function () {
           }
         };
 
-        var contactos = {
-          "async": true,
-          "crossDomain": true,
-          "url": "http://catolica.bonsaierp.com:3000/api/v1/contacts",
-          "method": "GET",
-          "headers": {
-            "token": user[0].token,
-            "cache-control": "no-cache"
-          }
-        };
-
         $.ajax(stores).done(function (response) {
           var stores = response;
           // $("#almacen").text(response[1].name);
@@ -71,15 +62,7 @@ $(document).ready(function () {
               $("#list").append("<option value=" + response[i].name + ">" + response[i].name + "</option>");
             }
           }
-        });
-
-        $.ajax(contactos).done(function (response) {
-          var contactos = response;
-          alert("sssssssssssssssss");
-          // $("#almacen").text(response[1].name);
-          console.log(contactos);
-        });
-        
+        });        
       } else {
         var list = [];
         // db.putTableDos("token", list);
