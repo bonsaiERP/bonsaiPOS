@@ -138,7 +138,7 @@ function isTime() {
 
 	if (isDaily()) {
 		console.log(time);
-		if ("16:13" == time.hour + ":" + time.minute) {
+		if ("20:18" == time.hour + ":" + time.minute) {
 			console.log("es hora");
 			respuesta = true;
 		} else {
@@ -149,14 +149,50 @@ function isTime() {
 	return respuesta;
 }
 
-function synchronisationDaily() {
-	if (isTime()) {
-		sincronizar();
-		console.log("Sincronizacion diaria ejecutada");
+function isLate(){
+	var fecha = new Date($.now());
+	var hora_establecida = 20
+	var minutos_establecidos = 18
+	var late = false;
+	if(hora_establecida < fecha.getHours()){
+		late = true;
 	}
-	setTimeout("synchronisationDaily()", 5000);
+	else {
+		if(hora_establecida == fecha.getHours()){
+			if (minutos_establecidos < fecha.getMinutes()) {
+				late = true;
+			}
+		}
+	}
+	return late;
 }
 
-setTimeout("synchronisationDaily()", 1000);
 
+function sincronizacionDiaria(){
+	if(isTime()){
+		sincronizar();
+	}
+	else {
+		if(isLate()){
+			sincronizar();
+		}
+	}
+	setTimeout("sincronizacionDiaria()", 5000);
+}
 
+//
+// function synchronisationDaily() {
+//
+// 	if (isTime()) {
+// 		sincronizar();
+// 		synchronized = true
+// 		remaining_time = 24000
+// 		console.log("Sincronizacion diaria ejecutada");
+// 	}
+// 	setTimeout("synchronisationDaily()", remaining_time);
+//
+// }
+
+// setTimeout("synchronisationDaily()", 1000);
+// synchronisationDaily();
+sincronizacionDiaria();
