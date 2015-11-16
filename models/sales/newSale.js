@@ -6,6 +6,7 @@ var db = new DataBase();
 var myObject = db.getTable("products",'\\views\\sales',2);
 var business_name;
 var nit;
+var clients= db.getTable("users",'\\views\\sales',2);
 
 if(localStorage.getItem('reload')==1)
 {
@@ -133,9 +134,9 @@ function showAlertMessage(tipeMessage)
     event.preventDefault();
     var data_table = $("#tblclient");
     var rowCount = $('#tblclient tr').length;
-    var clients = db.getTable("users",'\\views\\sales',2);
     var client_id=0
     var aux=""
+    var business_name=""
 if(rowCount<1){
     name=$('#name-field').val();
 
@@ -144,7 +145,7 @@ if(rowCount<1){
         if(clients[cont].ci==name){
           client_id=clients[cont].ci;
           name=clients[cont].name +" "+ clients[cont].lastname ;
-
+          
         }
       }
 
@@ -154,6 +155,8 @@ if(rowCount<1){
                 aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
                 if (aux == name) {
                   client_id=clients[cont].ci
+                  business_name=clients[cont].business_name
+                  nit=clients[cont].nit
 
                 }
                 ci=client_id;
@@ -167,7 +170,8 @@ if(rowCount<1){
       else {
         data_table.append('<tr id=tr_client> <td> <b> Cliente: </b></td><td> '+ name +"</td><td> <b>CI:</b>"+client_id +'</td> <td> <input type="button" id= "deleteclient" onclick= "deleteclient()" value="Borrar"/> </td></tr>')
 
-
+        $('#business_name').val(business_name);
+        $('#nit').val(nit);
 
       }
 
@@ -206,6 +210,21 @@ if(rowCount<1){
       registerSalesProducts(sale.id)
       db.putTable("products", myObject,'\\views\\sales',2);
       //generatePDF(sale,client);
+
+      
+      name=$('#name-field').val();
+      for (var cont = 0; cont < clients.length; cont++) {
+        aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
+        if (aux == name) {
+          clients[cont].business_name=$('#business_name').val();
+          clients[cont].nit=$('#nit').val();
+          console.log('hola');
+
+        }
+      }
+      db.putTable("users", clients,'\\views\\sales',2);
+
+
 
       var to_bill = {"id_sale":id,"nit_buyer":nit,"name_buyer":business_name,"date":date};
       set_data_to_push(to_bill,'\\views\\sales',2);
