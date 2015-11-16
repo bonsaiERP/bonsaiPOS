@@ -84,7 +84,24 @@ function extract_sale()
 }
 
 
+$(document).ready(function() {
+  $("#name_company").text(company.socialreason);
+  $("#direction_company").text(company.address);
+  $("#city_and_country").text('BOLIVIA');
+  $("#nit_company").text('NIT: '+nit_company);
+  $("#bill_number").text('FACTURA No. '+number_of_bill);
+  $("#authorization_number").text('AUTORIZACION No. '+number_of_authorization);
+  $("#date_of_sale").text('FECHA: '+date_of_sell);
+  $("#buyer_name").text('SE&ntilde;OR(ES): '+name_buyer);
+  $("#buyer_nit").text('NIT/CI: '+nit_buyer);
+  //IMPORTE TOTAL Bs.
+  $("#total_of_sale").text(sale.total);
+  //EFECTIVO:
+  $("#total_of_buyer_gave").text("AQUÍ CUANTO DINERO DIO EL CLIENTE");
+  //CAMBIO:
+  $("#change").text("AQUÍ EL CAMBIO");
 
+});
 
 function get_name_company()
 {
@@ -105,7 +122,7 @@ function get_city_and_county()
 
 function get_nit_company()
 {
-  return nit_company
+  return nit_company;
 }
 
 function get_number_bill()
