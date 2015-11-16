@@ -31,7 +31,7 @@ function get_initial_data()
   nit_buyer = data.nit_buyer;
   name_buyer = data.name_buyer;
   date_of_sell = data.date;
-
+  console.log(name_buyer);
   detail_of_sale = extract_detail_of_sale();
   sale = extract_sale();
 }
@@ -50,7 +50,7 @@ function generatebill()
   list.push(factura);
   db.putTable("bill", list,'\\views\\bill',2);
   set_data_to_push("",'\\views\\bill',2);
-  //El numero de autorización y de factura impresas se debe incrementar 
+  //El numero de autorización y de factura impresas se debe incrementar
 }
 
 function extract_detail_of_sale()
@@ -91,15 +91,18 @@ $(document).ready(function() {
   $("#nit_company").text('NIT: '+nit_company);
   $("#bill_number").text('FACTURA No. '+number_of_bill);
   $("#authorization_number").text('AUTORIZACION No. '+number_of_authorization);
-  $("#date_of_sale").text('FECHA: '+date_of_sell);
-  $("#buyer_name").text('SE&ntilde;OR(ES): '+name_buyer);
-  $("#buyer_nit").text('NIT/CI: '+nit_buyer);
+  $("#date_of_sale").text('FECHA: '+ date_of_sell);
+  $("#buyer_name").text('NOMBRE: '+ name_buyer);
+  $("#buyer_nit").text('NIT/CI: '+ nit_buyer);
   //IMPORTE TOTAL Bs.
   $("#total_of_sale").text(sale.total);
   //EFECTIVO:
   $("#total_of_buyer_gave").text("AQUÍ CUANTO DINERO DIO EL CLIENTE");
+  $("#literal_number").text("SON: "+ get_literal_number(sale.total));
   //CAMBIO:
   $("#change").text("AQUÍ EL CAMBIO");
+  //Otros
+  $("#secure_code").text("Codigo de Control: "+get_secure_code());
 
 });
 
@@ -206,7 +209,7 @@ function Decenas(num){
 
   switch(decena)
   {
-    case 1:   
+    case 1:
       switch(unidad)
       {
         case 0: return "DIEZ";
@@ -321,8 +324,8 @@ function NumeroALetras(num){
     enteros: Math.floor(num),
     centavos: (((Math.round(num * 100)) - (Math.floor(num) * 100))),
     letrasCentavos: "",
-    letrasMonedaPlural: "BOLIVIANOS",
-    letrasMonedaSingular: "BOLIVIANO"
+    letrasMonedaPlural: "-AQUI EL TIPO DE MONEDA PLURAL-",
+    letrasMonedaSingular: "-AQUI EL TIPO DE MONEDA SINGULAR-"
   };
 
   if (data.centavos > 0)

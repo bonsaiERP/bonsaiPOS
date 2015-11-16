@@ -118,7 +118,7 @@ function showAlertMessage(tipeMessage)
                   if (lastQuantity < $(this).val()) {
                     total_sale = $("#total").text();
                     //myObject[cont].amount = myObject[cont].amount - $(this).val();
-                    total_sale = parseInt(total_sale) + (parseInt(myObject[cont].price) * (parseInt($(this).val())-lastQuantity));
+                    total_sale = (total_sale) + ((myObject[cont].price) * (($(this).val())-lastQuantity));
                     $("#total").text(total_sale);
                     lastQuantity = $(this).val();
                     totalprice= myObject[cont].price * lastQuantity;
@@ -359,7 +359,7 @@ function getProductsFromSalesTable()
   var products = [];
   for (var i = 1, row; row = table.rows[i]; i++) {
     row
-    var product = { "id": row.cells[0].innerHTML, "code": row.cells[1].innerHTML, "name": row.cells[2].innerHTML , "quantity": String(parseInt(row.cells[5].innerHTML)/parseInt(row.cells[4].innerHTML)), "price": row.cells[4].innerHTML, "total": row.cells[5].innerHTML};
+    var product = { "id": row.cells[0].innerHTML, "code": row.cells[1].innerHTML, "name": row.cells[2].innerHTML , "quantity": String((row.cells[5].innerHTML)/(row.cells[4].innerHTML)), "price": row.cells[4].innerHTML, "total": row.cells[5].innerHTML};
     products.push(product);
   };
   return products;
@@ -371,7 +371,7 @@ function getSaleProducts(id)
   var products = [];
   for (var i = 1, row; row = table.rows[i]; i++) {
     row
-    var product = { "product_id": row.cells[0].innerHTML, "sale_id": id, "name": row.cells[2].innerHTML ,"quantity": String(parseInt(row.cells[5].innerHTML)/parseInt(row.cells[4].innerHTML)), "price": row.cells[4].innerHTML};
+    var product = { "product_id": row.cells[0].innerHTML, "sale_id": id, "name": row.cells[2].innerHTML ,"quantity": String((row.cells[5].innerHTML)/(row.cells[4].innerHTML)), "price": row.cells[4].innerHTML};
     products.push(product);
   };
   return products;
