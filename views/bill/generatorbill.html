@@ -41,13 +41,10 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
       </tr>
     </table>
     <p align="right">----------------</p>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">IMPORTE TOTAL Bs. </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">TOTAL Bs. </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="total_of_sale" style="text-align:right;"></div>
     <br>
     <label>DESCUENTO Bs. </label>
-    <label>0.00</label>
-    <p align="right">---------------</p>
-    <label >TOTAL Bs. </label>
     <label>0.00</label>
     <br>
     <label>PAGADO Bs. </label>
@@ -56,6 +53,8 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
     <label>Cambio Bs. </label>
     <label id="change" style="text-align:right;">0.00</label>
     <br>
+    <p align="right">---------------</p>
+
     <p id="literal_number">Son: Doscientos Veintitres 50/100 BOLIVIANOS</p>
     <p id="secure_code">Codigo de Control: </p>
     <p id="seller">Vendedor: </p>
@@ -117,12 +116,12 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
 
 
 
-  generatebill();
+  //generatebill();
 </script>
 
-<form> 
+<form>
   <input type='button' onclick='window.print();' value='Imprimir' />
-</form> 
+</form>
 
 </body>
 </html>
