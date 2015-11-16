@@ -70,6 +70,44 @@ function sincronizar() {
 		});
 	});
 
+	// ============================POST VENTAS========================
+	$('#progressbardiv').show();
+    $('#progressbar-2').animate({ width: '100%' }, 1, 'linear').html("Cargando...");
+
+    $.ajax({
+      headers: {token: user[0].token},
+      method: "POST",
+      url: "http://catolica.bonsaierp.com:3000/api/v1/incomes",
+      data: {
+        income: {
+        "date":"2015-11-16",
+        "due_date":"2015-11-19",
+        "contact_id":1,
+        "currency":"BOB",
+        "description":"Prueba ingreso",
+        "income_details_attributes":[
+          {"item_id":1,"price":7.0,"quantity":2,"description":"First item"},
+          {"item_id":2,"price":10.0,"quantity":1,"description":"Second item"}
+        ]}
+      }
+    })
+    .done(function(resp) {
+      console.log("saved", resp);
+      setTimeout(function(){
+         // showAlertMessage("successProductUpdate");
+         //$("#alertMessage").show();
+        alert("Los datos de la empresa fueron actualizados exitosamente.");
+        $('#progressbar-2').html("Descarga Completa.");
+      }, 1000);
+    })
+    .fail(function (ajaxContext){
+     //showAlertMessage("errorProductUpdate");
+     //$("#alertMessage").show();
+     alert("Error al Actualizar los datos de la empresa");
+   $('#progressbar-2').html("Error en la Descarga.");
+   });
+
+
 }
 
 
