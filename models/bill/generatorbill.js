@@ -94,14 +94,22 @@ $(document).ready(function() {
   $("#date_of_sale").text('FECHA: '+ date_of_sell);
   $("#buyer_name").text('NOMBRE: '+ name_buyer);
   $("#buyer_nit").text('NIT/CI: '+ nit_buyer);
+  // TABLA DE DATOS
+
+
+  var detail = $("#detail_of_sale_table");
+  for(var i=0; i<detail_of_sale.length; i++)
+  {
+    detail.append('<tr><td>'+detail_of_sale[i].quantity+'</td><td>'+detail_of_sale[i].name+'</td><td>'+detail_of_sale[i].price +'</td><td>'+detail_of_sale[i].price*detail_of_sale[i].quantity+'</td></tr>');
+  }
   //IMPORTE TOTAL Bs.
   $("#total_of_sale").text(sale.total);
   //EFECTIVO:
   $("#total_of_buyer_gave").text("AQUÍ CUANTO DINERO DIO EL CLIENTE");
-  $("#literal_number").text("SON: "+ get_literal_number(sale.total));
   //CAMBIO:
   $("#change").text("AQUÍ EL CAMBIO");
   //Otros
+  $("#literal_number").text("SON: "+ NumeroALetras(sale.total));
   $("#secure_code").text("Codigo de Control: "+get_secure_code());
 
 });
@@ -324,8 +332,8 @@ function NumeroALetras(num){
     enteros: Math.floor(num),
     centavos: (((Math.round(num * 100)) - (Math.floor(num) * 100))),
     letrasCentavos: "",
-    letrasMonedaPlural: "-AQUI EL TIPO DE MONEDA PLURAL-",
-    letrasMonedaSingular: "-AQUI EL TIPO DE MONEDA SINGULAR-"
+    letrasMonedaPlural: "BOLIVIANOS",
+    letrasMonedaSingular: "BOLIVIANO"
   };
 
   if (data.centavos > 0)

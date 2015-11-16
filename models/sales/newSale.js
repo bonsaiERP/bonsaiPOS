@@ -428,5 +428,5 @@ function registerSalesProducts(id)
 function open_bill_view()
 {
   var path = getpathproyect('\\views\\sales',2) + converpath('\\views\\bill\\generatorbill.html',3);
-  window.open(path, '', 'width=400,height=600');
+  window.open(path, '', 'width=420,height=600');
 }

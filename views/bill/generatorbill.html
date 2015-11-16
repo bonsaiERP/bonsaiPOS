@@ -32,7 +32,7 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
     <p id="buyer_name"></p>
     <p id="buyer_nit"></p>
     <p>------------------------------</p>
-    <table id="detail_of_sale">
+    <table id="detail_of_sale_table" class="table">
       <tr>
         <td>CANT</td>
         <td>CONCEPTO</td>
@@ -41,29 +41,51 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
       </tr>
     </table>
     <p align="right">----------------</p>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">TOTAL Bs. </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">IMPORTE TOTAL Bs.</div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="total_of_sale" style="text-align:right;"></div>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <br>
-    <label>DESCUENTO Bs. </label>
-    <label>0.00</label>
-    <br>
-    <label>PAGADO Bs. </label>
-    <label id="total_of_buyer_gave" style="display: inline-block; text-align:right;">0.00</label>
-    <br>
-    <label>Cambio Bs. </label>
-    <label id="change" style="text-align:right;">0.00</label>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">DESCUENTO Bs. </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="disccount" style="text-align:right;">0.00</div>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
     <br>
     <p align="right">---------------</p>
-
-    <p id="literal_number">Son: Doscientos Veintitres 50/100 BOLIVIANOS</p>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">TOTAL Bs. </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align:right;">0.00</div>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+    <br>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">PAGADO Bs. </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="total_of_buyer_gave" style="text-align:right;"></div>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+    <br>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Cambio Bs. </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="change" style="text-align:right;">0.00</div>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">
+    <br>
+    <p id="literal_number"></p>
     <p id="secure_code">Codigo de Control: </p>
     <p id="seller">Vendedor: </p>
-  <div>
+  </div>
 </div>
 
-<script>
+
+<form>
+  <div id="noprint"><input type='button' onclick='window.print();' value='Imprimir' /></div>
+</form>
+<script language="JavaScript">
 
   get_initial_data();
+
+function doPrint(){
+  document.all.item("noprint").style.visibility='hidden';
+  window.print();
+  document.all.item("noprint").style.visibility='visible';
+}
 
   //Generamos la cabecera de la factura
   // document.write(get_name_company());
@@ -90,14 +112,14 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
   // document.write("<br>");
 
   //Generamos detalle de venta
-  var detail = get_detail_of_sale();
-  document.write("Cant    Descripcion   Unit    Importe");
-  document.write("<br>");
-  for(var i = 0; i < detail.length; i++)
-  {
-    document.write(detail[i].quantity + " " + detail[i].name + " " + detail[i].price + " " + detail[i].price*detail[i].quantity);
-    document.write("<br>");
-  }
+  // var detail = get_detail_of_sale();
+  // document.write("Cant    Descripcion   Unit    Importe");
+  // document.write("<br>");
+  // for(var i = 0; i < detail.length; i++)
+  // {
+  //   document.write(detail[i].quantity + " " + detail[i].name + " " + detail[i].price + " " + detail[i].price*detail[i].quantity);
+  //   document.write("<br>");
+  // }
 
   //Generamos total de venta, el dinero recibido, el cambio recibido y el total en literal
   // document.write("TOTAL A PAGAR: "+ get_total_of_sale());
@@ -116,12 +138,7 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
 
 
 
-  //generatebill();
+  generatebill();
 </script>
-
-<form>
-  <input type='button' onclick='window.print();' value='Imprimir' />
-</form>
-
 </body>
 </html>
