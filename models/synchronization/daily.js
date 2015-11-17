@@ -10,12 +10,14 @@ var db = new DataBase();
 function getProducts() {
 	// var products = db.getTable('products', '', 2);
 	var products = db.getTableDos('products');
+	// var products = db.getTable("products",'\\views\\synchronization',2);
 	return products;
 }
 
 function sincronizar() {
 	// var user = db.getTable('token', '', 2);
-	var user = db.getTableDos('token');
+	// var user = db.getTableDos('token');
+	var user = db.getTable("token",'\\views\\synchronization',2);
 	console.log(user[0].token);
   		var items = {
 		"async": true,
@@ -59,7 +61,8 @@ function sincronizar() {
 			var products_pos = agregarAmount(products, stocks);
 
 			// db.putTable('products', products_pos, '', 2);
-			db.putTableDos('products', products_pos);
+			// db.putTableDos('products', products_pos);
+			db.putTable('products', products_pos, '\\views\\synchronization', 2);
 			setTimeout(function () {
 				alert("Los productos fueron actualizados exitosamente.");
 			}, 1000);
@@ -152,7 +155,7 @@ function isDaily() {
 
 	// var mySynchronization = db.getTable("synchronization", '\\views\\synchronization', 2);
 	var mySynchronization = db.getTableDos("synchronization");
-
+	// var mySynchronization = db.getTable("synchronization",'\\views\\synchronization',2);
 	for (var i = 0; i < mySynchronization.length; i++) {
 		if (mySynchronization[i].type === "daily")
 			return true;

@@ -57,7 +57,7 @@ $(document).ready(function(){
         var aux = myUser.length;
         id = myUser[aux-1].id + 1;
       }
-      var user = { "id": id, "name": name, "lastname": lastname, "ci" : ci, "date": date };
+      var user = { "id": id, "name": name, "lastname": lastname, "ci" : ci, "date": date, "sync": false };
       myUser.push(user);
       db.putTable("users", myUser,'\\views\\users',2);
       location.reload();

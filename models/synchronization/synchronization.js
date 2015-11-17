@@ -3,41 +3,31 @@ $(document).ready(function(){
     var fs = require('fs');
   	var db = new DataBase();
   	var type='';
+    var mySynchronization = [];
 
 
 
       $("#checkbox_check").click(function() {
 
-        if($("#daily").is(':checked') &&  $("#connections").is(':checked')) {
+        if($("#daily").is(':checked') &&  $("#change").is(':checked')) {
 
-          var mySynchronization = db.getTable("synchronization",'\\views\\synchronization',2);
-          var size = mySynchronization.length;
-          var id = 1;
-          if(mySynchronization.length != 0)
-          {
-            var aux = mySynchronization.length;
-            id = mySynchronization[aux-1].id + 1;
-          }
-          var synchronizationDaily = { "id": id, "type": "daily-connection" };
+
+          var synchronizationDaily = { "id": 1, "type": "daily" };
+          mySynchronization.push(synchronizationDaily);
+          db.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
+          var synchronizationDaily = { "id": 2, "type": "change" };
           mySynchronization.push(synchronizationDaily);
           db.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
           location.reload();
           localStorage.setItem('reload',1);
 
-            alert("Activado: Sincronizacion diaria y con conexion");
+            alert("Activado: Sincronizacion diaria y por modificacion");
         } else{
 
           if($("#daily").is(':checked')) {
 
-            var mySynchronization = db.getTable("synchronization",'\\views\\synchronization',2);
-            var size = mySynchronization.length;
-            var id = 1;
-            if(mySynchronization.length != 0)
-            {
-              var aux = mySynchronization.length;
-              id = mySynchronization[aux-1].id + 1;
-            }
-            var synchronizationDaily = { "id": id, "type": "daily" };
+
+            var synchronizationDaily = { "id": 1, "type": "daily" };
             mySynchronization.push(synchronizationDaily);
             db.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
             location.reload();
@@ -46,26 +36,19 @@ $(document).ready(function(){
               alert("Activado: Sincronizacion diaria");
           }
 
-          if($("#connections").is(':checked')) {
+          if($("#change").is(':checked')) {
 
-            var mySynchronization = db.getTable("synchronization",'\\views\\synchronization',2);
-            var size = mySynchronization.length;
-            var id = 1;
-            if(mySynchronization.length != 0)
-            {
-              var aux = mySynchronization.length;
-              id = mySynchronization[aux-1].id + 1;
-            }
-            var synchronizationDaily = { "id": id, "type": "connection" };
+
+            var synchronizationDaily = { "id": 1, "type": "change" };
             mySynchronization.push(synchronizationDaily);
             db.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
             location.reload();
             localStorage.setItem('reload',1);
 
-              alert("Activado: Sincronizacion con conexion");
+              alert("Activado: Sincronizacion por modificacion");
           }
          }
-         if( !$("#daily").is(':checked') &&  !$("#connections").is(':checked')) {
+         if( !$("#daily").is(':checked') &&  !$("#change").is(':checked')) {
             alert("Error: Debe selecionar al menos una opcion");
          }
 
