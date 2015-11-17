@@ -85,15 +85,15 @@ function extract_sale()
 
 
 $(document).ready(function() {
-  $("#name_company").text(company.socialreason);
-  $("#direction_company").text(company.address);
-  $("#city_and_country").text('BOLIVIA');
-  $("#nit_company").text('NIT: '+nit_company);
-  $("#bill_number").text('FACTURA No. '+number_of_bill);
-  $("#authorization_number").text('AUTORIZACION No. '+number_of_authorization);
-  $("#date_of_sale").text('FECHA: '+ date_of_sell);
-  $("#buyer_name").text('NOMBRE: '+ name_buyer);
-  $("#buyer_nit").text('NIT/CI: '+ nit_buyer);
+  $("#name_company").text(get_name_company());
+  $("#direction_company").text(get_direction_company());
+  $("#city_and_country").text(get_city_and_county());
+  $("#nit_company").text('NIT: '+get_nit_company());
+  $("#bill_number").text('FACTURA No. '+get_number_bill());
+  $("#authorization_number").text('AUTORIZACION No. '+get_number_of_authorization());
+  $("#date_of_sale").text('FECHA: '+ get_date_of_sell());
+  $("#buyer_name").text('NOMBRE: '+ get_name_buyer());
+  $("#buyer_nit").text('NIT/CI: '+ get_nit_buyer());
   // TABLA DE DATOS
 
 
@@ -103,11 +103,11 @@ $(document).ready(function() {
     detail.append('<tr><td>'+detail_of_sale[i].quantity+'</td><td>'+detail_of_sale[i].name+'</td><td>'+detail_of_sale[i].price +'</td><td>'+detail_of_sale[i].price*detail_of_sale[i].quantity+'</td></tr>');
   }
   //IMPORTE TOTAL Bs.
-  $("#total_of_sale").text(sale.total);
+  $("#total_of_sale").text(get_total_of_sale());
   //EFECTIVO:
-  $("#total_of_buyer_gave").text("AQUÍ CUANTO DINERO DIO EL CLIENTE");
+  $("#total_of_buyer_gave").text(get_total_of_money_buyer_gave());
   //CAMBIO:
-  $("#change").text("AQUÍ EL CAMBIO");
+  $("#change").text(get_change());
   //Otros
   $("#literal_number").text("SON: "+ NumeroALetras(sale.total));
   $("#secure_code").text("Codigo de Control: "+get_secure_code());
