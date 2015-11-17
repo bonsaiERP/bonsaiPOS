@@ -6,6 +6,7 @@
     window.$ = window.jQuery = require('../../libs/jquery.min.js');
 
   </script>
+  <script src="../../libs/shortcut.js" type="text/javascript"></script>
   <script src="../../models/cashier/cashier.js" type="text/javascript"></script>
   <script src="../../models/nameoffice.js" type="text/javascript"></script>
   <script src="../../models/passvar.js" type="text/javascript"></script>
@@ -22,29 +23,27 @@ function verify_cashier(){
   }
 }
 </script>
-<!--script type="text/javascript">
-function key(event){
-  var keycode=event.keyCode;
-  if (keycode==113) {
+<script type="text/javascript">
+function key(){
+  shortcut.add("Ctrl+Q", function(){
     $('#btn_cancel').click();
-  };
-  if (keycode==99) {
+  });
+  shortcut.add("Ctrl+S", function(){
     $('#btn-client').click();
-  };
-  if (keycode==112) {
+  });
+  shortcut.add("Ctrl+D", function(){
     $('#form1').submit();
-  };
-  if (keycode==121) {
+  });
+  shortcut.add("Ctrl+V", function(){
     $('#btn_confirm').click();
-  };
-  //alert(event.keyCode);
+  });
 }
-</script-->
+</script>
 <link href="../../libs/jquery-ui.css" rel="stylesheet">
 
 </head>
 
-<body onload="verify_cashier(), document.getElementById('business_name').focus()", onkeypress="javascript:key(event);" >
+<body onload="verify_cashier(), document.getElementById('business_name').focus(), key()">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -240,7 +239,7 @@ function key(event){
       </div>
     </div>
     <br>
-  <p><center> c => Agregar Cliente ; p => Añadir Producto ; y => Confirmar Venta ; q => Cancelar Venta ; TAB => Navegar </center></p>
+  <p><center> (Ctrl+s) => Agregar Cliente ; (Ctrl+d) => Añadir Producto ; (Ctrl+v) => Confirmar Venta ; (Ctrl+q) => Cancelar Venta ; TAB => Navegar </center></p>
   </div>
   <script type="text/javascript" src="../../node_modules/jsPDF/jspdf.js"></script>
   <script type="text/javascript" src="../../node_modules/jsPDF/plugins/standard_fonts_metrics.js"></script>
