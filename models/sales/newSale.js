@@ -118,7 +118,7 @@ function showAlertMessage(tipeMessage)
                   if (lastQuantity < $(this).val()) {
                     total_sale = $("#total").text();
                     //myObject[cont].amount = myObject[cont].amount - $(this).val();
-                    total_sale = (total_sale) + ((myObject[cont].price) * (($(this).val())-lastQuantity));
+                    total_sale = parseInt(total_sale) + (parseInt(myObject[cont].price) * (parseInt($(this).val())-lastQuantity));
                     $("#total").text(total_sale);
                     lastQuantity = $(this).val();
                     totalprice= myObject[cont].price * lastQuantity;
