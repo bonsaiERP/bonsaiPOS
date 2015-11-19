@@ -145,7 +145,7 @@ if(rowCount<1){
         if(clients[cont].ci==name){
           client_id=clients[cont].ci;
           name=clients[cont].name +" "+ clients[cont].lastname ;
-          
+
         }
       }
 
@@ -203,7 +203,7 @@ if(rowCount<1){
         var aux = mySales.length;
         id = mySales[aux-1].id + 1;
       }
-      var sale = { "id": id, "date": date, "total": total , "client":client, "business_name":business_name, "nit":nit};
+      var sale = { "id": id, "date": date, "total": total , "client":client, "business_name":business_name, "nit":nit, "sync":false};
 
       mySales.push(sale);
       db.putTable("sales", mySales,'\\views\\sales',2);
@@ -211,7 +211,7 @@ if(rowCount<1){
       db.putTable("products", myObject,'\\views\\sales',2);
       //generatePDF(sale,client);
 
-      
+
       name=$('#name-field').val();
       for (var cont = 0; cont < clients.length; cont++) {
         aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()

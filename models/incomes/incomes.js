@@ -1,6 +1,6 @@
 window.$ = window.jQuery = require('./libs/jquery.min.js');
 var db = new DataBase();
-
+var resp=false;
 function showAlertMessage(tipeMessage)
 {
   $("#alertMessage").removeClass();
@@ -16,26 +16,56 @@ function showAlertMessage(tipeMessage)
 
 $(document).ready(function () {
 	$("#update_incomes").click(function () {
-
+    var data;
+    //get data from user, sales, saleProducts
     user = db.getTable('token','',2);
+    sales = db.getTable('sales','',2);
+    saleProducts = db.getTable('saleProducts','',2);
+
+    //generar cadena para json
+
+    var product;
+    var products=[];
     $('#progressbardiv').show();
     $('#progressbar-2').animate({ width: '100%' }, 1, 'linear').html("Cargando...");
+    for (var cont=0;cont<sales.length;cont++){
 
+      if(sales[cont].sync===false){
+        products=[];
+          console.log(products+"products");
+      for (var cont2=0;cont2<saleProducts.length;cont2++){
+
+            if(sales[cont].id===saleProducts[cont2].sale_id){
+
+            sales[cont].sync=true;
+
+            resp=true;
+             product = { "item_id": parseInt(saleProducts[cont2].product_id), "price":parseInt(saleProducts[cont2].price), "quantity":parseInt(saleProducts[cont2].quantity), "description": saleProducts[cont2].name};
+             products.push(product);
+
+
+
+            }
+
+      }
+          data= JSON.stringify(products);
+         data=eval("("+ data + ")" );
+            console.log(JSON.stringify(products));
+            console.log(data+"data");
+    //enviar la cadena json a erp
     $.ajax({
       headers: {token: user[0].token},
       method: "POST",
       url: "http://catolica.bonsaierp.com:3000/api/v1/incomes",
       data: {
         income: {
-        "date":"2015-11-13",
-        "due_date":"2015-11-16",
+        "date":"2015-11-19",
+        "due_date":"2015-11-22",
         "contact_id":1,
         "currency":"BOB",
         "description":"Prueba ingreso",
-        "income_details_attributes":[
-          {"item_id":1,"price":10.0,"quantity":10,"description":"First item"},
-          {"item_id":2,"price":20.0,"quantity":20,"description":"Second item"}
-        ]}
+        "income_details_attributes":
+        data}
       }
     })
     .done(function(resp) {
@@ -43,15 +73,27 @@ $(document).ready(function () {
       setTimeout(function(){
          // showAlertMessage("successProductUpdate");
          //$("#alertMessage").show();
+           console.log(product+"producto2");
         alert("Los datos de la empresa fueron actualizados exitosamente.");
         $('#progressbar-2').html("Descarga Completa.");
       }, 1000);
     })
     .fail(function (ajaxContext){
+
      //showAlertMessage("errorProductUpdate");
      //$("#alertMessage").show();
      alert("Error al Actualizar los datos de la empresa");
    $('#progressbar-2').html("Error en la Descarga.");
    });
+     }
+   }
+   if(resp === true)
+   {
+     alert("Las  de ventas de la empresa fueron actualizados exitosamente");
+   }
+   else {
+     alert("No se tiene ninguna  nueva venta para sincronizar");
+   }
+       db.putTable('sales',sales,'',2);
 	});
   });

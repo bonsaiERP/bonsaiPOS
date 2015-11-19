@@ -67,5 +67,6 @@ $(document).ready(function () {
   // alert("hola desde employees");
   $("#update_employees").click(function () {
     sincronisation_employees();
+    
   });
 });

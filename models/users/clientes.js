@@ -52,7 +52,7 @@ $(document).ready(function () {
      //$("#alertMessage").show();
      alert("Error al Actualizar los clientes de la empresa");
    $('#progressbar-2').html("Error en la Actualizacion.");
-   });
+   })
   }
   }
   if(resp === true)
