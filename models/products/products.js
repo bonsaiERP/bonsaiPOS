@@ -31,7 +31,6 @@ function mensaje() {
 function sincronizar() {
 
   var user = db.getTable('token', '', 2);
-  // var user = bd.getTableDos('token');
   var items = {
     "async": true,
     "crossDomain": true,
@@ -76,10 +75,7 @@ function sincronizar() {
 				products_pos = agregarAmount(products, stocks);
 
 				db.putTable('products',products_pos,'',2);
-				// console.log(response);
         setTimeout(function(){
-            //showAlertMessage("successProductUpdate");
-            //$("#alertMessage").show();
             alert("Los productos fueron actualizados exitosamente.");
             $('#progressbar-2').html("Descarga Completa.");
         }, 1000);
@@ -92,8 +88,6 @@ function sincronizar() {
       });
 		})
     .fail(function (ajaxContext) {
-      //showAlertMessage("errorProductUpdate");
-      //$("#alertMessage").show();
       alert("Error al Actualizar los productos.");
       $('#progressbar-2').html("Error en la Descarga.");
     });
@@ -137,6 +131,5 @@ function agregarAmount(products, stocks) {
   console.log(products_pos.length);
 
   return products_pos;
-  // console.log(products[0]);
 
 }
