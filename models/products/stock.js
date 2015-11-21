@@ -64,7 +64,7 @@ function showAlertMessage(tipeMessage)
     //Vaciar la tabla
     if(data_table.length > 0){
       data_table.empty();
-      data_table.append('<tr ><th style="text-align: center;">Id</th><th style="text-align: center;">C&oacute;digo</th><th style="text-align: center;">Nombre del producto</th><th style="text-align: center;">Precio Unitario</th><th style="text-align: center;">Cantidad</th></tr>');
+      data_table.append('<tr ><th style="text-align: center;">C&oacute;digo</th><th style="text-align: center;">Nombre del producto</th><th style="text-align: center;">Precio Unitario</th><th style="text-align: center;">Cantidad</th></tr>');
     }
     //Verificar si el text box no esta vacio
     if (code_product != "") {
@@ -80,7 +80,7 @@ function showAlertMessage(tipeMessage)
       //realizar la busqueda del producto en stock
       for (var cont = 0; cont < myObject.length; cont++) {
         if (code_product == myObject[cont].id) {
-          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].id + "</td><td>" + myObject[cont].code + '</td><td style="text-align: center;">' + myObject[cont].name + '</td><td style="text-align: center;">' + myObject[cont].price  + '</td><td style="text-align: center;">' + myObject[cont].amount + "</td></tr>");
+          data_table.append("<tr id = " + myObject[cont].id + '><td style="text-align: center;" ' + ">" + myObject[cont].code + '</td><td style="text-align: center;">' + myObject[cont].name + '</td><td style="text-align: center;">' + myObject[cont].price  + '</td><td style="text-align: center;">' + myObject[cont].amount + "</td></tr>");
           $("#code_product").val("");
           resp = true;
           break;
