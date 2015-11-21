@@ -1,5 +1,10 @@
 <html>
 <head>
+
+
+
+
+
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <title>BonsaiPOS</title>
   <script>
@@ -103,6 +108,7 @@ function key(){
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario</a></li>
         </ul>
+
         <ul class="nav navbar-nav navbar-right">
           <li><a href="../connectionERP/new.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
           <script>document.write(get_data_nameoffice('\\views\\sales',2));</script></a></li>
@@ -128,8 +134,40 @@ function key(){
     <div class="alert alert-dismissible alert-success" id="alertMessage" hidden="true">
       <button type="button" class="close" data-dismiss="alert">×</button>
     </div>
-
-
+<h5>
+    <div align="right">
+<script type="text/javascript">
+  function makeArray() {
+  for (i = 0; i<makeArray.arguments.length; i++)
+  this[i + 1] = makeArray.arguments[i];}
+  var months = new makeArray('Enero','Febrero','Marzo','Abril','Mayo',
+  'Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
+  var date = new Date();
+  var day = date.getDate();
+  var month = date.getMonth() + 1;
+  var yy = date.getYear();
+  var year = (yy < 1000) ? yy + 1900 : yy;
+  document.write(day + " de " + months[month] + " del " + year);
+  </script>
+  <script type="text/javascript">
+  function startTime(){
+  today=new Date();
+  h=today.getHours();
+  m=today.getMinutes();
+  s=today.getSeconds();
+  m=checkTime(m);
+  s=checkTime(s);
+  document.getElementById('reloj').innerHTML=h+":"+m+":"+s;
+  t=setTimeout('startTime()',500);}
+  function checkTime(i)
+  {if (i<10) {i="0" + i;}return i;}
+  window.onload=function(){startTime();}
+</script>
+</div>
+</h5>
+<h6>
+<div align="right" id="reloj" style="font-size:20px;"></div>
+</h6>
     <h1 align="center">Nueva Venta</h1><br/>
 
       <form id="form1">

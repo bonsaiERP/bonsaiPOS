@@ -103,6 +103,41 @@ function verify_cashier(){
 
 
   <div class="container">
+    <h5>
+        <div align="right">
+    <script type="text/javascript">
+      function makeArray() {
+      for (i = 0; i<makeArray.arguments.length; i++)
+      this[i + 1] = makeArray.arguments[i];}
+      var months = new makeArray('Enero','Febrero','Marzo','Abril','Mayo',
+      'Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
+      var date = new Date();
+      var day = date.getDate();
+      var month = date.getMonth() + 1;
+      var yy = date.getYear();
+      var year = (yy < 1000) ? yy + 1900 : yy;
+      document.write(day + " de " + months[month] + " del " + year);
+      </script>
+      <script type="text/javascript">
+      function startTime(){
+      today=new Date();
+      h=today.getHours();
+      m=today.getMinutes();
+      s=today.getSeconds();
+      m=checkTime(m);
+      s=checkTime(s);
+      document.getElementById('reloj').innerHTML=h+":"+m+":"+s;
+      t=setTimeout('startTime()',500);}
+      function checkTime(i)
+      {if (i<10) {i="0" + i;}return i;}
+      window.onload=function(){startTime();}
+    </script>
+    </div>
+    </h5>
+    <h6>
+    <div align="right" id="reloj" style="font-size:20px;"></div>
+    </h6>
+
     <div class="alert alert-dismissible alert-success" id="alertMessage" hidden="true">
       <button type="button" class="close" data-dismiss="alert">×</button>
     </div>
