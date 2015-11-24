@@ -15,7 +15,7 @@ function showAlertMessage(tipeMessage)
     $("#alertMessage").addClass("alert alert-dismissible alert-danger");
     $("#alertMessage")[0].innerHTML='<p>La venta se anul&oacute; exitosamente</p>';
   }
-  
+
 
   $("#alertMessage").show();
 }
@@ -24,7 +24,6 @@ $(document).ready(function(){
 	for (var i = mySales.length - 1; i >= 0; i--) {
 		$('#sales-index-table').append('<tr><td>'+String(mySales[i].id)+'</td> <td>'+String(mySales[i].client)+'</td><td>'+String(mySales[i].date)+'</td><td>$ '+String(mySales[i].total)+'</td> <td> <button class="btn btn-danger btn-sm borrar" id="'+String(mySales[i].id)+'"><span class="glyphicon glyphicon-trash"></span></button></td> </tr>')
 	};
-
 
 	$('.borrar').click(function(){
 		$('#deleteModal').modal('show');

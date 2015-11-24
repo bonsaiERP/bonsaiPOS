@@ -56,13 +56,8 @@ var DataBase = function () {
   this.putTableDos = function (table_name, table) {
     fs.writeFileSync('bd/' + table_name + '.json', JSON.stringify(table), 'utf8');
   }
-  
+
   this.find = function(table_name, campo, value){
     lista = this.getTableDos(table_name);
-    
-    // for(var i=0; i<lista.length; i++){
-    //   if()
-    // }
-    console.log(lista[0]+"."+campo);
   }
 }

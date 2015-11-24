@@ -1,11 +1,10 @@
-
-
 $(document).ready(function(){
 	var fs = require('fs');
 	var db = new DataBase();
 	var name='';
 	var lastname='';
-	var ci=0;
+	var ci = 0;
+	var myUser = db.getTable("users",'\\views\\users',2);
 
 
 	$('#btn-new-user').click(function(){
@@ -38,22 +37,15 @@ $(document).ready(function(){
 			name=$('#name-field').val();
 			lastname=$('#lastname-field').val();
 			ci=$('#ci-field').val();
-			// if ($('id-field').val()) {
-			// 	ci=$('id-field').val();
-			// } else{
-			// 	ci=0;
-			// };
 			saveUser();
 		}
 	});
 
 	function saveUser() {
-      var myUser = db.getTable("users",'\\views\\users',2);
       var date = new Date().toUTCString();
       var size = myUser.length;
 			var id = 1;
-      if(myUser.length != 0)
-      {
+      if(myUser.length != 0){
         var aux = myUser.length;
         id = myUser[aux-1].id + 1;
       }

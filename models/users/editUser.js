@@ -1,15 +1,11 @@
 var fs = require('fs');
-
+var db = new DataBase();
 var user;
-
-function get_user()
-{
-  var db = new DataBase();
-  var id = get_data('\\views\\users',2);
-  var general_list_of_users = db.getTable("users",'\\views\\users',2);
+var id = get_data('\\views\\users',2);
+var general_list_of_users = db.getTable("users",'\\views\\users',2);
+function get_user(){
   for (var i = 0; i < general_list_of_users.length; i++) {
-    if(general_list_of_users[i].id == id)
-    {
+    if(general_list_of_users[i].id == id){
       user = general_list_of_users[i];
       return true;
     }
@@ -17,23 +13,19 @@ function get_user()
   return false;
 }
 
-function get_id_user()
-{
+function get_id_user(){
   return user.id;
 }
 
-function get_name_user()
-{
+function get_name_user(){
   return user.name;
 }
 
-function get_lastname_user()
-{
+function get_lastname_user(){
   return user.lastname;
 }
 
-function get_ci_user()
-{
+function get_ci_user(){
   return user.ci;
 }
 
@@ -78,13 +70,6 @@ function edit_user()
     user.lastname=$('#lastname-field').val();
     user.ci=$('#ci-field').val();
     user.id=$('#id-field').val();
-    // if ($('id-field').val()) {
-    // 	ci=$('id-field').val();
-    // } else{
-    // 	ci=0;
-    // };
-    var db = new DataBase();
-    var general_list_of_users = db.getTable("users",'\\views\\users',2);
     for (var i = 0; i < general_list_of_users.length; i++) {
       if(general_list_of_users[i].id == user.id)
       {
