@@ -11,18 +11,15 @@ var date_of_sell;
 
 var detail_of_sale;
 var sale;
-
-
-
-
+var db = new DataBase();
+var data = get_data('\\views\\bill',2);
+var company = db.getTable("organisations",'\\views\\bill',2);
+var list = db.getTable("bill",'\\views\\bill',2);
+var list_of_sales = db.getTable("saleProducts",'\\views\\bill',2);
 function get_initial_data()
 {
-  var data = get_data('\\views\\bill',2);
-  var db = new DataBase();
-  company = db.getTable("organisations",'\\views\\bill',2);
   company = company[0];
   id_sale = data.id_sale;
-  console.log(company);
 
   nit_company = company.nit;
   number_of_bill = "Aquí numero de factura a imprimir"; //Cuando se implemente la funcionalidad de obtener el numero de factura, reemplazar esto
@@ -31,15 +28,12 @@ function get_initial_data()
   nit_buyer = data.nit_buyer;
   name_buyer = data.name_buyer;
   date_of_sell = data.date;
-  console.log(name_buyer);
   detail_of_sale = extract_detail_of_sale();
   sale = extract_sale();
 }
 
 function generatebill()
 {
-  var db = new DataBase();
-  var list = db.getTable("bill",'\\views\\bill',2);
   var id = 1
   if(list.length != 0)
   {
@@ -55,8 +49,6 @@ function generatebill()
 
 function extract_detail_of_sale()
 {
-  var db = new DataBase();
-  var list_of_sales = db.getTable("saleProducts",'\\views\\bill',2);
   var list = [];;
   for(var i = 0; i < list_of_sales.length; i++)
   {
@@ -70,19 +62,14 @@ function extract_detail_of_sale()
 
 function extract_sale()
 {
-  var db = new DataBase();
-  var list_of_sales = db.getTable("sales",'\\views\\bill',2);
   var list = [];
-  for(var i = 0; i < list_of_sales.length; i++)
-  {
-    if(list_of_sales[i].id == id_sale)
-    {
+  for(var i = 0; i < list_of_sales.length; i++){
+    if(list_of_sales[i].id == id_sale){
       return list_of_sales[i];
     }
   }
   return undefined;
 }
-
 
 $(document).ready(function() {
   $("#name_company").text(get_name_company());
@@ -95,11 +82,8 @@ $(document).ready(function() {
   $("#buyer_name").text('NOMBRE: '+ get_name_buyer());
   $("#buyer_nit").text('NIT/CI: '+ get_nit_buyer());
   // TABLA DE DATOS
-
-
   var detail = $("#detail_of_sale_table");
-  for(var i=0; i<detail_of_sale.length; i++)
-  {
+  for(var i=0; i<detail_of_sale.length; i++){
     detail.append('<tr><td>'+detail_of_sale[i].quantity+'</td><td>'+detail_of_sale[i].name+'</td><td>'+detail_of_sale[i].price +'</td><td>'+detail_of_sale[i].price*detail_of_sale[i].quantity+'</td></tr>');
   }
   //IMPORTE TOTAL Bs.
@@ -114,88 +98,71 @@ $(document).ready(function() {
 
 });
 
-function get_name_company()
-{
+function get_name_company(){
   return company.socialreason;
 }
 
-function get_direction_company()
-{
+function get_direction_company(){
   return company.address;
 }
 
-function get_city_and_county()
-{
+function get_city_and_county(){
   //country_id permitira hacer una mejor selección de pais, pero necesitamos saber a que id le asigno borris a cada pais
   //Hasta que no se sepa el valor del country_id, esto devolvera un valor predeterminado
   return "BOLIVIA";
 }
 
-function get_nit_company()
-{
+function get_nit_company(){
   return nit_company;
 }
 
-function get_number_bill()
-{
+function get_number_bill(){
   return number_of_bill;
 }
 
-function get_number_of_authorization()
-{
+function get_number_of_authorization(){
   return number_of_authorization;
 }
 
-function get_date_of_sell()
-{
+function get_date_of_sell(){
   return date_of_sell;
 }
 
-function get_name_buyer()
-{
+function get_name_buyer(){
   return name_buyer;
 }
 
-function get_nit_buyer()
-{
+function get_nit_buyer(){
   return nit_buyer;
 }
 
-function get_detail_of_sale()
-{
+function get_detail_of_sale(){
   return detail_of_sale
 }
 
-function get_total_of_sale()
-{
+function get_total_of_sale(){
   return sale.total;
 }
 
-function get_total_of_money_buyer_gave()
-{
+function get_total_of_money_buyer_gave(){
   return "AQUÍ CUANTO DINERO DIO EL CLIENTE"; //Cuando se implemente cuanto dinero dio el cliente para pagar en la venta, reemplazar esto
 }
 
-function get_change()
-{
+function get_change(){
   return "AQUÍ EL CAMBIO";//Cuando se implemente cuanto de cambio hay que darle al cliente en la venta, reemplazar esto
 }
 
-function get_literal_number(tot)
-{
+function get_literal_number(tot){
   return NumeroALetras(tot);
 }
 
-function get_secure_code()
-{
+function get_secure_code(){
   return "AQUI VA CODIGO DE CONTROL";
 }
 
 //############################ FUNCIONES LITERAL ####################################
 function Unidades(num){
-
-  switch(num)
-  {
+  switch(num){
     case 1: return "UN";
     case 2: return "DOS";
     case 3: return "TRES";
@@ -211,15 +178,11 @@ function Unidades(num){
 }
 
 function Decenas(num){
-
   decena = Math.floor(num/10);
   unidad = num - (decena * 10);
-
-  switch(decena)
-  {
+  switch(decena){
     case 1:
-      switch(unidad)
-      {
+      switch(unidad){
         case 0: return "DIEZ";
         case 1: return "ONCE";
         case 2: return "DOCE";
@@ -229,8 +192,7 @@ function Decenas(num){
         default: return "DIECI" + Unidades(unidad);
       }
     case 2:
-      switch(unidad)
-      {
+      switch(unidad){
         case 0: return "VEINTE";
         default: return "VEINTI" + Unidades(unidad);
       }
@@ -248,17 +210,13 @@ function Decenas(num){
 function DecenasY(strSin, numUnidades){
   if (numUnidades > 0)
     return strSin + " Y " + Unidades(numUnidades)
-
   return strSin;
 }//DecenasY()
 
 function Centenas(num){
-
   centenas = Math.floor(num / 100);
   decenas = num - (centenas * 100);
-
-  switch(centenas)
-  {
+  switch(centenas){
     case 1:
       if (decenas > 0)
         return "CIENTO " + Decenas(decenas);
@@ -304,10 +262,7 @@ function Miles(num){
 
   if(strMiles == "")
     return strCentenas;
-
   return strMiles + " " + strCentenas;
-
-  //return Seccion(num, divisor, "UN MIL", "MIL") + " " + Centenas(resto);
 }//Miles()
 
 function Millones(num){
@@ -320,10 +275,7 @@ function Millones(num){
 
   if(strMillones == "")
     return strMiles;
-
   return strMillones + " " + strMiles;
-
-  //return Seccion(num, divisor, "UN MILLON", "MILLONES") + " " + Miles(resto);
 }//Millones()
 
 function NumeroALetras(num){

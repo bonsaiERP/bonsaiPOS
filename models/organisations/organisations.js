@@ -1,6 +1,5 @@
 window.$ = window.jQuery = require('./libs/jquery.min.js');
 var db = new DataBase();
-
 function showAlertMessage(tipeMessage)
 {
   $("#alertMessage").removeClass();
@@ -15,9 +14,7 @@ function showAlertMessage(tipeMessage)
 }
 
 $(document).ready(function () {
-
 	$("#update_organisation").click(function () {
-
     user = db.getTable('token','',2);
 
   		var organisations = {
@@ -39,15 +36,11 @@ $(document).ready(function () {
 			console.log(response);
 		   db.putTable('organisations',organisations,'',2);
          setTimeout(function(){
-            // showAlertMessage("successProductUpdate");
-            //$("#alertMessage").show();
            alert("Los datos de la empresa fueron actualizados exitosamente.");
            $('#progressbar-2').html("Descarga Completa.");
          }, 1000);
 			})
      .fail(function (ajaxContext){
-      //showAlertMessage("errorProductUpdate");
-      //$("#alertMessage").show();
       alert("Error al Actualizar los datos de la empresa");
     $('#progressbar-2').html("Error en la Descarga.");
     });

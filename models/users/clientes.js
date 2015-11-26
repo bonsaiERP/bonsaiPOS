@@ -1,5 +1,7 @@
 window.$ = window.jQuery = require('./libs/jquery.min.js');
 var db = new DataBase();
+var clientes = db.getTable('users','',2);
+var user = db.getTable('token','',2);
 
 function showAlertMessage(tipeMessage)
 {
@@ -16,9 +18,6 @@ function showAlertMessage(tipeMessage)
 
 $(document).ready(function () {
 	$("#update_clientes").click(function () {
-
-    user = db.getTable('token','',2);
-    clientes = db.getTable('users','',2);
     resp = false;
     for(var cont=0 ; cont < clientes.length ; cont++)
     {
@@ -42,14 +41,10 @@ $(document).ready(function () {
     .done(function(resp) {
       console.log("saved", resp);
       setTimeout(function(){
-         // showAlertMessage("successProductUpdate");
-         //$("#alertMessage").show();
         $('#progressbar-2').html("Actualizacion Completa.");
       }, 1000);
     })
     .fail(function (ajaxContext){
-     //showAlertMessage("errorProductUpdate");
-     //$("#alertMessage").show();
      alert("Error al Actualizar los clientes de la empresa");
    $('#progressbar-2').html("Error en la Actualizacion.");
    })

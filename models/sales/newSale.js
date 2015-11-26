@@ -7,6 +7,10 @@ var myObject = db.getTable("products",'\\views\\sales',2);
 var business_name;
 var nit;
 var clients= db.getTable("users",'\\views\\sales',2);
+var mySales = db.getTable("sales",'\\views\\sales',2);
+var myOrganisation = db.getTable("organisations",'\\views\\sales',2);
+var myNit = db.getTable("organisations",'\\views\\sales',2);
+var saleproducts = db.getTable("saleProducts",'\\views\\sales',2);
 
 if(localStorage.getItem('reload')==1)
 {
@@ -47,7 +51,6 @@ function showAlertMessage(tipeMessage)
 }
 
 (function ($) {
-
   $('#form1').on('submit', function (event) {
     $("#alertMessage").hide();
     event.preventDefault();
@@ -66,7 +69,6 @@ function showAlertMessage(tipeMessage)
 
     }
     var resp = false;
-
     if(amount_product > 0){
       for (var cont = 0; cont < myObject.length; cont++) {
         if (name_product == myObject[cont].id) {
@@ -80,7 +82,6 @@ function showAlertMessage(tipeMessage)
           $("#name_product").val("");
           $("#amount_product").val("");
           showAlertMessage("success");
-
           if (myObject[cont].amount <= 0) {
             showAlertMessage("warning");
           }
@@ -105,10 +106,8 @@ function showAlertMessage(tipeMessage)
     }
     var lastQuantity = amount_product;
             $("input[id=" + myObject[cont].id + "]").change(function () {
-
                   if (lastQuantity > $(this).val()) {
                     total_sale = $("#total").text();
-                    //myObject[cont].amount = myObject[cont].amount + $(this).val();
                     total_sale = total_sale - (myObject[cont].price*(lastQuantity-$(this).val()));
                     $("#total").text(total_sale);
                     lastQuantity = $(this).val();
@@ -117,7 +116,6 @@ function showAlertMessage(tipeMessage)
                   }
                   if (lastQuantity < $(this).val()) {
                     total_sale = $("#total").text();
-                    //myObject[cont].amount = myObject[cont].amount - $(this).val();
                     total_sale = parseInt(total_sale) + (parseInt(myObject[cont].price) * (parseInt($(this).val())-lastQuantity));
                     $("#total").text(total_sale);
                     lastQuantity = $(this).val();
@@ -125,10 +123,8 @@ function showAlertMessage(tipeMessage)
                     $("#td_id_"+cont.toString()).text(totalprice);
                   }
                   amount_product = lastQuantity;
-
             });
   });
-
 
   $('#btn-client').click(function(){
     event.preventDefault();
@@ -137,9 +133,8 @@ function showAlertMessage(tipeMessage)
     var client_id=0
     var aux=""
     var business_name=""
-if(rowCount<1){
-    name=$('#name-field').val();
-
+    if(rowCount<1){
+      name=$('#name-field').val();
     if (!isNaN(parseFloat(name)) && isFinite(name)) {
       for (var cont = 0; cont < clients.length; cont++) {
         if(clients[cont].ci==name){
@@ -148,9 +143,7 @@ if(rowCount<1){
 
         }
       }
-
     }
-
               for (var cont = 0; cont < clients.length; cont++) {
                 aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
                 if (aux == name) {
@@ -160,26 +153,19 @@ if(rowCount<1){
 
                 }
                 ci=client_id;
-
               }
 
       if (!$('#name-field').val()) {
         name="sin cliente"
-
       }
       else {
         data_table.append('<tr id=tr_client> <td> <b> Cliente: </b></td><td> '+ name +"</td><td> <b>CI:</b>"+client_id +'</td> <td> <input type="button" id= "deleteclient" onclick= "deleteclient()" value="Borrar"/> </td></tr>')
-
         $('#business_name').val(business_name);
         $('#nit').val(nit);
-
       }
-
   }
   else {
-
     $('#myDangerModal2').modal('show');
-
   }
 });
 
@@ -188,8 +174,6 @@ if(rowCount<1){
   });
 
   $("#btn_confirm").click(function () {
-
-      var mySales = db.getTable("sales",'\\views\\sales',2);
       var date = new Date().toUTCString();
       var client= "sin cliente";
       var size = mySales.length;
@@ -209,26 +193,17 @@ if(rowCount<1){
       db.putTable("sales", mySales,'\\views\\sales',2);
       registerSalesProducts(sale.id)
       db.putTable("products", myObject,'\\views\\sales',2);
-      //generatePDF(sale,client);
-
-
       name=$('#name-field').val();
       for (var cont = 0; cont < clients.length; cont++) {
         aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
         if (aux == name) {
           clients[cont].business_name=$('#business_name').val();
           clients[cont].nit=$('#nit').val();
-          console.log('hola');
-
         }
       }
       db.putTable("users", clients,'\\views\\sales',2);
-
-
-
       var to_bill = {"id_sale":id,"nit_buyer":nit,"name_buyer":business_name,"date":date};
       set_data_to_push(to_bill,'\\views\\sales',2);
-
       location.reload();
       localStorage.setItem('reload',1);
   });
@@ -254,10 +229,8 @@ function getpathproyect(todelete,cant_of_breakbar)
   /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
   si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
   */
-  if(actualdir.search('/') != -1)
-  {
-    for(i = 0; i < cant_of_breakbar; i++)
-    {
+  if(actualdir.search('/') != -1){
+    for(i = 0; i < cant_of_breakbar; i++){
       todelete = todelete.replace(String.fromCharCode(92),'/');
     }
   }
@@ -265,22 +238,18 @@ function getpathproyect(todelete,cant_of_breakbar)
   return actualdir;
 }
 
-function converpath(toconvert,cant_of_breakbar)
-{
+function converpath(toconvert,cant_of_breakbar){
   actualdir = __dirname
   /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
   si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
   */
-  if(actualdir.search('/') != -1)
-  {
-    for(i = 0; i < cant_of_breakbar; i++)
-    {
+  if(actualdir.search('/') != -1){
+    for(i = 0; i < cant_of_breakbar; i++){
       toconvert = toconvert.replace(String.fromCharCode(92),'/');
     }
   }
   return toconvert;
 }
-
 
 function fnselect(value, amount_value) {
   var fs = require('fs');
@@ -288,7 +257,6 @@ function fnselect(value, amount_value) {
   fs.readFile(dir + converpath('\\bd\\products.json',2), function (err, products) {
     if (err)
       throw err;
-
     for (var cont = 0; cont < myObject.length; cont++) {
       if (value == myObject[cont].id) {
         myObject[cont].amount = myObject[cont].amount + amount_value;
@@ -308,23 +276,19 @@ function fnselect(value, amount_value) {
 
 $(document).ready(function() {
 //Cargar datos cliente
-  var clients = db.getTable("users",'\\views\\sales',2);
-
   var data2 = new Array("");
   for (var cont = 0; cont < clients.length; cont++) {
     data2.push(clients[cont].name.toString()+" "+clients[cont].lastname.toString());
   }
 
  $("#name-field").autocomplete({ source: data2 });
-//Cargar datos productos
-  var myObject = db.getTable("products",'\\views\\sales',2);
+
   var data = new Array("");
   for (var cont = 0; cont < myObject.length; cont++) {
     data.push(myObject[cont].name.toString());
     }
 	$("#name_product").autocomplete({ source: data });
 //Cargar nombre organizacion
-  var myOrganisation = db.getTable("organisations",'\\views\\sales',2);
 
   var dataOrg = new Array("");
   for (var cont = 0; cont < myOrganisation.length; cont++) {
@@ -333,8 +297,6 @@ $(document).ready(function() {
 	$("#business_name").autocomplete({ source: dataOrg });
 
   //Cargar nit organizacion
-    var myNit = db.getTable("organisations",'\\views\\sales',2);
-
     var dataNit = new Array("");
     for (var cont = 0; cont < myNit.length; cont++) {
       dataNit.push(myNit[cont].nit.toString());
@@ -342,19 +304,13 @@ $(document).ready(function() {
   	$("#nit").autocomplete({ source: dataNit });
 
 	});
-//delete client
-
+  //delete client
   function deleteclient(){
     var element = document.getElementById("tr_client");
     element.remove();
-
-
   }
-  //
 
-
-function getProductsFromSalesTable()
-{
+function getProductsFromSalesTable(){
   var table = document.getElementById('tblDatos')
   var products = [];
   for (var i = 1, row; row = table.rows[i]; i++) {
@@ -377,16 +333,14 @@ function getSaleProducts(id)
   return products;
 }
 
-
-function getTotal()
-{
+function getTotal(){
   return $('#total').html();
 }
 
 function generatePDF(sale,client)
 {
   if(ci==undefined)
-    ci='0'
+  ci='0'
   var doc = new jsPDF();
   doc.setFontSize(22);
   doc.text(20, 20, 'NOTA DE VENTA');
@@ -429,15 +383,11 @@ function generatePDF(sale,client)
 
   doc.setFontSize(18);
   doc.text(20, i*60+100, 'TOTAL: '+ sale.total);
-  // var out = jsPDF.output();
-  // var url = 'data:application/pdf;base64,' + Base64.encode(out);
-  // document.location.href = url;
   doc.save('NotaDeVenta'+String(sale.id)+'.pdf');
 }
 
 function registerSalesProducts(id)
 {
-  var saleproducts = db.getTable("saleProducts",'\\views\\sales',2);
   var auxArray = getSaleProducts(id);
   array=saleproducts.concat(auxArray);
   db.putTable("saleProducts", array,'\\views\\sales',2);

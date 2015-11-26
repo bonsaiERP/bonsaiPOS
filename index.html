@@ -30,72 +30,54 @@ function verify_cashier(){
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
+
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Productos <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Ventas <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="views/products/stock.html">Stock</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Venta <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="views/sales/index.html">Todas Las Ventas</a></li>
               <li><a href="views/sales/newSale.html">Nueva Venta</a></li>
+              <li><a href="views/products/stock.html">Consulta de productos</a></li>
+              <li><a href="">Anular Venta</a></li>
+              <li><a href="views/reports/daySales.html">Reporte de ventas</a></li>
+              <li><a href="views/sales/index.html">Todas Las Ventas</a></li>
             </ul>
           </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Reportes <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="views/reports/daySales.html">Ventas del dia</a></li>
-            </ul>
-          </li>
+
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" id="cash_open" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
              <ul class="dropdown-menu" role="menu">
                <li><a href="views/cashier/opencashier.html">Abrir Caja</a></li>
+               <li><a href="views/cashier/closecashier.html">Cerrar Caja</a></li>
              </ul>
           </li>
 
           <li class="dropdown">
-           <a href="#" class="dropdown-toggle" id="cash_close" data-toggle="dropdown" role="button" aria-expanded="false">Caja<span class="caret"></span></a>
-             <ul class="dropdown-menu" role="menu">
-              <li><a href="views/cashier/closecashier.html">Cerrar Caja</a></li>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Clientes <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="views/users/newUser.html">Crear Ciente</a></li>
+              <li><a href="views/users/listusers.html">Modificar Cliente</a></li>
             </ul>
           </li>
+
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Sicronizar <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Configuracion <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#" id="update">Sincronizar Productos </a></li>
-              <li><a href="views/synchronization/synchronization.html">Sincronizacion Diaria-Coneccion</a></li>
+              <li><a href="views/connectionERP/new.html">Almacen
+              <script>document.write(get_data_nameoffice('',0));</script></a></li>
               <li><a href="views/synchronization/daily.html">Conexion Diaria</a></li>
-              <li><a href="#" id="update_employees">Sincronizacion Empleados</a></li>
-              <li><a href="#" id="update_incomes">Sincronizar ventas</a></li>
-              <li><a href="#" id="update_clientes">Sincronizar Clientes</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Cliente <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="views/users/newUser.html">Nuevo cliente</a></li>
-              <li><a href="views/users/listusers.html">Lista clientes</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Empresa <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#" id="update_organisation">Sincronizar Organizacion</a></li>
-            </ul>
+              <li><a href="views/synchronization/synchronization.html">Sincronizacion Diaria-Coneccion</a></li>
+              <li role="separator" class="divider"></li>
+                      <li><a href="#" id="update">Sincronizar Productos </a></li>
+                      <li><a href="#" id="update_employees">Sincronizar Empleados</a></li>
+                      <li><a href="#" id="update_incomes">Sincronizar Ventas</a></li>
+                      <li><a href="#" id="update_clientes">Sincronizar Clientes</a></li>
+                      <li><a href="#" id="update_organisation">Sincronizar Organizacion</a></li>
+             </ul>
           </li>
 
         </ul>
+
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="views/connectionERP/new.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-          <script>document.write(get_data_nameoffice('',0));</script></a></li>
         </ul>
       </div>
     </div>

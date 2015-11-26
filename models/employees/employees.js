@@ -1,6 +1,6 @@
 window.$ = window.jQuery = require('./libs/jquery.min.js');
 var db = new DataBase();
-
+var user = db.getTableDos("token");
 function getUsers(users, links) {
   var usuarios = [];
   var cont = 0;
@@ -18,14 +18,10 @@ function getUsers(users, links) {
       }
     }
   }
-
   return usuarios;
-  // console.log(usuarios);
 }
 
 function sincronisation_employees() {
-  var user = db.getTableDos("token");
-
   var users = {
     "async": true,
     "crossDomain": true,
@@ -50,23 +46,16 @@ function sincronisation_employees() {
 
   $.ajax(users).done(function (response) {
     var users = response;
-
-    //console.log(users[2]);
-
     $.ajax(links).done(function (response) {
       var links = response;
-
       var employees = getUsers(users, links);
       db.putTableDos('employees', employees);
-      // console.log(employees);
     });
   });
 }
 
 $(document).ready(function () {
-  // alert("hola desde employees");
   $("#update_employees").click(function () {
     sincronisation_employees();
-    
   });
 });
