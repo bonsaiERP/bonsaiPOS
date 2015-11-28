@@ -51,7 +51,15 @@ function getClients() {
        var data_table = $("#datatable");
        data_table.empty();
        data_table.append('<tr ><th style="text-align: center;">Nombre</th><th style="text-align: center;">Apellido</th><th style="text-align: center;">CI</th><th style="text-align: center;">Opciones</th></tr>');
+       if($("#client_name").val()==""){
+         for (var i = 0; i < list_of_users.length; i++) {
 
+             data_table.append('<input type="hidden" value="'+ list_of_users[i].id +'" id="hidden_value"');
+              data_table.append('<tr> <td style="text-align: center;">' + list_of_users[i].name + '</td> <td style="text-align: center;">' + list_of_users[i].lastname + '</td> <td style="text-align: center;">' + list_of_users[i].ci + '<td style="text-align: center;"> <button onclick="to_editUser('+list_of_users[i].id+')">Editar usuario</button> </td></tr>');
+              existe=true;
+
+          }
+         }
        for (var i = 0; i < list_of_users.length; i++) {
          if (list_of_users[i].name.toString()==name_search.toString()) {
            existe=true;
@@ -68,6 +76,7 @@ function getClients() {
 
          }
 
+         $("#client_name").val("");
 
      });
      $("#client_name").autocomplete(clients);//no funciona
