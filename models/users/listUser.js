@@ -1,7 +1,8 @@
 var id_user;
 var db = new DataBase();
 var general_list_of_users = db.getTable("users",'\\views\\users',2);
-var clients= [] ;
+
+var data2 = new Array("");
 
 getClients();
 
@@ -29,22 +30,24 @@ function showAlertMessage(tipeMessage)
 }
 
 function getClients() {
-  i = 0;
   for (var cont = 0; cont < general_list_of_users.length; cont++) {
-    clients[i] = general_list_of_users[cont].name;
-    i++;
+    data2.push(general_list_of_users[cont].name.toString());
   }
+  return data2;
 }
 
 
 
   $(document).ready(function(){
 
+
+
      $('#search_client').click(function () {
        //diercto para buscar
        var name_search= $("#client_name").val();
        var existe=false;
        $("#alertMessage").hide();
+
 
        var list_of_users = general_list_of_users;
 
@@ -61,7 +64,7 @@ function getClients() {
           }
          }
        for (var i = 0; i < list_of_users.length; i++) {
-         if (list_of_users[i].name.toString()==name_search.toString()) {
+         if (list_of_users[i].name.toString().toLowerCase()==name_search.toString().toLowerCase()) {
            existe=true;
            data_table.append('<input type="hidden" value="'+ list_of_users[i].id +'" id="hidden_value"');
             data_table.append('<tr> <td style="text-align: center;">' + list_of_users[i].name + '</td> <td style="text-align: center;">' + list_of_users[i].lastname + '</td> <td style="text-align: center;">' + list_of_users[i].ci + '<td style="text-align: center;"> <button onclick="to_editUser('+list_of_users[i].id+')">Editar usuario</button> </td></tr>');
@@ -79,11 +82,9 @@ function getClients() {
          $("#client_name").val("");
 
      });
-     $("#client_name").autocomplete(clients);//no funciona
-
-
-
-
+    // $('#client_name').autocomplete({//no funciona llama al getClients
+      //  source: data2
+      //});
 
 
     });
