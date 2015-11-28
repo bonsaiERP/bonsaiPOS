@@ -1,5 +1,7 @@
 window.$ = window.jQuery = require('./libs/jquery.min.js');
 var db = new DataBase();
+var products = db.getTable('products', '', 2);
+var user = db.getTable('token', '', 2);
 
 if (localStorage.getItem('reload') == 1) {
   showAlertMessage("successProductUpdate");
@@ -20,7 +22,6 @@ function showAlertMessage(tipeMessage) {
 }
 
 function getProducts() {
-  var products = db.getTable('products', '', 2);
   return products;
 }
 
@@ -29,8 +30,6 @@ function mensaje() {
 }
 
 function sincronizar() {
-
-  var user = db.getTable('token', '', 2);
   var items = {
     "async": true,
     "crossDomain": true,
@@ -69,11 +68,9 @@ function sincronizar() {
 
     $.ajax(items).done(function (response) {
 			var products = response;
-
 			$.ajax(stocks).done(function (response) {
 				var stocks = response;
 				products_pos = agregarAmount(products, stocks);
-
 				db.putTable('products',products_pos,'',2);
         setTimeout(function(){
             alert("Los productos fueron actualizados exitosamente.");
@@ -82,9 +79,6 @@ function sincronizar() {
 			});
       $.ajax(stores).done(function (response) {
         var stores = response;
-
-        console.log(response[0].name);
-
       });
 		})
     .fail(function (ajaxContext) {
@@ -94,11 +88,9 @@ function sincronizar() {
 }
 
 $(document).ready(function () {
-
   $("#update").click(function () {
     sincronizar();
   });
-
 });
 
 function stock_pos(stocks) {
@@ -114,10 +106,8 @@ function stock_pos(stocks) {
 }
 
 function agregarAmount(products, stocks) {
-
   var products_pos = [];
   var cont = 0;
-
   stock = stock_pos(stocks);
   for (var i = 0; i < stock.length; i++) {
     for (var j = 0; j < products.length; j++) {
@@ -128,8 +118,5 @@ function agregarAmount(products, stocks) {
       }
     }
   }
-  console.log(products_pos.length);
-
   return products_pos;
-
 }

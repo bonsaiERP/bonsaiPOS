@@ -1,6 +1,6 @@
 window.$ = window.jQuery = require('./libs/jquery.min.js');
 var db = new DataBase();
-var resp=false;
+var resp = false;
 function showAlertMessage(tipeMessage)
 {
   $("#alertMessage").removeClass();
@@ -17,13 +17,10 @@ function showAlertMessage(tipeMessage)
 $(document).ready(function () {
 	$("#update_incomes").click(function () {
     var data;
-    //get data from user, sales, saleProducts
     user = db.getTable('token','',2);
     sales = db.getTable('sales','',2);
     saleProducts = db.getTable('saleProducts','',2);
-
     //generar cadena para json
-
     var product;
     var products=[];
     $('#progressbardiv').show();
@@ -32,26 +29,16 @@ $(document).ready(function () {
 
       if(sales[cont].sync===false){
         products=[];
-          console.log(products+"products");
       for (var cont2=0;cont2<saleProducts.length;cont2++){
-
             if(sales[cont].id===saleProducts[cont2].sale_id){
-
             sales[cont].sync=true;
-
             resp=true;
              product = { "item_id": parseInt(saleProducts[cont2].product_id), "price":parseInt(saleProducts[cont2].price), "quantity":parseInt(saleProducts[cont2].quantity), "description": saleProducts[cont2].name};
              products.push(product);
-
-
-
             }
-
       }
           data= JSON.stringify(products);
-         data=eval("("+ data + ")" );
-            console.log(JSON.stringify(products));
-            console.log(data+"data");
+          data=eval("("+ data + ")" );
     //enviar la cadena json a erp
     $.ajax({
       headers: {token: user[0].token},
@@ -69,26 +56,18 @@ $(document).ready(function () {
       }
     })
     .done(function(resp) {
-      console.log("saved", resp);
       setTimeout(function(){
-         // showAlertMessage("successProductUpdate");
-         //$("#alertMessage").show();
-           console.log(product+"producto2");
         alert("Los datos de la empresa fueron actualizados exitosamente.");
         $('#progressbar-2').html("Descarga Completa.");
       }, 1000);
     })
     .fail(function (ajaxContext){
-
-     //showAlertMessage("errorProductUpdate");
-     //$("#alertMessage").show();
      alert("Error al Actualizar los datos de la empresa");
    $('#progressbar-2').html("Error en la Descarga.");
    });
      }
    }
-   if(resp === true)
-   {
+   if(resp === true){
      alert("Las  de ventas de la empresa fueron actualizados exitosamente");
    }
    else {

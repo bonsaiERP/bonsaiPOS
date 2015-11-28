@@ -1,4 +1,7 @@
 var fs = require('fs');
+var db = new DataBase();
+var general_list_of_sales = db.getTable("sales",'\\views\\cashier',2);
+var myCashiers = db.getTable("cashier",'\\views\\cashier',2);
 //intente llamar aca al archivo daySales.js pero no da, esto para no repetir codigo que ya existe
 //en otras palabras quice reusar codigo de este archivo !!!
 //var daySales = '../reports/daySales.js';
@@ -24,7 +27,6 @@ function showAlertMessage(tipeMessage)
     $("#alertMessage").hide();
     event.preventDefault();
     var money = $("#money").val();
-    console.log("ENTRO AL CASHIER");
     if(money > 0){
        create_cashier(money);
        location.href = "../../index.html";
@@ -42,19 +44,13 @@ function showAlertMessage(tipeMessage)
         showAlertMessage("warningAmount");
       }
   });
-
-
 })(jQuery);
 
-function convertdatetoformatofso(date)
-{
+function convertdatetoformatofso(date){
   return new Date(date);
 }
 
-function returnlistofsalesofdatecashier(date)
-{
-  var db = new DataBase();
-  var general_list_of_sales = db.getTable("sales",'\\views\\cashier',2);
+function returnlistofsalesofdatecashier(date){
   var day = date.getDate();
   var month = date.getMonth();
   var year = date.getFullYear();
@@ -69,8 +65,7 @@ function returnlistofsalesofdatecashier(date)
   return result;
 }
 
-function gettotalofsalescashier(list_of_sales,date_open)
-{
+function gettotalofsalescashier(list_of_sales,date_open){
   var tot = 0;
   for (var cont = 0; cont < list_of_sales.length; cont++) {
     if( thehighttimecashier( convertdatetoformatofso(date_open),convertdatetoformatofso( list_of_sales[cont].date) ) )
@@ -81,97 +76,72 @@ function gettotalofsalescashier(list_of_sales,date_open)
   return tot;
 }
 
-
-function data_cashier()
-{
-  var db = new DataBase();
-  var myCashiers = db.getTable("cashier",'\\views\\cashier',2);
+function data_cashier(){
   var ultimo = myCashiers.length-1;
   monto = myCashiers[ultimo].money_open;
   $("#monto").text(monto);
-
   var list_of_sales = returnlistofsalesofdatecashier(new Date());
   total_daySales = gettotalofsalescashier(list_of_sales,myCashiers[ultimo].date_open);
   $("#totalSales").text(total_daySales);
-
   total = parseInt(monto) + parseInt(total_daySales);
   $("#total").text(total);
   return total;
 }
 
-
-function thehighttimecashier(time1,time2)
-{
-  console.log(time1+"---"+time2)
+function thehighttimecashier(time1,time2){
   var aux1 = time1.getFullYear();
   var aux2 = time2.getFullYear();
-  if(aux2 != aux1)
-  {
-    if(aux2 > aux1)
-    {
+  if(aux2 != aux1){
+    if(aux2 > aux1){
       return true;
     }
-    else
-    {
+    else{
       return false;
     }
   }
   aux1 = time1.getMonth();
   aux2 = time2.getMonth();
-  if(aux2 != aux1)
-  {
-    if(aux2 > aux1)
-    {
+  if(aux2 != aux1){
+    if(aux2 > aux1){
       return true;
     }
-    else
-    {
+    else{
       return false;
     }
   }
   aux1 = time1.getDate();
   aux2 = time2.getDate();
-  if(aux2 != aux1)
-  {
-    if(aux2 > aux1)
-    {
+  if(aux2 != aux1){
+    if(aux2 > aux1){
       return true;
     }
-    else
-    {
+    else{
       return false;
     }
   }
   aux1 = time1.getHours();
   aux2 = time2.getHours();
-  if(aux2 != aux1)
-  {
-    if(aux2 > aux1)
-    {
+  if(aux2 != aux1){
+    if(aux2 > aux1){
       return true;
     }
-    else
-    {
+    else{
       return false;
     }
   }
   aux1 = time1.getMinutes();
   aux2 = time2.getMinutes();
-  if(aux2 != aux1)
-  {
-    if(aux2 > aux1)
-    {
+  if(aux2 != aux1){
+    if(aux2 > aux1){
       return true;
     }
-    else
-    {
+    else{
       return false;
     }
   }
   aux1 = time1.getSeconds();
   aux2 = time2.getSeconds();
-  if(aux2 > aux1)
-  {
+  if(aux2 > aux1){
     return true;
   }
   else {
@@ -179,25 +149,14 @@ function thehighttimecashier(time1,time2)
   }
 }
 
-/*function apertura_cashier()
-{
-  var db = new DataBase();
-  var myCashiers = db.getTable("cashier",'\\views\\cashier',2);
-  var ultimo = myCashiers.length-1;
-  ultimo_cierre = myCashiers[ultimo].money_close;
-  $("#ultimocierre").text(ultimo_cierre);
-}*/
-
 function getpathproyect(todelete,cant_of_breakbar)
 {
   actualdir = __dirname
   /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
   si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
   */
-  if(actualdir.search('/') != -1)
-  {
-    for(i = 0; i < cant_of_breakbar; i++)
-    {
+  if(actualdir.search('/') != -1){
+    for(i = 0; i < cant_of_breakbar; i++){
       todelete = todelete.replace(String.fromCharCode(92),'/');
     }
   }
@@ -205,54 +164,37 @@ function getpathproyect(todelete,cant_of_breakbar)
   return actualdir;
 }
 
-function converpath(toconvert,cant_of_breakbar)
-{
+function converpath(toconvert,cant_of_breakbar){
   actualdir = __dirname
   /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
   si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
   */
-  if(actualdir.search('/') != -1)
-  {
-    for(i = 0; i < cant_of_breakbar; i++)
-    {
+  if(actualdir.search('/') != -1){
+    for(i = 0; i < cant_of_breakbar; i++){
       toconvert = toconvert.replace(String.fromCharCode(92),'/');
     }
   }
   return toconvert;
 }
 
-
-
-
-
-function create_cashier(money)
-{
-  var db = new DataBase();
-  var myCashiers = db.getTable("cashier",'\\views\\cashier',2);
+function create_cashier(money){
   var cashier = {"date_open": new Date().toUTCString(), "money_open": money, "date_close": "...", "money_close": "..."};
   myCashiers.push(cashier);
   db.putTable("cashier", myCashiers,'\\views\\cashier',2);
 }
 
-function exist_active_cashier(todelete,cant_of_breakbar)
-{
-  var db = new DataBase();
+function exist_active_cashier(todelete,cant_of_breakbar){
   var myCashiers = db.getTable("cashier",todelete,cant_of_breakbar);
   var ultimo = myCashiers.length-1;
-  if(ultimo != -1 && myCashiers[ultimo].date_close == "...")
-  {
+  if(ultimo != -1 && myCashiers[ultimo].date_close == "..."){
     return true;
   }
-  else
-  {
+  else{
     return false;
   }
 }
 
-function close_cashier(money)
-{
-  var db = new DataBase();
-  var myCashiers = db.getTable("cashier",'\\views\\cashier',2);
+function close_cashier(money){
   var ultimo = myCashiers.length-1;
   myCashiers[ultimo].date_close = new Date().toUTCString();
   myCashiers[ultimo].money_close = money;
