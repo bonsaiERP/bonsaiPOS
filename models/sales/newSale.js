@@ -169,6 +169,37 @@ function showAlertMessage(tipeMessage)
   }
 });
 
+///////////////////////////////////////a;adir organizacion
+$('#organizatiobutton').click(function(){
+  event.preventDefault();
+  var data_table = $("#tblorganization");
+  var rowCountOrg = $('#tblorganization tr').length;
+  if (rowCountOrg<1) {
+    business_name = $("#business_name").val();
+    nit = $("#nit").val();
+    if (!$('#business_named').val()) { //si el campo de nombre esta vacio esta ingresanod por nit
+      nit = $("#nit").val();
+
+      for (var i = 0; i < myOrganisation.length; i++) { //busco el nombre segun nit
+        if (  myOrganisation[i].nit==nit) {
+          business_name=myOrganisation[i].name;
+        }
+      }
+
+    }
+    if (($('#business_named').val()&&$('#nit').val() ) || (!$('#business_named').val()&&$('#nit').val() ) ) {
+      data_table.append('<tr id=tr_organization> <td> <b> Nombre: </b></td><td> '+ business_name +"</td><td> <b>NIT:</b>"+nit +'</td></tr>');
+
+    }
+
+
+  }
+
+
+});
+///////////////////////////////////////////
+
+
   $("#add_btn").click(function () {
     showAlertMessage("danger");
   });
