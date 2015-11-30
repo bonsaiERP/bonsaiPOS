@@ -52,7 +52,20 @@ function focuse(){
   document.getElementById('business_name').focus();
 }
 </script>
-    
+<script type="text/javascript">
+  function change(){
+    var total=parseFloat(document.getElementById('total_sale').value);
+    var on_account=parseFloat(document.getElementById('on_account').value);
+    if (on_account>=total) {
+      var changing=on_account - total;
+      document.getElementById('changing').value=changing.toFixed(2);
+    }else{
+       var changing=0;
+       document.getElementById('changing').value=changing.toFixed(2);
+    }
+  }
+</script>
+
 </head>
 
 <!--<body onload="verify_cashier(), document.getElementById('business_name').focus(), key()">-->
@@ -210,6 +223,16 @@ function focuse(){
     <h3 align="right"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Total:
       <label style="text-align: right;​" id="total" type="number">0</label>
     </h3>
+    <form id="form5">
+      <input type="hidden" name="total_sale" id="total_sale">
+      <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2  col-lg-3 col-md-3 col-sm-3 col-xs-5" align="right">
+        <input class="form-control" type="text" name="on_account" id="on_account" placeholder="Monto Recibido" onblur="change();" />
+      </div>
+       <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2  col-lg-3 col-md-3 col-sm-3 col-xs-5" align="right">
+        <input class="form-control" type="text" name="changing" id="changing" placeholder="Cambio" readonly />
+      </div>
+    </form>
+    <br> <br>
     <!--<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" align="right">
         <button class="btn btn-info" id="btn_confirm" style="display:none;">Confirmar Venta</button>

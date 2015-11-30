@@ -81,6 +81,7 @@ function showAlertMessage(tipeMessage)
           $("#total").text(total);
           $("#name_product").val("");
           $("#amount_product").val("");
+          document.getElementById('total_sale').value=total;
           showAlertMessage("success");
           if (myObject[cont].amount <= 0) {
             showAlertMessage("warning");
