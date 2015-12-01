@@ -3,6 +3,52 @@ var fs = require('fs');
 
 define(["database"], function(database) {
 
+function getpathproyect(todelete,cant_of_breakbar)
+{
+  actualdir = __dirname
+  /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
+  si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
+  */
+  if(actualdir.search('/') != -1){
+    for(i = 0; i < cant_of_breakbar; i++){
+      todelete = todelete.replace(String.fromCharCode(92),'/');
+    }
+  }
+  actualdir = actualdir.replace(todelete,'');
+  return actualdir;
+}
+
+function converpath(toconvert,cant_of_breakbar)
+{
+  actualdir = __dirname
+  /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
+  si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
+  */
+  if(actualdir.search('/') != -1){
+    for(i = 0; i < cant_of_breakbar; i++){
+      toconvert = toconvert.replace(String.fromCharCode(92),'/');
+    }
+  }
+  return toconvert;
+}
+(function ($) {
+  $('#date_entered').on("change",function(){
+    var data_table = $("#tblDatos");
+    if(data_table.length > 0){
+      data_table.empty();
+      data_table.append('<tr ><th style="text-align: center;">Hora</th><th style="text-align: center;">Numero de Venta</th><th style="text-align: center;">Cliente</th><th style="text-align: center;">Total Venta</th></tr>');
+    }
+    var actual_date = $("#date_entered").val();
+    var list_of_sales = returnlistofsalesofdate(actual_date);
+    list_of_sales = orderlistbyhour(list_of_sales);
+    for (var cont = 0; cont < list_of_sales.length; cont++) {
+      var aux = convertdatetoformatofso(list_of_sales[cont].date);
+      data_table.append('<tr> <td style="text-align: center;">' + getactualtime(aux) + '</td> <td style="text-align: center;">' + list_of_sales[cont].id + '</td> <td style="text-align: center;">' + list_of_sales[cont].client + '</td> <td style="text-align: center;">' + list_of_sales[cont].total + '</td> </tr>');
+    }
+    data_table.append('<tr><td></td><td style="text-align: right;"><strong>Total acomulado:</strong></td><td style="text-align: center;">'+gettotalofsales(list_of_sales)+'</td>');
+      });
+})(jQuery);
+
   var database = database.DataBase();
   var general_list_of_sales = database.getTable("sales",'\\views\\reports',2);
   var dir = getpathproyect('\\views\\reports',2);
@@ -41,14 +87,21 @@ define(["database"], function(database) {
   }
 
   function returnlistofsalesofdate(date){
-    var day = date.getDate();
-    var month = date.getMonth();
-    var year = date.getFullYear();
-    var result = [];
-    for (i = 0; i < general_list_of_sales.length; i++) {
-      var aux = convertdatetoformatofso(general_list_of_sales[i].date);
-      if(aux.getDate() == day && aux.getMonth() == month && aux.getFullYear() == year){
-        result.push(general_list_of_sales[i]);
+  date = convertdatetoformatofso(date);
+  var day = date.getDate()+1;
+  var month = date.getMonth();
+  if(day == 31 && month == 10){
+    date = new Date();
+    day = date.getDate();
+    month = date.getMonth();
+  }
+
+  var year = date.getFullYear();
+  var result = [];
+  for (i = 0; i < general_list_of_sales.length; i++) {
+    var aux = convertdatetoformatofso(general_list_of_sales[i].date);
+    if(aux.getDate() == day && aux.getMonth() == month && aux.getFullYear() == year){
+      result.push(general_list_of_sales[i]);
       }
     }
     return result;

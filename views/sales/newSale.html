@@ -1,5 +1,6 @@
 <html>
 <head>
+
   <!-- Librerias y scripts iniciales de la pagina -->
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>BonsaiPOS</title>
@@ -41,19 +42,37 @@ function key(){
   shortcut.add("f1", function(){
     document.getElementById('name_product').focus()
   });
-  shortcut.add("f2", function(){
-    document.getElementById('btn_confirm').focus()
+  shortcut.add("f5", function(){
+    //document.getElementById('btn_confirm').focus()
+    $('#btn_confirm').click();
+  });
+  shortcut.add("esc", function(){
+    //document.getElementById('btn_cancel').focus()
+    $('#btn_cancel').click();
   });
   shortcut.add("f3", function(){
-    document.getElementById('btn_cancel').focus()
-  });
-  shortcut.add("f4", function(){
     document.getElementById('name-field').focus()
+  });
+  shortcut.add("f2", function(){
+    document.getElementById('on_account').focus()
   });
 }
 function focuse(){
   document.getElementById('business_name').focus();
 }
+</script>
+<script type="text/javascript">
+  function change(){
+    var total=parseFloat(document.getElementById('total_sale').value);
+    var on_account=parseFloat(document.getElementById('on_account').value);
+    if (on_account>=total) {
+      var changing=on_account - total;
+      document.getElementById('changing').value=changing.toFixed(2);
+    }else{
+       var changing=0;
+       document.getElementById('changing').value=changing.toFixed(2);
+    }
+  }
 </script>
 
 </head>
@@ -131,7 +150,7 @@ function focuse(){
 
 
 
-  <div class="container">
+<div class="container">
     <div class="alert alert-dismissible alert-success" id="alertMessage" hidden="true">
       <button type="button" class="close" data-dismiss="alert">×</button>
     </div>
@@ -167,6 +186,7 @@ function focuse(){
 
 </div>
 </h5>
+
 <h6>
 <div align="right" id="reloj" style="font-size:20px;"></div>
 </h6>
@@ -174,7 +194,7 @@ function focuse(){
 
 
 
-  
+
     <form id="formorganization">
       <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2  col-lg-3 col-md-3 col-sm-3 col-xs-12" align="right">
         <input class="form-control" type="text" name="business_name" id="business_name" placeholder="Razon Social"/>
@@ -242,6 +262,16 @@ function focuse(){
     <h3 align="right"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Total:
       <label style="text-align: right;​" id="total" type="number">0</label>
     </h3>
+    <form id="form5">
+      <input type="hidden" name="total_sale" id="total_sale">
+      <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2  col-lg-3 col-md-3 col-sm-3 col-xs-5" align="right">
+        <input class="form-control" type="text" name="on_account" id="on_account" placeholder="Monto Recibido" onblur="change();" />
+      </div>
+       <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2  col-lg-3 col-md-3 col-sm-3 col-xs-5" align="right">
+        <input class="form-control" type="text" name="changing" id="changing" placeholder="Cambio" readonly />
+      </div>
+    </form>
+    <br> <br>
     <!--<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" align="right">
         <button class="btn btn-info" id="btn_confirm" style="display:none;">Confirmar Venta</button>

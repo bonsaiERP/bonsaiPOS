@@ -1,6 +1,12 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
+
 define(["database"], function(database) {
+
+//intente llamar aca al archivo daySales.js pero no da, esto para no repetir codigo que ya existe
+//en otras palabras quice reusar codigo de este archivo !!!
+//var daySales = '../reports/daySales.js';
+//document.write('<script src="../reports/daySales.js" type="text/javascript"></script>');
 
   var database = database.DataBase();
   var general_list_of_sales = database.getTable("sales",'\\views\\cashier',2);
@@ -54,17 +60,19 @@ define(["database"], function(database) {
   }
 
   function returnlistofsalesofdatecashier(date){
-    var day = date.getDate();
-    var month = date.getMonth();
-    var year = date.getFullYear();
-    var result = [];
-    for (i = 0; i < general_list_of_sales.length; i++) {
-      var aux = convertdatetoformatofso(general_list_of_sales[i].date);
-      if(aux.getDate() == day && aux.getMonth() == month && aux.getFullYear() == year)
-      {
-        result.push(general_list_of_sales[i]);
-      }
+  var general_list_of_sales = database.getTable("sales",'\\views\\cashier',2);
+  var myCashiers = database.getTable("cashier",'\\views\\cashier',2);
+  var day = date.getDate();
+  var month = date.getMonth();
+  var year = date.getFullYear();
+  var result = [];
+  for (i = 0; i < general_list_of_sales.length; i++) {
+    var aux = convertdatetoformatofso(general_list_of_sales[i].date);
+    if(aux.getDate() == day && aux.getMonth() == month && aux.getFullYear() == year)
+    {
+      result.push(general_list_of_sales[i]);
     }
+  }
     return result;
   }
 
@@ -80,26 +88,28 @@ define(["database"], function(database) {
   }
 
   function data_cashier(){
-    var ultimo = myCashiers.length-1;
-    monto = myCashiers[ultimo].money_open;
-    $("#monto").text(monto);
-    var list_of_sales = returnlistofsalesofdatecashier(new Date());
-    total_daySales = gettotalofsalescashier(list_of_sales,myCashiers[ultimo].date_open);
-    $("#totalSales").text(total_daySales);
-    total = parseInt(monto) + parseInt(total_daySales);
-    $("#total").text(total);
-    return total;
-  }
+  var general_list_of_sales = database.getTable("sales",'\\views\\cashier',2);
+  var myCashiers = database.getTable("cashier",'\\views\\cashier',2);
+  var ultimo = myCashiers.length-1;
+  monto = myCashiers[ultimo].money_open;
+  $("#monto").text(monto);
+  var list_of_sales = returnlistofsalesofdatecashier(new Date());
+  total_daySales = gettotalofsalescashier(list_of_sales,myCashiers[ultimo].date_open);
+  $("#totalSales").text(total_daySales);
+  total = parseInt(monto) + parseInt(total_daySales);
+  $("#total").text(total);
+  return total;
+}
 
   function thehighttimecashier(time1,time2){
-    var aux1 = time1.getFullYear();
-    var aux2 = time2.getFullYear();
-    if(aux2 != aux1){
-      if(aux2 > aux1){
-        return true;
-      }
-      else{
-        return false;
+  var aux1 = time1.getFullYear();
+  var aux2 = time2.getFullYear();
+  if(aux2 != aux1){
+    if(aux2 > aux1){
+      return true;
+    }
+    else{
+      return false;
       }
     }
     aux1 = time1.getMonth();
@@ -178,6 +188,15 @@ define(["database"], function(database) {
       }
     }
     return toconvert;
+    }
+
+    function create_cashier(money){
+      var general_list_of_sales = database.getTable("sales",'\\views\\cashier',2);
+      var myCashiers = database.getTable("cashier",'\\views\\cashier',2);
+      var cashier = {"date_open": new Date().toUTCString(), "money_open": money, "date_close": "...", "money_close": "..."};
+      myCashiers.push(cashier);
+      database.putTable("cashier", myCashiers,'\\views\\cashier',2);
+    }
   }
 
   function create_cashier(money){
@@ -198,9 +217,11 @@ define(["database"], function(database) {
   }
 
   function close_cashier(money){
-    var ultimo = myCashiers.length-1;
-    myCashiers[ultimo].date_close = new Date().toUTCString();
-    myCashiers[ultimo].money_close = money;
-    database.putTable("cashier", myCashiers,'\\views\\cashier',2);
-  }
+  var general_list_of_sales = database.getTable("sales",'\\views\\cashier',2);
+  var myCashiers = database.getTable("cashier",'\\views\\cashier',2);
+  var ultimo = myCashiers.length-1;
+  myCashiers[ultimo].date_close = new Date().toUTCString();
+  myCashiers[ultimo].money_close = money;
+  database.putTable("cashier", myCashiers,'\\views\\cashier',2);
+}
 });

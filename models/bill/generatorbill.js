@@ -106,8 +106,82 @@ define(["database"], function(database) {
 
 });
 
-  function get_name_company(){
-    return company.socialreason;
+function get_name_company(){
+  return company.socialreason;
+}
+
+function get_direction_company(){
+  return company.address;
+}
+
+function get_city_and_county(){
+  //country_id permitira hacer una mejor selección de pais, pero necesitamos saber a que id le asigno borris a cada pais
+  //Hasta que no se sepa el valor del country_id, esto devolvera un valor predeterminado
+  return "BOLIVIA";
+}
+
+function get_nit_company(){
+  return nit_company;
+}
+
+function get_number_bill(){
+  return number_of_bill;
+}
+
+function get_number_of_authorization(){
+  return number_of_authorization;
+}
+
+function get_date_of_sell(){
+  return date_of_sell;
+}
+
+function get_name_buyer(){
+  return name_buyer;
+}
+
+function get_nit_buyer(){
+  return nit_buyer;
+}
+
+function get_detail_of_sale(){
+  return detail_of_sale
+}
+
+function get_total_of_sale(){
+  return sale.total;
+}
+
+function get_total_of_money_buyer_gave(){
+  //return "AQUÍ CUANTO DINERO DIO EL CLIENTE"; //Cuando se implemente cuanto dinero dio el cliente para pagar en la venta, reemplazar esto
+  return sale.on_account;
+}
+
+function get_change(){
+  //return "AQUÍ EL CAMBIO";//Cuando se implemente cuanto de cambio hay que darle al cliente en la venta, reemplazar esto
+  return sale.changing;
+}
+
+function get_literal_number(tot){
+  return NumeroALetras(tot);
+}
+
+function get_secure_code(){
+  return "AQUI VA CODIGO DE CONTROL";
+}
+
+//############################ FUNCIONES LITERAL ####################################
+function Unidades(num){
+  switch(num){
+    case 1: return "UN";
+    case 2: return "DOS";
+    case 3: return "TRES";
+    case 4: return "CUATRO";
+    case 5: return "CINCO";
+    case 6: return "SEIS";
+    case 7: return "SIETE";
+    case 8: return "OCHO";
+    case 9: return "NUEVE";
   }
 
   function get_direction_company(){
