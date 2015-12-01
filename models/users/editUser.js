@@ -1,8 +1,12 @@
+window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
-var db = new DataBase();
+
+define(["database"], function(database) {
+
+var database = database.DataBase();
 var user;
 var id = get_data('\\views\\users',2);
-var general_list_of_users = db.getTable("users",'\\views\\users',2);
+var general_list_of_users = database.getTable("users",'\\views\\users',2);
 function get_user(){
   for (var i = 0; i < general_list_of_users.length; i++) {
     if(general_list_of_users[i].id == id){
@@ -76,9 +80,11 @@ function edit_user()
         general_list_of_users[i] = user;
       }
     }
-    db.putTable("users", general_list_of_users,'\\views\\users',2);
+    database.putTable("users", general_list_of_users,'\\views\\users',2);
     $('#modalBodyMessageAccept').html('');
     $('#modalBodyMessageAccept').append('<p>Cliente modificado con &eacute;xito.</p>');
     $('#myAcceptModal').modal('show');
   }
 }
+
+});

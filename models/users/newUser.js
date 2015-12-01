@@ -1,10 +1,15 @@
+window.$ = window.jQuery = require('../../libs/jquery.min.js');
+var fs = require('fs');
+
+define(["database"], function(database) {
+
 $(document).ready(function(){
-	var fs = require('fs');
-	var db = new DataBase();
+
+	var database = database.DataBase();
 	var name='';
 	var lastname='';
 	var ci = 0;
-	var myUser = db.getTable("users",'\\views\\users',2);
+	var myUser = database.getTable("users",'\\views\\users',2);
 
 
 	$('#btn-new-user').click(function(){
@@ -51,7 +56,7 @@ $(document).ready(function(){
       }
       var user = { "id": id, "name": name, "lastname": lastname, "ci" : ci, "date": date, "sync": false };
       myUser.push(user);
-      db.putTable("users", myUser,'\\views\\users',2);
+      database.putTable("users", myUser,'\\views\\users',2);
       location.replace('../../views/users/listusers.html');
       localStorage.setItem('reload',1);
       $('#alertMessage').html('Cliente creado con &eacute;xito.');
@@ -60,11 +65,11 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
 	var fs = require('fs');
-	var db = new DataBase();
+	var database = database.DataBase();
 	var name='';
 	var lastname='';
 	var ci = 0;
-	var myUser = db.getTable("users",'\\views\\users',2);
+	var myUser = database.getTable("users",'\\views\\users',2);
 
 
 	$('#btn-new-user').click(function(){
@@ -111,10 +116,12 @@ $(document).ready(function(){
       }
       var user = { "id": id, "name": name, "lastname": lastname, "ci" : ci, "date": date, "sync": false };
       myUser.push(user);
-      db.putTable("users", myUser,'\\views\\users',2);
+      database.putTable("users", myUser,'\\views\\users',2);
       location.replace('../../views/users/listusers.html');
       localStorage.setItem('reload',1);
       $('#alertMessage').html('Cliente creado con &eacute;xito.');
       $('#alertMessage').show;
   };
+});
+
 });

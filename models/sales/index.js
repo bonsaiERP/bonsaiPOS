@@ -1,5 +1,10 @@
-var db = new DataBase();
-var mySales = db.getTable("sales",'\\views\\sales',2);
+window.$ = window.jQuery = require('../../libs/jquery.min.js');
+var fs = require('fs');
+
+define(["database"], function(database) {
+
+var database = database.DataBase();
+var mySales = database.getTable("sales",'\\views\\sales',2);
 
 if(localStorage.getItem('reload')==1)
 {
@@ -41,7 +46,7 @@ $(document).ready(function(){
 				mySales.splice(i,1);
 			};
 		};
-      	db.putTable("sales", mySales,'\\views\\sales',2);
+      	database.putTable("sales", mySales,'\\views\\sales',2);
       	updateStock(id);
       	location.reload();
      	localStorage.setItem('reload',1);
@@ -54,8 +59,8 @@ $(document).ready(function(){
 
 function updateStock(id)
 {
-	var salesProducts=db.getTable("saleProducts",'\\views\\sales',2);
-	var products=db.getTable("products",'\\views\\sales',2);
+	var salesProducts=database.getTable("saleProducts",'\\views\\sales',2);
+	var products=database.getTable("products",'\\views\\sales',2);
 
 	for (var i = salesProducts.length - 1; i >= 0; i--) {
 		if (String(salesProducts[i].sale_id)==String(id)) {
@@ -66,5 +71,7 @@ function updateStock(id)
 			};
 		};
 	};
-	db.putTable('products',products,'\\views\\sales',2);
+	database.putTable('products',products,'\\views\\sales',2);
 }
+
+});

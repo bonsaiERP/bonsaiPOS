@@ -1,7 +1,12 @@
-window.$ = window.jQuery = require('./libs/jquery.min.js');
-var db = new DataBase();
-var clientes = db.getTable('users','',2);
-var user = db.getTable('token','',2);
+
+window.$ = window.jQuery = require('../../libs/jquery.min.js');
+var fs = require('fs');
+
+define(["database"], function(database) {
+
+var database = database.DataBase();
+var clientes = database.getTable('users','',2);
+var user = database.getTable('token','',2);
 
 function showAlertMessage(tipeMessage)
 {
@@ -57,6 +62,8 @@ $(document).ready(function () {
   else {
     alert("No se tiene ningun cliente nuevo para sincronizar");
   }
-  db.putTable("users", clientes,'\\views\\users',2);
+  database.putTable("users", clientes,'\\views\\users',2);
 	});
   });
+
+});

@@ -1,6 +1,5 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
-
-var route = "../../..";
+var fs = require('fs');
 
 $(document).ready(function(){
 
@@ -12,10 +11,12 @@ $(document).ready(function(){
     '<script type="text/javascript" src="../../libs/jquery-ui.min.js"></script>'+
     '<link href="../../libs/jquery-ui.css" rel="stylesheet">'+
     '<link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">'+
-
-    '<script type="text/javascript" src="../../models/bill/generatorbill.js"></script>'+
-    '<script type="text/javascript" src="../../models/cashier/cashier.js"></script>'+
     '<script type="text/javascript" src="../../models/database/database.js"></script>'+
+    '<script src="../../libs/require.js"></script>'+
+
+    '<script type="text/javascript" src="../../models/cashier/cashier.js"></script>'+
+    '<script type="text/javascript" src="../../models/bill/generatorbill.js"></script>'+
+
     '<script type="text/javascript" src="../../models/nameoffice.js"></script>'+
     '<script type="text/javascript" src="../../models/passvar.js"></script>'+
     '<script type="text/javascript" src="../../models/products/products.js"></script>'+
@@ -105,7 +106,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('footer').prepend(
+  $('footer').prepend(
   '<script type="text/javascript" src="../../models/cashier/cashier.js"></script>'+
   '<script type="text/javascript" src="../../models/connections/connections.js"></script>'+
   '<script type="text/javascript" src="../../models/database/database.js"></script>'+
@@ -127,6 +128,6 @@ $(document).ready(function () {
   '<script type="text/javascript" src="../../node_modules/jsPDF/plugins/split_text_to_size.js"></script>'+
   '<script type="text/javascript" src="../../node_modules/jsPDF/plugins/from_html.js"></script>'+
 
-  '<script src="../../libs/jquery-ui.min.js"></script>'
+  '<script type="text/javascript" src="../../libs/jquery-ui.min.js"></script>'
   );
 });

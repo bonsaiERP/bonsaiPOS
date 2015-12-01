@@ -1,16 +1,20 @@
 /* global DataBase */
+window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
+
+define(["database"], function(database) {
+
 var total = 0;
 var ci;
-var db = new DataBase();
-var myObject = db.getTable("products",'\\views\\sales',2);
+var database = database.DataBase();
+var myObject = database.getTable("products",'\\views\\sales',2);
 var business_name;
 var nit;
-var clients= db.getTable("users",'\\views\\sales',2);
-var mySales = db.getTable("sales",'\\views\\sales',2);
-var myOrganisation = db.getTable("organisations",'\\views\\sales',2);
-var myNit = db.getTable("organisations",'\\views\\sales',2);
-var saleproducts = db.getTable("saleProducts",'\\views\\sales',2);
+var clients= database.getTable("users",'\\views\\sales',2);
+var mySales = database.getTable("sales",'\\views\\sales',2);
+var myOrganisation = database.getTable("organisations",'\\views\\sales',2);
+var myNit = database.getTable("organisations",'\\views\\sales',2);
+var saleproducts = database.getTable("saleProducts",'\\views\\sales',2);
 
 if(localStorage.getItem('reload')==1)
 {
@@ -221,9 +225,9 @@ $('#organizatiobutton').click(function(){
       var sale = { "id": id, "date": date, "total": total , "client":client, "business_name":business_name, "nit":nit, "sync":false};
 
       mySales.push(sale);
-      db.putTable("sales", mySales,'\\views\\sales',2);
+      database.putTable("sales", mySales,'\\views\\sales',2);
       registerSalesProducts(sale.id)
-      db.putTable("products", myObject,'\\views\\sales',2);
+      database.putTable("products", myObject,'\\views\\sales',2);
       name=$('#name-field').val();
       for (var cont = 0; cont < clients.length; cont++) {
         aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
@@ -232,7 +236,7 @@ $('#organizatiobutton').click(function(){
           clients[cont].nit=$('#nit').val();
         }
       }
-      db.putTable("users", clients,'\\views\\sales',2);
+      database.putTable("users", clients,'\\views\\sales',2);
       var to_bill = {"id_sale":id,"nit_buyer":nit,"name_buyer":business_name,"date":date};
       set_data_to_push(to_bill,'\\views\\sales',2);
       location.reload();
@@ -421,7 +425,7 @@ function registerSalesProducts(id)
 {
   var auxArray = getSaleProducts(id);
   array=saleproducts.concat(auxArray);
-  db.putTable("saleProducts", array,'\\views\\sales',2);
+  database.putTable("saleProducts", array,'\\views\\sales',2);
 
 }
 
@@ -430,3 +434,5 @@ function open_bill_view()
   var path = getpathproyect('\\views\\sales',2) + converpath('\\views\\bill\\generatorbill.html',3);
   window.open(path, '', 'width=420,height=600');
 }
+
+});

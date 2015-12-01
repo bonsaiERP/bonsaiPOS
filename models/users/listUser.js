@@ -1,6 +1,11 @@
+window.$ = window.jQuery = require('../../libs/jquery.min.js');
+var fs = require('fs');
+
+define(["database"], function(database) {
+
 var id_user;
-var db = new DataBase();
-var general_list_of_users = db.getTable("users",'\\views\\users',2);
+var database = database.DataBase();
+var general_list_of_users = database.getTable("users",'\\views\\users',2);
 
 var data2 = new Array("");
 
@@ -88,3 +93,5 @@ function getClients() {
 
 
     });
+
+});

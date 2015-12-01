@@ -1,12 +1,15 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
-var db = new DataBase();
-var user = db.getTable("token",'\\views\\synchronization',2);
+
+define(["database"], function(database) {
+
+var database = database.DataBase();
+var user = database.getTable("token",'\\views\\synchronization',2);
 var $debo_sincronizar = true;
 //====================================================================
 
 function getProducts() {
-	var products = db.getTableDos('products');
+	var products = database.getTableDos('products');
 	return products;
 }
 
@@ -50,7 +53,7 @@ function sincronizar() {
 		$.ajax(stocks).done(function (response) {
 			var stocks = response;
 			var products_pos = agregarAmount(products, stocks);
-			db.putTable('products', products_pos, '\\views\\synchronization', 2);
+			database.putTable('products', products_pos, '\\views\\synchronization', 2);
 			setTimeout(function () {
 				alert("Los productos fueron actualizados exitosamente.");
 			}, 1000);
@@ -122,7 +125,7 @@ function agregarAmount(products, stocks) {
 }
 //=====================================================================
 function isDaily() {
-	var mySynchronization = db.getTableDos("synchronization");
+	var mySynchronization = database.getTableDos("synchronization");
 	for (var i = 0; i < mySynchronization.length; i++) {
 		if (mySynchronization[i].type === "daily")
 			return true;
@@ -190,3 +193,5 @@ function sincronizacionDiaria(){
 	}
 }
 sincronizacionDiaria();
+
+});

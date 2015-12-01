@@ -1,7 +1,12 @@
 
+window.$ = window.jQuery = require('../../libs/jquery.min.js');
+var fs = require('fs');
+
+define(["database"], function(database) {
+
 $(document).ready(function(){
     var fs = require('fs');
-  	var db = new DataBase();
+  	var database = database.DataBase();
   	var type='';
     var mySynchronization = [];
 
@@ -22,10 +27,10 @@ $(document).ready(function () {
           var valor = document.getElementById("time").value;
           var synchronizationDaily = { "id": 1, "type": "daily", "valor": valor };
           mySynchronization.push(synchronizationDaily);
-          db.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
+          database.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
           var synchronizationDaily = { "id": 2, "type": "change" };
           mySynchronization.push(synchronizationDaily);
-          db.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
+          database.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
           location.reload();
           localStorage.setItem('reload',1);
 
@@ -37,7 +42,7 @@ $(document).ready(function () {
             var valor = document.getElementById("time").value;
             var synchronizationDaily = { "id": 1, "type": "daily", "valor": valor };
             mySynchronization.push(synchronizationDaily);
-            db.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
+            database.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
             location.reload();
             localStorage.setItem('reload',1);
 
@@ -50,7 +55,7 @@ $(document).ready(function () {
 
             var synchronizationDaily = { "id": 1, "type": "change" };
             mySynchronization.push(synchronizationDaily);
-            db.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
+            database.putTable("synchronization", mySynchronization,'\\views\\synchronization',2);
             location.reload();
             localStorage.setItem('reload',1);
 
@@ -65,3 +70,5 @@ $(document).ready(function () {
       });
 
   });
+
+});
