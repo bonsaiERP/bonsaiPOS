@@ -145,11 +145,13 @@ function get_total_of_sale(){
 }
 
 function get_total_of_money_buyer_gave(){
-  return "AQUÍ CUANTO DINERO DIO EL CLIENTE"; //Cuando se implemente cuanto dinero dio el cliente para pagar en la venta, reemplazar esto
+  //return "AQUÍ CUANTO DINERO DIO EL CLIENTE"; //Cuando se implemente cuanto dinero dio el cliente para pagar en la venta, reemplazar esto
+  return sale.on_account;
 }
 
 function get_change(){
-  return "AQUÍ EL CAMBIO";//Cuando se implemente cuanto de cambio hay que darle al cliente en la venta, reemplazar esto
+  //return "AQUÍ EL CAMBIO";//Cuando se implemente cuanto de cambio hay que darle al cliente en la venta, reemplazar esto
+  return sale.changing;
 }
 
 function get_literal_number(tot){
