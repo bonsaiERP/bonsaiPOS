@@ -235,6 +235,7 @@ $('#organizatiobutton').click(function(){
       db.putTable("users", clients,'\\views\\sales',2);
       var to_bill = {"id_sale":id,"nit_buyer":nit,"name_buyer":business_name,"date":date};
       set_data_to_push(to_bill,'\\views\\sales',2);
+      synchronize();
       location.reload();
       localStorage.setItem('reload',1);
   });
@@ -429,4 +430,63 @@ function open_bill_view()
 {
   var path = getpathproyect('\\views\\sales',2) + converpath('\\views\\bill\\generatorbill.html',3);
   window.open(path, '', 'width=420,height=600');
+}
+
+
+function synchronize()
+{
+  var data;
+  user = db.getTable('token','',2);
+  sales = db.getTable('sales','',2);
+  saleProducts = db.getTable('saleProducts','',2);
+  //generar cadena para json
+  var product;
+  var products=[];
+  for (var cont=0;cont<sales.length;cont++){
+
+    if(sales[cont].sync===false){
+      products=[];
+    for (var cont2=0;cont2<saleProducts.length;cont2++){
+          if(sales[cont].id===saleProducts[cont2].sale_id){
+          sales[cont].sync=true;
+          resp=true;
+           product = { "item_id": parseInt(saleProducts[cont2].product_id), "price":parseInt(saleProducts[cont2].price), "quantity":parseInt(saleProducts[cont2].quantity), "description": saleProducts[cont2].name};
+           products.push(product);
+          }
+    }
+        data= JSON.stringify(products);
+        data=eval("("+ data + ")" );
+  //enviar la cadena json a erp
+  $.ajax({
+    headers: {token: user[0].token},
+    method: "POST",
+    url: "http://catolica.bonsaierp.com:3000/api/v1/incomes",
+    data: {
+      income: {
+      "date":"2015-11-19",
+      "due_date":"2015-11-22",
+      "contact_id":1,
+      "currency":"BOB",
+      "description":"Prueba ingreso",
+      "income_details_attributes":
+      data}
+    }
+  })
+  .done(function(resp) {
+    setTimeout(function(){
+      alert("Los datos de la empresa fueron actualizados exitosamente.");
+    }, 1000);
+  })
+  .fail(function (ajaxContext){
+   alert("Error al Actualizar los datos de la empresa");
+ });
+   }
+ }
+ if(resp === true){
+   alert("Las  de ventas de la empresa fueron actualizados exitosamente");
+ }
+ else {
+   alert("No se tiene ninguna  nueva venta para sincronizar");
+ }
+     db.putTable('sales',sales,'',2);
 }
