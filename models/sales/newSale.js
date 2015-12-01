@@ -66,7 +66,6 @@ function showAlertMessage(tipeMessage)
            name_product = myObject[cont].id;
         }
       }
-
     }
     var resp = false;
     if(amount_product > 0){

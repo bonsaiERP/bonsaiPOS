@@ -1,7 +1,6 @@
 var fs = require('fs');
 var db = new DataBase();
-var general_list_of_sales = db.getTable("sales",'\\views\\cashier',2);
-var myCashiers = db.getTable("cashier",'\\views\\cashier',2);
+
 //intente llamar aca al archivo daySales.js pero no da, esto para no repetir codigo que ya existe
 //en otras palabras quice reusar codigo de este archivo !!!
 //var daySales = '../reports/daySales.js';
@@ -51,6 +50,8 @@ function convertdatetoformatofso(date){
 }
 
 function returnlistofsalesofdatecashier(date){
+  var general_list_of_sales = db.getTable("sales",'\\views\\cashier',2);
+  var myCashiers = db.getTable("cashier",'\\views\\cashier',2);
   var day = date.getDate();
   var month = date.getMonth();
   var year = date.getFullYear();
@@ -77,6 +78,8 @@ function gettotalofsalescashier(list_of_sales,date_open){
 }
 
 function data_cashier(){
+  var general_list_of_sales = db.getTable("sales",'\\views\\cashier',2);
+  var myCashiers = db.getTable("cashier",'\\views\\cashier',2);
   var ultimo = myCashiers.length-1;
   monto = myCashiers[ultimo].money_open;
   $("#monto").text(monto);
@@ -178,6 +181,8 @@ function converpath(toconvert,cant_of_breakbar){
 }
 
 function create_cashier(money){
+  var general_list_of_sales = db.getTable("sales",'\\views\\cashier',2);
+  var myCashiers = db.getTable("cashier",'\\views\\cashier',2);
   var cashier = {"date_open": new Date().toUTCString(), "money_open": money, "date_close": "...", "money_close": "..."};
   myCashiers.push(cashier);
   db.putTable("cashier", myCashiers,'\\views\\cashier',2);
@@ -195,6 +200,8 @@ function exist_active_cashier(todelete,cant_of_breakbar){
 }
 
 function close_cashier(money){
+  var general_list_of_sales = db.getTable("sales",'\\views\\cashier',2);
+  var myCashiers = db.getTable("cashier",'\\views\\cashier',2);
   var ultimo = myCashiers.length-1;
   myCashiers[ultimo].date_close = new Date().toUTCString();
   myCashiers[ultimo].money_close = money;
