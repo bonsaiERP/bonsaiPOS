@@ -13,6 +13,28 @@ function showAlertMessage(tipeMessage)
     $("#alertMessage")[0].innerHTML='<p>Error al Actualizar los datos de la empresa.</p>';
   }
 }
+function addDaysToDate(date,days){
+    var d = new Date(date);
+
+    var  miliseconds=parseInt(35*24*60*60*1000);
+    var n = d.getDate();
+    var day=d.getDate();
+
+    var month=d.getMonth()+1;
+    var  year=d.getFullYear();
+
+    time=d.getTime();
+
+    miliseconds=parseInt(days*24*60*60*1000);
+
+    date=d.setTime(time+miliseconds);
+    date= new Date(date);
+    day=date.getDate();
+    month=date.getMonth()+1;
+    year=date.getFullYear();
+    return  year + "/" + month + "/" + day;
+
+}
 
 $(document).ready(function () {
 	$("#update_incomes").click(function () {
@@ -23,6 +45,8 @@ $(document).ready(function () {
     //generar cadena para json
     var product;
     var products=[];
+    var date=new Date();
+    var auxDateThreeDatesMore=new Date();
     $('#progressbardiv').show();
     $('#progressbar-2').animate({ width: '100%' }, 1, 'linear').html("Cargando...");
     for (var cont=0;cont<sales.length;cont++){
@@ -32,12 +56,16 @@ $(document).ready(function () {
       for (var cont2=0;cont2<saleProducts.length;cont2++){
             if(sales[cont].id===saleProducts[cont2].sale_id){
             sales[cont].sync=true;
+              date=Date.parse(sales[cont].date);
             resp=true;
              product = { "item_id": parseInt(saleProducts[cont2].product_id), "price":parseInt(saleProducts[cont2].price), "quantity":parseInt(saleProducts[cont2].quantity), "description": saleProducts[cont2].name};
              products.push(product);
             }
       }
           data= JSON.stringify(products);
+          auxDateThreeDatesMore=date;
+          date=addDaysToDate(date,0);
+          auxDateThreeDatesMore= addDaysToDate(auxDateThreeDatesMore,3);
           data=eval("("+ data + ")" );
     //enviar la cadena json a erp
     $.ajax({
@@ -46,8 +74,8 @@ $(document).ready(function () {
       url: "http://catolica.bonsaierp.com:3000/api/v1/incomes",
       data: {
         income: {
-        "date":"2015-11-19",
-        "due_date":"2015-11-22",
+        "date":date,
+        "due_date":auxDateThreeDatesMore,
         "contact_id":1,
         "currency":"BOB",
         "description":"Prueba ingreso",
