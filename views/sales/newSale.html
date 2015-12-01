@@ -38,14 +38,19 @@ function key(){
   shortcut.add("f1", function(){
     document.getElementById('name_product').focus()
   });
-  shortcut.add("f2", function(){
-    document.getElementById('btn_confirm').focus()
+  shortcut.add("f5", function(){
+    //document.getElementById('btn_confirm').focus()
+    $('#btn_confirm').click();
+  });
+  shortcut.add("esc", function(){
+    //document.getElementById('btn_cancel').focus()
+    $('#btn_cancel').click();
   });
   shortcut.add("f3", function(){
-    document.getElementById('btn_cancel').focus()
-  });
-  shortcut.add("f4", function(){
     document.getElementById('name-field').focus()
+  });
+  shortcut.add("f2", function(){
+    document.getElementById('on_account').focus()
   });
 }
 function focuse(){
