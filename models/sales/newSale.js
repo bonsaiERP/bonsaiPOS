@@ -188,25 +188,49 @@ function showAlertMessage(tipeMessage)
         var aux = mySales.length;
         id = mySales[aux-1].id + 1;
       }
-      var sale = { "id": id, "date": date, "total": total , "client":client, "business_name":business_name, "nit":nit, "sync":false};
+      
+      on_account=$('#on_account').val();
+      if(on_account==''){
+        $("#alertMessage").removeClass();       
+        $("#alertMessage").addClass("alert alert-dismissible alert-danger");
+        $("#alertMessage")[0].innerHTML='<p>Debe ingresar un monto recibido.</p>';
+        $("#alertMessage").show();
+      }else{
+        if (!$.isNumeric(on_account)) {
+           $("#alertMessage").removeClass();       
+           $("#alertMessage").addClass("alert alert-dismissible alert-danger");
+           $("#alertMessage")[0].innerHTML='<p>El monto recibido debe ser numerico.</p>';
+           $("#alertMessage").show();
+        }else{
+          if (on_account<total) {
+            $("#alertMessage").removeClass();       
+            $("#alertMessage").addClass("alert alert-dismissible alert-danger");
+            $("#alertMessage")[0].innerHTML='<p>El monto recibido debe ser mayor o igual al total.</p>';
+            $("#alertMessage").show();
+          }else{  
+            changing=$('#changing').val();
+            var sale = { "id": id, "date": date, "total": total , "on_account": on_account, "changing": changing, "client":client, "business_name":business_name, "nit":nit, "sync":false};
 
-      mySales.push(sale);
-      db.putTable("sales", mySales,'\\views\\sales',2);
-      registerSalesProducts(sale.id)
-      db.putTable("products", myObject,'\\views\\sales',2);
-      name=$('#name-field').val();
-      for (var cont = 0; cont < clients.length; cont++) {
-        aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
-        if (aux == name) {
-          clients[cont].business_name=$('#business_name').val();
-          clients[cont].nit=$('#nit').val();
+            mySales.push(sale);
+            db.putTable("sales", mySales,'\\views\\sales',2);
+            registerSalesProducts(sale.id)
+            db.putTable("products", myObject,'\\views\\sales',2);
+            name=$('#name-field').val();
+            for (var cont = 0; cont < clients.length; cont++) {
+              aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
+              if (aux == name) {
+                clients[cont].business_name=$('#business_name').val();
+                clients[cont].nit=$('#nit').val();
+              }
+            }
+            db.putTable("users", clients,'\\views\\sales',2);
+            var to_bill = {"id_sale":id,"nit_buyer":nit,"name_buyer":business_name,"date":date};
+            set_data_to_push(to_bill,'\\views\\sales',2);
+            location.reload();
+            localStorage.setItem('reload',1);
+          }
         }
       }
-      db.putTable("users", clients,'\\views\\sales',2);
-      var to_bill = {"id_sale":id,"nit_buyer":nit,"name_buyer":business_name,"date":date};
-      set_data_to_push(to_bill,'\\views\\sales',2);
-      location.reload();
-      localStorage.setItem('reload',1);
   });
 
   $("#btn_cancel").click(function(){
