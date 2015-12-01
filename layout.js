@@ -8,16 +8,23 @@ $(document).ready(function(){
     '<meta http-equiv="content-type" content="text/html; charset=utf-8"/>'+
     '<title>BonsaiPOS</title>'+
 
-    '<script src="../../libs/shortcut.js" type="text/javascript"></script>'+
-    '<script src="../../libs/jquery-ui.min.js"></script>'+
+    '<script type="text/javascript" src="../../libs/shortcut.js"></script>'+
+    '<script type="text/javascript" src="../../libs/jquery-ui.min.js"></script>'+
     '<link href="../../libs/jquery-ui.css" rel="stylesheet">'+
+    '<link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">'+
 
-    '<script src="../../models/bill/generatorbill.js" type="text/javascript"></script>'+
-    '<script src="../../models/cashier/cashier.js" type="text/javascript"></script>'+
-    '<script src="../../models/database/database.js" type="text/javascript"></script>'+
-    '<script src="../../models/nameoffice.js" type="text/javascript"></script>'+
-    '<script src="../../models/passvar.js" type="text/javascript"></script>'+
-    '<link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">'
+    '<script type="text/javascript" src="../../models/bill/generatorbill.js"></script>'+
+    '<script type="text/javascript" src="../../models/cashier/cashier.js"></script>'+
+    '<script type="text/javascript" src="../../models/database/database.js"></script>'+
+    '<script type="text/javascript" src="../../models/nameoffice.js"></script>'+
+    '<script type="text/javascript" src="../../models/passvar.js"></script>'+
+    '<script type="text/javascript" src="../../models/products/products.js"></script>'+
+    '<script type="text/javascript" src="../../models/reports/daySales.js"></script>'+
+    '<script type="text/javascript" src="../../models/synchronization/daily.js"></script>'+
+    '<script type="text/javascript" src="../../models/synchronization/synchronization.js"></script>'+
+    '<script type="text/javascript" src="../../models/users/editUser.js"></script>'+
+    '<script type="text/javascript" src="../../models/users/listUser.js"></script>'+
+    '<script type="text/javascript" src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>'
   );
 
 });
@@ -106,10 +113,13 @@ $(document).ready(function () {
   '<script type="text/javascript" src="../../models/incomes/incomes.js"></script>'+
   '<script type="text/javascript" src="../../models/products/products.js"></script>'+
   '<script type="text/javascript" src="../../models/products/stock.js" ></script>'+
+  '<script type="text/javascript" src="../../models/sales/index.js" ></script>'+
   '<script type="text/javascript" src="../../models/sales/newSale.js"></script>'+
   '<script type="text/javascript" src="../../models/organisations/organisations.js"></script>'+
   '<script type="text/javascript" src="../../models/users/clientes.js"></script>'+
-  
+  '<script type="text/javascript" src="../../models/users/editUser.js"></script>'+
+  '<script type="text/javascript" src="../../models/users/newUser.js"></script>'+
+
   '<script type="text/javascript" src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>'+
   '<script type="text/javascript" src="../../node_modules/jsPDF/jspdf.js"></script>'+
   '<script type="text/javascript" src="../../node_modules/jsPDF/libs/FileSaver.js/FileSaver.js"></script>'+

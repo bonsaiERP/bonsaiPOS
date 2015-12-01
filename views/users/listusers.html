@@ -5,12 +5,7 @@
 <script>
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 </script>
-<script src="../../models/cashier/cashier.js" type="text/javascript"></script>
-<script src="../../models/database/database.js" type="text/javascript"></script>
-<script src="../../models/nameoffice.js" type="text/javascript"></script>
-<script src="../../models/passvar.js" type="text/javascript"></script>
-<script src="../../models/users/listUser.js" type="text/javascript"></script>
-<link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="../../layout.js" type="text/javascript"></script>
 <script type="text/javascript">
 function verify_cashier(){
   if(exist_active_cashier('\\views\\users',2)){
@@ -25,7 +20,7 @@ function verify_cashier(){
 </head>
 
 <body onload="verify_cashier()">
-  <nav class="navbar navbar-default">
+  <!-- <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="../../index.html">BonsaiPOS</a>
@@ -98,7 +93,7 @@ function verify_cashier(){
       <button type="button" class="close" data-dismiss="alert">×</button>
     </div>
   </div>
-
+ -->
 
 
   <div class="container">
@@ -158,6 +153,10 @@ function verify_cashier(){
     </table>
   </div>
 
-  <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
+
+<footer>
+  <!-- Scripts y librerias de la pagina -->
+</footer>
+
 </html>
