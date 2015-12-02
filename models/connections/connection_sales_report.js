@@ -1,9 +1,7 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
 
-define(["database"], function(database) {
-
-var database = database.DataBase();
+var database = new DataBase();
 
   $(document).ready(function () {
 
@@ -22,7 +20,7 @@ var database = database.DataBase();
           var stores = response;
           for (var i = 0; i < stores.length; i++) {
           	$("#list").append("<option value="+response[i].name+">"+response[i].name+"</option>");
-          };
+          }
 
     	});
 
@@ -31,5 +29,5 @@ var database = database.DataBase();
   		$("#almacen").text(nombre_almacen);
 
   	});
-  });
+
 });

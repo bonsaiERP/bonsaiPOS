@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 
     function getpathproyect(todelete, cant_of_breakbar) {
-      actualdir = __dirname
+      actualdir = __dirname;
       /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
       si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
       */
@@ -20,7 +20,7 @@ $(document).ready(function(){
     }
 
     function converpath(toconvert, cant_of_breakbar) {
-      actualdir = __dirname
+      actualdir = __dirname;
       /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
       si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
       */
@@ -33,7 +33,7 @@ $(document).ready(function(){
     }
 
     //Variables privadas
-    var lista = new Array();
+    var lista = [];
 
     // METODOS PUBLICOS
     this.getTable = function (table_name, to_delete, cant_of_breakbar) {
@@ -41,11 +41,11 @@ $(document).ready(function(){
       lista = JSON.parse(elementos);
 
       return lista;
-    }
+    };
 
     this.putTable = function (table_name, table, to_delete, cant_of_breakbar) {
       fs.writeFileSync(getpathproyect(to_delete, cant_of_breakbar) + converpath('\\bd\\', 2) + table_name + '.json', JSON.stringify(table), 'utf8');
-    }
+    };
 
     this.getTableDos = function (table_name) {
 
@@ -53,14 +53,14 @@ $(document).ready(function(){
       lista = JSON.parse(elementos);
 
       return lista;
-    }
+    };
 
     this.putTableDos = function (table_name, table) {
       fs.writeFileSync('bd/' + table_name + '.json', JSON.stringify(table), 'utf8');
-    }
+    };
 
     this.find = function(table_name, campo, value){
       lista = this.getTableDos(table_name);
-    }
-  }
+    };
+  };
 });

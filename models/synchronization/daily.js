@@ -1,9 +1,7 @@
-window.$ = window.jQuery = require('../../libs/jquery.min.js');
-var fs = require('fs');
+//	window.$ = window.jQuery = require('../../libs/jquery.min.js');
+	var fs = require('fs');
 
-define(["database"], function(database) {
-
-var database = database.DataBase();
+var database = new DataBase();
 var user = database.getTable("token",'\\views\\synchronization',2);
 var $debo_sincronizar = true;
 //====================================================================
@@ -135,8 +133,8 @@ function isDaily() {
 
 function getTime() {
 	var date = new Date($.now());
-	var hours = date.getHours()
-	var minutes = date.getMinutes()
+	var hours = date.getHours();
+	var minutes = date.getMinutes();
 	var time = { hour: hours, minute: minutes };
 	return time;
 }
@@ -159,8 +157,8 @@ function isTime() {
 
 function isLate(){
 	var fecha = new Date($.now());
-	var hora_establecida = 2
-	var minutos_establecidos = 31
+	var hora_establecida = 2;
+	var minutos_establecidos = 31;
 	var late = false;
 	if(hora_establecida < fecha.getHours()){
 		late = true;
@@ -188,10 +186,8 @@ function sincronizacionDiaria(){
 		}
 	}
 
-	if ($debo_sincronizar==true) {
-		setTimeout("sincronizacionDiaria()", 5000);
-	}
+		if ($debo_sincronizar===true) {
+			setTimeout("sincronizacionDiaria()", 5000);
+		}
 }
-sincronizacionDiaria();
-
-});
+		sincronizacionDiaria();

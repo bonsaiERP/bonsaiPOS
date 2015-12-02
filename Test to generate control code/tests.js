@@ -1,10 +1,10 @@
 
 var allegedRC4 = new AllegedRC4();
 var base64 = new Base64();
-var db = new DataBase();
+var database = new DataBase();
 var generator = new Generatorcontrolcode();
 
-var list = db.getTable("5000CasosPruebaCCVer7",'',0);
+var list = database.getTable("5000CasosPruebaCCVer7",'',0);
 
 
 
@@ -98,15 +98,15 @@ QUnit.test("Verificar_calculos_matemáticos_paso5", function( assert ) {
 });
 
 QUnit.test("Verificar_sumatoria_ascii_con_saltos_paso4", function( assert ) {
-  resultado = generator.convert_ascii_with_jumps("69DD0A42536C9900C4AE6484726C122ABDBF95D80A4BA403FB7834B3EC2A88595E2149A3D965923BA4547B42B9528AAE7B8CFB9996BA2B58516913057C9D791B6B748A",1);
+  resultado = generator.convert_ascii_with_jumps("69DD0A42536C9900C4AE6484726C122ABdatabaseF95D80A4BA403FB7834B3EC2A88595E2149A3D965923BA4547B42B9528AAE7B8CFB9996BA2B58516913057C9D791B6B748A",1);
   assert.ok("1548" == resultado, resultado );
-  resultado = generator.convert_ascii_with_jumps("69DD0A42536C9900C4AE6484726C122ABDBF95D80A4BA403FB7834B3EC2A88595E2149A3D965923BA4547B42B9528AAE7B8CFB9996BA2B58516913057C9D791B6B748A",5);
+  resultado = generator.convert_ascii_with_jumps("69DD0A42536C9900C4AE6484726C122ABdatabaseF95D80A4BA403FB7834B3EC2A88595E2149A3D965923BA4547B42B9528AAE7B8CFB9996BA2B58516913057C9D791B6B748A",5);
   assert.ok("1530" == resultado, resultado );
 });
 
 QUnit.test("Verificar_funcionamiento_AllegedRC4", function( assert ) {
   resultado = allegedRC4.encrypt("290400110079rCB7Sv4150312X24189179011589d)5k7N2007070201%3a250031b8","9rCB7Sv4X29d)5k7N%3ab89p-3(5[A71621");
-  assert.ok("69DD0A42536C9900C4AE6484726C122ABDBF95D80A4BA403FB7834B3EC2A88595E2149A3D965923BA4547B42B9528AAE7B8CFB9996BA2B58516913057C9D791B6B748A" == resultado, resultado );
+  assert.ok("69DD0A42536C9900C4AE6484726C122ABdatabaseF95D80A4BA403FB7834B3EC2A88595E2149A3D965923BA4547B42B9528AAE7B8CFB9996BA2B58516913057C9D791B6B748A" == resultado, resultado );
 });
 
 QUnit.test("Verificar_aumentar_en_1_verhoff_de_5_caracteres", function( assert ) {

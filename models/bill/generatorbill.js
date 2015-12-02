@@ -1,8 +1,6 @@
 
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
-var fs = require('fs');
-
-define(["database"], function(database) {
+  var fs = require('fs');
 
   var company;
   var id_sale;
@@ -17,7 +15,7 @@ define(["database"], function(database) {
 
   var detail_of_sale;
   var sale;
-  var database = database.DataBase();
+  var database =new DataBase();
   var data = get_data('\\views\\bill',2);
   var company = database.getTable("organisations",'\\views\\bill',2);
   var list = database.getTable("bill",'\\views\\bill',2);
@@ -40,8 +38,8 @@ define(["database"], function(database) {
 
   function generatebill()
   {
-    var id = 1
-    if(list.length != 0)
+    var id = 1;
+    if(list.length !== 0)
     {
       var aux = list.length;
       id = list[aux-1].id + 1;
@@ -104,21 +102,19 @@ define(["database"], function(database) {
 
   });
 
-});
+  function get_name_company(){
+    return company.socialreason;
+  }
 
-function get_name_company(){
-  return company.socialreason;
-}
+  function get_direction_company(){
+    return company.address;
+  }
 
-function get_direction_company(){
-  return company.address;
-}
-
-function get_city_and_county(){
-  //country_id permitira hacer una mejor selección de pais, pero necesitamos saber a que id le asigno borris a cada pais
-  //Hasta que no se sepa el valor del country_id, esto devolvera un valor predeterminado
-  return "BOLIVIA";
-}
+  function get_city_and_county(){
+    //country_id permitira hacer una mejor selección de pais, pero necesitamos saber a que id le asigno borris a cada pais
+    //Hasta que no se sepa el valor del country_id, esto devolvera un valor predeterminado
+    return "BOLIVIA";
+  }
 
 function get_nit_company(){
   return nit_company;
@@ -145,7 +141,7 @@ function get_nit_buyer(){
 }
 
 function get_detail_of_sale(){
-  return detail_of_sale
+  return detail_of_sale;
 }
 
 function get_total_of_sale(){
@@ -219,7 +215,7 @@ function Unidades(num){
   }
 
   function get_detail_of_sale(){
-    return detail_of_sale
+    return detail_of_sale;
   }
 
   function get_total_of_sale(){
@@ -272,12 +268,15 @@ function Unidades(num){
           case 4: return "CATORCE";
           case 5: return "QUINCE";
           default: return "DIECI" + Unidades(unidad);
+
         }
+        break;
       case 2:
         switch(unidad){
           case 0: return "VEINTE";
           default: return "VEINTI" + Unidades(unidad);
         }
+        break;
       case 3: return DecenasY("TREINTA", unidad);
       case 4: return DecenasY("CUARENTA", unidad);
       case 5: return DecenasY("CINCUENTA", unidad);
@@ -317,8 +316,8 @@ function Unidades(num){
   }//Centenas()
 
   function Seccion(num, divisor, strSingular, strPlural){
-    cientos = Math.floor(num / divisor)
-    resto = num - (cientos * divisor)
+    cientos = Math.floor(num / divisor);
+    resto = num - (cientos * divisor);
 
     letras = "";
 
@@ -336,26 +335,26 @@ function Unidades(num){
 
   function Miles(num){
     divisor = 1000;
-    cientos = Math.floor(num / divisor)
-    resto = num - (cientos * divisor)
+    cientos = Math.floor(num / divisor);
+    resto = num - (cientos * divisor);
 
     strMiles = Seccion(num, divisor, "UN MIL", "MIL");
     strCentenas = Centenas(resto);
 
-    if(strMiles == "")
+    if(strMiles === "")
       return strCentenas;
     return strMiles + " " + strCentenas;
   }//Miles()
 
   function Millones(num){
     divisor = 1000000;
-    cientos = Math.floor(num / divisor)
-    resto = num - (cientos * divisor)
+    cientos = Math.floor(num / divisor);
+    resto = num - (cientos * divisor);
 
     strMillones = Seccion(num, divisor, "UN MILLON", "MILLONES");
     strMiles = Miles(resto);
 
-    if(strMillones == "")
+    if(strMillones === "")
       return strMiles;
     return strMillones + " " + strMiles;
   }//Millones()
@@ -373,7 +372,7 @@ function Unidades(num){
     if (data.centavos > 0)
       data.letrasCentavos = "CON " + data.centavos + "/100";
 
-    if(data.enteros == 0)
+    if(data.enteros === 0)
       return "CERO " + data.letrasMonedaPlural + " " + data.letrasCentavos;
     if (data.enteros == 1)
       return Millones(data.enteros) + " " + data.letrasMonedaSingular + " " + data.letrasCentavos;
@@ -382,4 +381,4 @@ function Unidades(num){
   }//NumeroALetras()
 
   //############################ FIN FUNCIONES LITERAL ####################################
-
+}

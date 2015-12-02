@@ -1,15 +1,12 @@
-window.$ = window.jQuery = require('../../libs/jquery.min.js');
-var fs = require('fs');
+  window.$ = window.jQuery = require('../../libs/jquery.min.js');
+  var fs = require('fs');
+  var id_user;
+  var database = new Database();
+  var general_list_of_users = database.getTable("users",'\\views\\users',2);
 
-define(["database"], function(database) {
+  var data2 = new Array("");
 
-var id_user;
-var database = database.DataBase();
-var general_list_of_users = database.getTable("users",'\\views\\users',2);
-
-var data2 = new Array("");
-
-getClients();
+  getClients();
 
 
 
@@ -68,30 +65,21 @@ function getClients() {
 
           }
          }
-       for (var i = 0; i < list_of_users.length; i++) {
-         if (list_of_users[i].name.toString().toLowerCase()==name_search.toString().toLowerCase()) {
-           existe=true;
-           data_table.append('<input type="hidden" value="'+ list_of_users[i].id +'" id="hidden_value"');
-            data_table.append('<tr> <td style="text-align: center;">' + list_of_users[i].name + '</td> <td style="text-align: center;">' + list_of_users[i].lastname + '</td> <td style="text-align: center;">' + list_of_users[i].ci + '<td style="text-align: center;"> <button onclick="to_editUser('+list_of_users[i].id+')">Editar usuario</button> </td></tr>');
-
-
-         }
-
+         for (var i = 0; i < list_of_users.length; i++) {
+           if (list_of_users[i].name.toString().toLowerCase()==name_search.toString().toLowerCase()) {
+             existe=true;
+             data_table.append('<input type="hidden" value="'+ list_of_users[i].id +'" id="hidden_value"');
+              data_table.append('<tr> <td style="text-align: center;">' + list_of_users[i].name + '</td> <td style="text-align: center;">' + list_of_users[i].lastname + '</td> <td style="text-align: center;">' + list_of_users[i].ci + '<td style="text-align: center;"> <button onclick="to_editUser('+list_of_users[i].id+')">Editar usuario</button> </td></tr>');
+           }
 
         }
-         if (!existe) {
-           showAlertMessage("warning");
+           if (!existe) {
+             showAlertMessage("warning");
 
-         }
+           }
 
-         $("#client_name").val("");
+           $("#client_name").val("");
 
-     });
-    // $('#client_name').autocomplete({//no funciona llama al getClients
-      //  source: data2
-      //});
-
+         });
 
     });
-
-});

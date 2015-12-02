@@ -1,14 +1,14 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
 
-define(["database"], function(database) {
+
 
 //intente llamar aca al archivo daySales.js pero no da, esto para no repetir codigo que ya existe
 //en otras palabras quice reusar codigo de este archivo !!!
 //var daySales = '../reports/daySales.js';
 //document.write('<script src="../reports/daySales.js" type="text/javascript"></script>');
 
-  var database = database.DataBase();
+  var database = new  DataBase();
   var general_list_of_sales = database.getTable("sales",'\\views\\cashier',2);
   var myCashiers = database.getTable("cashier",'\\views\\cashier',2);
   //intente llamar aca al archivo daySales.js pero no da, esto para no repetir codigo que ya existe
@@ -178,7 +178,7 @@ define(["database"], function(database) {
   }
 
   function converpath(toconvert,cant_of_breakbar){
-    actualdir = __dirname
+    actualdir = __dirname;
     /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
     si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
     */
@@ -196,7 +196,7 @@ define(["database"], function(database) {
       var cashier = {"date_open": new Date().toUTCString(), "money_open": money, "date_close": "...", "money_close": "..."};
       myCashiers.push(cashier);
       database.putTable("cashier", myCashiers,'\\views\\cashier',2);
-    }
+
   }
 
   function create_cashier(money){
@@ -223,5 +223,4 @@ define(["database"], function(database) {
   myCashiers[ultimo].date_close = new Date().toUTCString();
   myCashiers[ultimo].money_close = money;
   database.putTable("cashier", myCashiers,'\\views\\cashier',2);
-}
-});
+  }

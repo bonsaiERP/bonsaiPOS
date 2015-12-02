@@ -1,11 +1,9 @@
-window.$ = window.jQuery = require('../../libs/jquery.min.js');
-var fs = require('fs');
-
-define(["database"], function(database) {
+	window.$ = window.jQuery = require('../../libs/jquery.min.js');
+	var fs = require('fs');
 
 $(document).ready(function(){
 
-	var database = database.DataBase();
+	var database = new Database();
 	var name='';
 	var lastname='';
 	var ci = 0;
@@ -65,7 +63,7 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
 	var fs = require('fs');
-	var database = database.DataBase();
+	var database = new Database();
 	var name='';
 	var lastname='';
 	var ci = 0;
@@ -107,21 +105,20 @@ $(document).ready(function(){
 	});
 
 	function saveUser() {
-      var date = new Date().toUTCString();
-      var size = myUser.length;
-			var id = 1;
-      if(myUser.length != 0){
-        var aux = myUser.length;
-        id = myUser[aux-1].id + 1;
-      }
-      var user = { "id": id, "name": name, "lastname": lastname, "ci" : ci, "date": date, "sync": false };
-      myUser.push(user);
-      database.putTable("users", myUser,'\\views\\users',2);
-      location.replace('../../views/users/listusers.html');
-      localStorage.setItem('reload',1);
-      $('#alertMessage').html('Cliente creado con &eacute;xito.');
-      $('#alertMessage').show;
-  };
-});
+	      var date = new Date().toUTCString();
+	      var size = myUser.length;
+				var id = 1;
+	      if(myUser.length !== 0){
+	        var aux = myUser.length;
+	        id = myUser[aux-1].id + 1;
+	      }
+	      var user = { "id": id, "name": name, "lastname": lastname, "ci" : ci, "date": date, "sync": false };
+	      myUser.push(user);
+	      database.putTable("users", myUser,'\\views\\users',2);
+	      location.replace('../../views/users/listusers.html');
+	      localStorage.setItem('reload',1);
+	      $('#alertMessage').html('Cliente creado con &eacute;xito.');
+	      $('#alertMessage').show;
+	  }
 
 });

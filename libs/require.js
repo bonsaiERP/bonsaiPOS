@@ -265,7 +265,7 @@ var requirejs, require, define;
          */
         function normalize(name, baseName, applyMap) {
             var pkgMain, mapValue, nameParts, i, j, nameSegment, lastIndex,
-                foundMap, foundI, foundStarMap, starI, normalizedBaseParts,
+                foundMap, foundI, foundStarMap, starI, normalizedatabaseaseParts,
                 baseParts = (baseName && baseName.split('/')),
                 map = config.map,
                 starMap = map && map['*'];
@@ -290,8 +290,8 @@ var requirejs, require, define;
                     //module. For instance, baseName of 'one/two/three', maps to
                     //'one/two/three.js', but we want the directory, 'one/two' for
                     //this normalization.
-                    normalizedBaseParts = baseParts.slice(0, baseParts.length - 1);
-                    name = normalizedBaseParts.concat(name);
+                    normalizedatabaseaseParts = baseParts.slice(0, baseParts.length - 1);
+                    name = normalizedatabaseaseParts.concat(name);
                 }
 
                 trimDots(name);
@@ -1903,7 +1903,7 @@ var requirejs, require, define;
             //that do not match the behavior of all other browsers with
             //addEventListener support, which fire the onload event for a
             //script right after the script execution. See:
-            //https://connect.microsoft.com/IE/feedback/details/648057/script-onload-event-is-not-fired-immediately-after-script-execution
+            //https://connect.microsoft.com/IE/feedatabaseack/details/648057/script-onload-event-is-not-fired-immediately-after-script-execution
             //UNFORTUNATELY Opera implements attachEvent but does not follow the script
             //script execution mode.
             if (node.attachEvent &&

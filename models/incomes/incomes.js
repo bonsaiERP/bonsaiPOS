@@ -1,9 +1,7 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
-var fs = require('fs');
+  var fs = require('fs');
 
-define(["database"], function(database) {
-
-  var database = database.DataBase();
+  var database = new DataBase();
   var resp = false;
   function showAlertMessage(tipeMessage)
   {
@@ -108,7 +106,6 @@ define(["database"], function(database) {
    alert("No se tiene ninguna  nueva venta para sincronizar");
  }
      database.putTable('sales',sales,'',2);
-});
-});
+   });
 
-});
+ });

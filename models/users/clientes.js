@@ -2,9 +2,9 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
 
-define(["database"], function(database) {
 
-var database = database.DataBase();
+
+var database = new Database();
 var clientes = database.getTable('users','',2);
 var user = database.getTable('token','',2);
 
@@ -53,17 +53,16 @@ $(document).ready(function () {
      alert("Error al Actualizar los clientes de la empresa");
    $('#progressbar-2').html("Error en la Actualizacion.");
    })
-  }
-  }
-  if(resp === true)
-  {
-    alert("Los clientes de la empresa fueron actualizados exitosamente");
-  }
-  else {
-    alert("No se tiene ningun cliente nuevo para sincronizar");
-  }
-  database.putTable("users", clientes,'\\views\\users',2);
-	});
-  });
+    }
+    }
+    if(resp === true)
+    {
+      alert("Los clientes de la empresa fueron actualizados exitosamente");
+    }
+    else {
+      alert("No se tiene ningun cliente nuevo para sincronizar");
+    }
+    database.putTable("users", clientes,'\\views\\users',2);
+  	});
 
 });

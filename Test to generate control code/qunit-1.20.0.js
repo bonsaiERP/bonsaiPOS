@@ -2238,8 +2238,8 @@ QUnit.diff = ( function() {
 
 	/**
 	 * The data structure representing a diff is an array of tuples:
-	 * [[DIFF_DELETE, 'Hello'], [DIFF_INSERT, 'Goodbye'], [DIFF_EQUAL, ' world.']]
-	 * which means: delete 'Hello', add 'Goodbye' and keep ' world.'
+	 * [[DIFF_DELETE, 'Hello'], [DIFF_INSERT, 'Goodatabaseye'], [DIFF_EQUAL, ' world.']]
+	 * which means: delete 'Hello', add 'Goodatabaseye' and keep ' world.'
 	 */
 	var DIFF_DELETE = -1,
 		DIFF_INSERT = 1,
@@ -3748,7 +3748,7 @@ function appendHeader() {
 	}
 }
 
-function appendBanner() {
+function appendatabaseanner() {
 	var banner = id( "qunit-banner" );
 
 	if ( banner ) {
@@ -3869,7 +3869,7 @@ QUnit.begin(function( details ) {
 	}
 
 	appendHeader();
-	appendBanner();
+	appendatabaseanner();
 	appendTestResults();
 	appendUserAgent();
 	appendToolbar();

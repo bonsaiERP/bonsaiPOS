@@ -1,9 +1,7 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
 
-define(["database"], function(database) {
-
-var database = database.DataBase();
+var database = new Database();
 var user;
 var id = get_data('\\views\\users',2);
 var general_list_of_users = database.getTable("users",'\\views\\users',2);
@@ -51,22 +49,22 @@ function edit_user()
   if (!$('#name-field').val()) {
     $('#modalBodyMessageDanger').append('<p>El campo <b>nombre</b> deben estar lleno.</p>');
     error=true;
-  };
+  }
 
   if (!$('#lastname-field').val()) {
     $('#modalBodyMessageDanger').append('<p>El campo <b>apellido</b> deben estar lleno</p>');
     error=true;
-  };
+  }
 
   if (!$('#ci-field').val()) {
     $('#modalBodyMessageDanger').append('<p>El campo <b>CI</b> deben estar lleno</p>');
     error=true;
-  };
+  }
 
   if (!$.isNumeric($('#ci-field').val())) {
     $('#modalBodyMessageDanger').append('<p>El <b>CI</b> debe ser un valor numerico.</p>');
     error=true;
-  };
+  }
   if (error) {
     $('#myDangerModal').modal('show');
   } else{
@@ -86,5 +84,3 @@ function edit_user()
     $('#myAcceptModal').modal('show');
   }
 }
-
-});

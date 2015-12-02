@@ -1,8 +1,6 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
 
-define(["database"], function(database) {
-
   var database = new DataBase();
   function showAlertMessage(tipeMessage)
   {
@@ -49,6 +47,5 @@ define(["database"], function(database) {
       $('#progressbar-2').html("Error en la Descarga.");
       });
   	});
-    });
 
 });

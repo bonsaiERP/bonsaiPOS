@@ -1,9 +1,6 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
-var fs = require('fs');
-
-define(["database"], function(database) {
-
-  var database = database.DataBase();
+  var fs = require('fs');
+  var database = new DataBase();
   var products = database.getTable('products', '', 2);
   var user = database.getTable('token', '', 2);
 
@@ -109,20 +106,19 @@ define(["database"], function(database) {
     return stock;
   }
 
-  function agregarAmount(products, stocks) {
-    var products_pos = [];
-    var cont = 0;
-    stock = stock_pos(stocks);
-    for (var i = 0; i < stock.length; i++) {
-      for (var j = 0; j < products.length; j++) {
-        if (stock[i].item_id == products[j].id) {
-          products_pos[cont] = products[j];
-          products_pos[cont]["amount"] = stock[i].quantity;
-          cont++;
+  function agregarAmount(products, stocks)
+   {
+      var products_pos = [];
+      var cont = 0;
+      stock = stock_pos(stocks);
+      for (var i = 0; i < stock.length; i++) {
+          for (var j = 0; j < products.length; j++) {
+            if (stock[i].item_id == products[j].id) {
+              products_pos[cont] = products[j];
+              products_pos[cont]["amount"] = stock[i].quantity;
+              cont++;
+            }
+          }
         }
-      }
+        return products_pos;
     }
-    return products_pos;
-  }
-
-});

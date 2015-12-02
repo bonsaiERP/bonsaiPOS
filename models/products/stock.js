@@ -1,16 +1,13 @@
 /* global DataBase */
-window.$ = window.jQuery = require('../../libs/jquery.min.js');
-var fs = require('fs');
-
-define(["database"], function(database) {
-
-  var database = database.DataBase();
+  window.$ = window.jQuery = require('../../libs/jquery.min.js');
+  var fs = require('fs');
+  var database = new DataBase();
   var myObject = database.getTable("products",'\\views\\products',2);
   var products = [];
   getProducts();
   function getpathproyect(todelete,cant_of_breakbar)
   {
-    actualdir = __dirname
+    actualdir = __dirname;
     /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
     si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
     */
@@ -27,7 +24,7 @@ define(["database"], function(database) {
 
   function converpath(toconvert,cant_of_breakbar)
   {
-    actualdir = __dirname
+    actualdir = __dirname;
     /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
     si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
     */
@@ -70,9 +67,9 @@ define(["database"], function(database) {
         data_table.append('<tr ><th style="text-align: center;">C&oacute;digo</th><th style="text-align: center;">Nombre del producto</th><th style="text-align: center;">Precio Unitario</th><th style="text-align: center;">Cantidad</th></tr>');
       }
       //Verificar si el text box no esta vacio
-      if (code_product != "") {
+      if (code_product !== "") {
         //Verificar si el codigo del producto no nombre del producto
-        if(Number(code_product) != true){
+        if(Number(code_product) !== true){
           for (var cont = 0; cont < myObject.length; cont++) {
             if (code_product === myObject[cont].name) {
                code_product = myObject[cont].id;
@@ -114,6 +111,4 @@ define(["database"], function(database) {
   		$('#code_product').autocomplete({
   			source: products
   		});
-  	});
-
 });

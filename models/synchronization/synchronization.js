@@ -2,7 +2,7 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
 
-define(["database"], function(database) {
+var db= new DataBase();
 
 $(document).ready(function(){
     var fs = require('fs');
@@ -65,10 +65,5 @@ $(document).ready(function () {
          if( !$("#daily").is(':checked') &&  !$("#change").is(':checked')) {
             alert("Error: Debe selecionar al menos una opcion");
          }
-
-
-      });
-
-  });
-
-});
+       });
+    });

@@ -1,11 +1,12 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
-var fs = require('fs');
+  var fs = require('fs');
 
-define(["database"], function(database) {
-
+  var database = new Database();
+  var aux1 ;
+  var aux2;
 function getpathproyect(todelete,cant_of_breakbar)
 {
-  actualdir = __dirname
+  actualdir = __dirname;
   /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
   si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
   */
@@ -20,7 +21,7 @@ function getpathproyect(todelete,cant_of_breakbar)
 
 function converpath(toconvert,cant_of_breakbar)
 {
-  actualdir = __dirname
+  actualdir = __dirname;
   /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
   si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
   */
@@ -49,13 +50,13 @@ function converpath(toconvert,cant_of_breakbar)
       });
 })(jQuery);
 
-  var database = database.DataBase();
+  var database = new Database();
   var general_list_of_sales = database.getTable("sales",'\\views\\reports',2);
   var dir = getpathproyect('\\views\\reports',2);
 
   function getpathproyect(todelete)
   {
-    actualdir = __dirname
+    actualdir = __dirname;
     /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
     si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
     */
@@ -70,7 +71,7 @@ function converpath(toconvert,cant_of_breakbar)
 
   function converpath(toconvert,cant_of_breakbar)
   {
-    actualdir = __dirname
+    actualdir = __dirname;
     /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
     si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
     */
@@ -174,8 +175,8 @@ function converpath(toconvert,cant_of_breakbar)
         return false;
       }
     }
-    var aux1 = time1.getMinutes();
-    var aux2 = time2.getMinutes();
+        aux1 = time1.getMinutes();
+        aux2 = time2.getMinutes();
     if(aux2 != aux1){
       if(aux2 < aux1){
         return true;
@@ -184,8 +185,8 @@ function converpath(toconvert,cant_of_breakbar)
         return false;
       }
     }
-    var aux1 = time1.getSeconds();
-    var aux2 = time2.getSeconds();
+        aux1 = time1.getSeconds();
+        aux2 = time2.getSeconds();
     if(aux2 < aux1){
       return true;
     }
@@ -208,6 +209,4 @@ function converpath(toconvert,cant_of_breakbar)
     var seconds = date.getSeconds();
     var result = hours+":"+minuts+":"+seconds;
     return result;
-  }
-
-});
+    }

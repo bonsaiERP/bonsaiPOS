@@ -1,9 +1,6 @@
-window.$ = window.jQuery = require('../../libs/jquery.min.js');
-var fs = require('fs');
-
-define(["database"], function(database) {
-
-  var database = database.DataBase();
+  window.$ = window.jQuery = require('../../libs/jquery.min.js');
+  var fs = require('fs');
+  var databaseb = new DataBase();
   var user = database.getTableDos("token");
   function getUsers(users, links) {
     var usuarios = [];
@@ -61,7 +58,5 @@ define(["database"], function(database) {
   $(document).ready(function () {
     $("#update_employees").click(function () {
       sincronisation_employees();
-    });
-  });
-
+      });
 });

@@ -2,11 +2,11 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
 
-define(["database"], function(database) {
+
 
 var total = 0;
 var ci;
-var database = database.DataBase();
+var database = new DataBase();
 var myObject = database.getTable("products",'\\views\\sales',2);
 var business_name;
 var nit;
@@ -134,9 +134,9 @@ function showAlertMessage(tipeMessage)
     event.preventDefault();
     var data_table = $("#tblclient");
     var rowCount = $('#tblclient tr').length;
-    var client_id=0
-    var aux=""
-    var business_name=""
+    var client_id=0;
+    var aux="";
+    var business_name="";
     if(rowCount<1){
       name=$('#name-field').val();
     if (!isNaN(parseFloat(name)) && isFinite(name)) {
@@ -149,21 +149,21 @@ function showAlertMessage(tipeMessage)
       }
     }
               for (var cont = 0; cont < clients.length; cont++) {
-                aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
+                aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString();
                 if (aux == name) {
-                  client_id=clients[cont].ci
-                  business_name=clients[cont].business_name
-                  nit=clients[cont].nit
+                  client_id=clients[cont].ci;
+                  business_name=clients[cont].business_name;
+                  nit=clients[cont].nit;
 
                 }
                 ci=client_id;
               }
 
       if (!$('#name-field').val()) {
-        name="sin cliente"
+        name="sin cliente";
       }
       else {
-        data_table.append('<tr id=tr_client> <td> <b> Cliente: </b></td><td> '+ name +"</td><td> <b>CI:</b>"+client_id +'</td> <td> <input type="button" id= "deleteclient" onclick= "deleteclient()" value="Borrar"/> </td></tr>')
+        data_table.append('<tr id=tr_client> <td> <b> Cliente: </b></td><td> '+ name +"</td><td> <b>CI:</b>"+client_id +'</td> <td> <input type="button" id= "deleteclient" onclick= "deleteclient()" value="Borrar"/> </td></tr>');
         $('#business_name').val(business_name);
         $('#nit').val(nit);
       }
@@ -217,31 +217,31 @@ $('#organizatiobutton').click(function(){
       if ($('#name-field').val()) {
          client=document.getElementById("tblclient").rows[0].cells[1].innerText;
       }
-      if(mySales.length != 0)
+      if(mySales.length !== 0)
       {
         var aux = mySales.length;
         id = mySales[aux-1].id + 1;
       }
 
       on_account=$('#on_account').val();
-      if(on_account==''){
-        $("#alertMessage").removeClass();       
+      if(on_account===''){
+        $("#alertMessage").removeClass();
         $("#alertMessage").addClass("alert alert-dismissible alert-danger");
         $("#alertMessage")[0].innerHTML='<p>Debe ingresar un monto recibido.</p>';
         $("#alertMessage").show();
       }else{
         if (!$.isNumeric(on_account)) {
-           $("#alertMessage").removeClass();       
+           $("#alertMessage").removeClass();
            $("#alertMessage").addClass("alert alert-dismissible alert-danger");
            $("#alertMessage")[0].innerHTML='<p>El monto recibido debe ser numerico.</p>';
            $("#alertMessage").show();
         }else{
           if (on_account<total) {
-            $("#alertMessage").removeClass();       
+            $("#alertMessage").removeClass();
             $("#alertMessage").addClass("alert alert-dismissible alert-danger");
             $("#alertMessage")[0].innerHTML='<p>El monto recibido debe ser mayor o igual al total.</p>';
             $("#alertMessage").show();
-          }else{  
+          }else{
             changing=$('#changing').val();
             var sale = { "id": id, "date": date, "total": total , "on_account": on_account, "changing": changing, "client":client, "business_name":business_name, "nit":nit, "sync":false};
 
@@ -290,7 +290,7 @@ $('#organizatiobutton').click(function(){
 
 function getpathproyect(todelete,cant_of_breakbar)
 {
-  actualdir = __dirname
+  actualdir = __dirname;
   /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
   si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
   */
@@ -304,7 +304,7 @@ function getpathproyect(todelete,cant_of_breakbar)
 }
 
 function converpath(toconvert,cant_of_breakbar){
-  actualdir = __dirname
+  actualdir = __dirname;
   /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
   si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
   */
@@ -376,25 +376,25 @@ $(document).ready(function() {
   }
 
 function getProductsFromSalesTable(){
-  var table = document.getElementById('tblDatos')
+  var table = document.getElementById('tblDatos');
   var products = [];
   for (var i = 1, row; row = table.rows[i]; i++) {
-    row
+    //row
     var product = { "id": row.cells[0].innerHTML, "code": row.cells[1].innerHTML, "name": row.cells[2].innerHTML , "quantity": String((row.cells[5].innerHTML)/(row.cells[4].innerHTML)), "price": row.cells[4].innerHTML, "total": row.cells[5].innerHTML};
     products.push(product);
-  };
+  }
   return products;
 }
 
 function getSaleProducts(id)
 {
-  var table = document.getElementById('tblDatos')
+  var table = document.getElementById('tblDatos');
   var products = [];
   for (var i = 1, row; row = table.rows[i]; i++) {
-    row
+  //  row
     var product = { "product_id": row.cells[0].innerHTML, "sale_id": id, "name": row.cells[2].innerHTML ,"quantity": String((row.cells[5].innerHTML)/(row.cells[4].innerHTML)), "price": row.cells[4].innerHTML};
     products.push(product);
-  };
+  }
   return products;
 }
 
@@ -404,8 +404,8 @@ function getTotal(){
 
 function generatePDF(sale,client)
 {
-  if(ci==undefined)
-  ci='0'
+  if(ci===undefined)
+  ci='0';
   var doc = new jsPDF();
   doc.setFontSize(22);
   doc.text(20, 20, 'NOTA DE VENTA');
@@ -441,7 +441,7 @@ function generatePDF(sale,client)
     doc.text(20, (85+50)+60*i, '----');
 
 
-  };
+  }
 
   doc.text(20, i*60+90, '------------');
 
@@ -508,20 +508,16 @@ function synchronize()
     setTimeout(function(){
       alert("Los datos de la empresa fueron actualizados exitosamente.");
     }, 1000);
-  })
-  .fail(function (ajaxContext){
-   alert("Error al Actualizar los datos de la empresa");
- });
-   }
- }
- if(resp === true){
-   alert("Las  de ventas de la empresa fueron actualizados exitosamente");
- }
- else {
-   alert("No se tiene ninguna  nueva venta para sincronizar");
- }
-     database.putTable('sales',sales,'',2);
-}
-
-});
-
+      })
+      .fail(function (ajaxContext){
+       alert("Error al Actualizar los datos de la empresa");
+     });
+       }
+     }
+     if(resp === true){
+       alert("Las  de ventas de la empresa fueron actualizados exitosamente");
+     } else {
+       alert("No se tiene ninguna  nueva venta para sincronizar");
+     }
+         database.putTable('sales',sales,'',2);
+  }

@@ -114,7 +114,7 @@ function focusable( element, isTabIndexNotNaN ) {
 
 function visible( element ) {
 	return $.expr.filters.visible( element ) &&
-		!$( element ).parents().addBack().filter(function() {
+		!$( element ).parents().addatabaseack().filter(function() {
 			return $.css( this, "visibility" ) === "hidden";
 		}).length;
 }
@@ -190,8 +190,8 @@ if ( !$( "<a>" ).outerWidth( 1 ).jquery ) {
 }
 
 // support: jQuery <1.8
-if ( !$.fn.addBack ) {
-	$.fn.addBack = function( selector ) {
+if ( !$.fn.addatabaseack ) {
+	$.fn.addatabaseack = function( selector ) {
 		return this.add( selector == null ?
 			this.prevObject : this.prevObject.filter( selector )
 		);
@@ -1303,13 +1303,13 @@ $.fn.position = function( options ) {
 		});
 
 		if ( options.using ) {
-			// adds feedback as second argument to using callback, if present
+			// adds feedatabaseack as second argument to using callback, if present
 			using = function( props ) {
 				var left = targetOffset.left - position.left,
 					right = left + targetWidth - elemWidth,
 					top = targetOffset.top - position.top,
 					bottom = top + targetHeight - elemHeight,
-					feedback = {
+					feedatabaseack = {
 						target: {
 							element: target,
 							left: targetOffset.left,
@@ -1328,17 +1328,17 @@ $.fn.position = function( options ) {
 						vertical: bottom < 0 ? "top" : top > 0 ? "bottom" : "middle"
 					};
 				if ( targetWidth < elemWidth && abs( left + right ) < targetWidth ) {
-					feedback.horizontal = "center";
+					feedatabaseack.horizontal = "center";
 				}
 				if ( targetHeight < elemHeight && abs( top + bottom ) < targetHeight ) {
-					feedback.vertical = "middle";
+					feedatabaseack.vertical = "middle";
 				}
 				if ( max( abs( left ), abs( right ) ) > max( abs( top ), abs( bottom ) ) ) {
-					feedback.important = "horizontal";
+					feedatabaseack.important = "horizontal";
 				} else {
-					feedback.important = "vertical";
+					feedatabaseack.important = "vertical";
 				}
-				options.using.call( this, props, feedback );
+				options.using.call( this, props, feedatabaseack );
 			};
 		}
 
@@ -1671,7 +1671,7 @@ var accordion = $.widget( "ui.accordion", {
 			.css( "display", "" )
 			.removeAttr( "role" )
 			.removeAttr( "aria-hidden" )
-			.removeAttr( "aria-labelledby" )
+			.removeAttr( "aria-labelledatabasey" )
 			.removeUniqueId();
 
 		if ( this.options.heightStyle !== "content" ) {
@@ -1835,7 +1835,7 @@ var accordion = $.widget( "ui.accordion", {
 					panel = header.next(),
 					panelId = panel.uniqueId().attr( "id" );
 				header.attr( "aria-controls", panelId );
-				panel.attr( "aria-labelledby", headerId );
+				panel.attr( "aria-labelledatabasey", headerId );
 			})
 			.next()
 				.attr( "role", "tabpanel" );
@@ -2265,11 +2265,11 @@ var menu = $.widget( "ui.menu", {
 		// Destroy (sub)menus
 		this.element
 			.removeAttr( "aria-activedescendant" )
-			.find( ".ui-menu" ).addBack()
+			.find( ".ui-menu" ).addatabaseack()
 				.removeClass( "ui-menu ui-widget ui-widget-content ui-menu-icons ui-front" )
 				.removeAttr( "role" )
 				.removeAttr( "tabIndex" )
-				.removeAttr( "aria-labelledby" )
+				.removeAttr( "aria-labelledatabasey" )
 				.removeAttr( "aria-expanded" )
 				.removeAttr( "aria-hidden" )
 				.removeAttr( "aria-disabled" )
@@ -2414,7 +2414,7 @@ var menu = $.widget( "ui.menu", {
 				item
 					.attr( "aria-haspopup", "true" )
 					.prepend( submenuCarat );
-				menu.attr( "aria-labelledby", item.attr( "id" ) );
+				menu.attr( "aria-labelledatabasey", item.attr( "id" ) );
 			});
 
 		menus = submenus.add( this.element );
@@ -8447,12 +8447,12 @@ var dialog = $.widget( "ui.dialog", {
 			}
 		});
 
-		// We assume that any existing aria-describedby attribute means
+		// We assume that any existing aria-describedatabasey attribute means
 		// that the dialog content is marked up properly
 		// otherwise we brute force the content as the description
-		if ( !this.element.find( "[aria-describedby]" ).length ) {
+		if ( !this.element.find( "[aria-describedatabasey]" ).length ) {
 			this.uiDialog.attr({
-				"aria-describedby": this.element.uniqueId().attr( "id" )
+				"aria-describedatabasey": this.element.uniqueId().attr( "id" )
 			});
 		}
 	},
@@ -8502,7 +8502,7 @@ var dialog = $.widget( "ui.dialog", {
 		this._title( uiDialogTitle );
 
 		this.uiDialog.attr({
-			"aria-labelledby": uiDialogTitle.attr( "id" )
+			"aria-labelledatabasey": uiDialogTitle.attr( "id" )
 		});
 	},
 
@@ -9214,7 +9214,7 @@ $.ui.ddmanager = {
 		var i, j,
 			m = $.ui.ddmanager.droppables[ t.options.scope ] || [],
 			type = event ? event.type : null, // workaround for #2317
-			list = ( t.currentItem || t.element ).find( ":data(ui-droppable)" ).addBack();
+			list = ( t.currentItem || t.element ).find( ":data(ui-droppable)" ).addatabaseack();
 
 		droppablesLoop: for ( i = 0; i < m.length; i++ ) {
 
@@ -10102,8 +10102,8 @@ function styleDifference( oldStyle, newStyle ) {
 }
 
 // support: jQuery <1.8
-if ( !$.fn.addBack ) {
-	$.fn.addBack = function( selector ) {
+if ( !$.fn.addatabaseack ) {
+	$.fn.addatabaseack = function( selector ) {
 		return this.add( selector == null ?
 			this.prevObject : this.prevObject.filter( selector )
 		);
@@ -10117,7 +10117,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 		var animated = $( this ),
 			baseClass = animated.attr( "class" ) || "",
 			applyClassChange,
-			allAnimations = o.children ? animated.find( "*" ).addBack() : animated;
+			allAnimations = o.children ? animated.find( "*" ).addatabaseack() : animated;
 
 		// map the animated objects to store the original styles.
 		allAnimations = allAnimations.map(function() {
@@ -12029,7 +12029,7 @@ var selectable = $.widget("ui.selectable", $.ui.mouse, {
 			}
 		});
 
-		$(event.target).parents().addBack().each(function() {
+		$(event.target).parents().addatabaseack().each(function() {
 			var doSelect,
 				selectee = $.data(this, "selectable-item");
 			if (selectee) {
@@ -12295,7 +12295,7 @@ var selectmenu = $.widget( "ui.selectmenu", {
 		// Create menu
 		this.menu = $( "<ul>", {
 			"aria-hidden": "true",
-			"aria-labelledby": this.ids.button,
+			"aria-labelledatabasey": this.ids.button,
 			id: this.ids.menu
 		});
 
@@ -12661,7 +12661,7 @@ var selectmenu = $.widget( "ui.selectmenu", {
 		var id = this.menuItems.eq( item.index ).attr( "id" );
 
 		this.button.attr({
-			"aria-labelledby": id,
+			"aria-labelledatabasey": id,
 			"aria-activedescendant": id
 		});
 		this.menu.attr( "aria-activedescendant", id );
@@ -12984,7 +12984,7 @@ var slider = $.widget( "ui.slider", $.ui.mouse, {
 			.focus();
 
 		offset = closestHandle.offset();
-		mouseOverHandle = !$( event.target ).parents().addBack().is( ".ui-slider-handle" );
+		mouseOverHandle = !$( event.target ).parents().addatabaseack().is( ".ui-slider-handle" );
 		this._clickOffset = mouseOverHandle ? { left: 0, top: 0 } : {
 			left: event.pageX - offset.left - ( closestHandle.width() / 2 ),
 			top: event.pageY - offset.top -
@@ -13629,7 +13629,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 			return false;
 		}
 		if(this.options.handle && !overrideHandle) {
-			$(this.options.handle, currentItem).find("*").addBack().each(function() {
+			$(this.options.handle, currentItem).find("*").addatabaseack().each(function() {
 				if(this === event.target) {
 					validHandle = true;
 				}
@@ -15723,9 +15723,9 @@ var tabs = $.widget( "ui.tabs", {
 			}
 			tab.attr({
 				"aria-controls": panelId,
-				"aria-labelledby": anchorId
+				"aria-labelledatabasey": anchorId
 			});
-			panel.attr( "aria-labelledby", anchorId );
+			panel.attr( "aria-labelledatabasey", anchorId );
 		});
 
 		this.panels
@@ -16008,7 +16008,7 @@ var tabs = $.widget( "ui.tabs", {
 					.removeAttr( "aria-live" )
 					.removeAttr( "aria-busy" )
 					.removeAttr( "aria-selected" )
-					.removeAttr( "aria-labelledby" )
+					.removeAttr( "aria-labelledatabasey" )
 					.removeAttr( "aria-hidden" )
 					.removeAttr( "aria-expanded" )
 					.removeAttr( "role" );
@@ -16194,29 +16194,29 @@ var tooltip = $.widget( "ui.tooltip", {
 		open: null
 	},
 
-	_addDescribedBy: function( elem, id ) {
-		var describedby = (elem.attr( "aria-describedby" ) || "").split( /\s+/ );
-		describedby.push( id );
+	_addDescribedatabasey: function( elem, id ) {
+		var describedatabasey = (elem.attr( "aria-describedatabasey" ) || "").split( /\s+/ );
+		describedatabasey.push( id );
 		elem
 			.data( "ui-tooltip-id", id )
-			.attr( "aria-describedby", $.trim( describedby.join( " " ) ) );
+			.attr( "aria-describedatabasey", $.trim( describedatabasey.join( " " ) ) );
 	},
 
-	_removeDescribedBy: function( elem ) {
+	_removeDescribedatabasey: function( elem ) {
 		var id = elem.data( "ui-tooltip-id" ),
-			describedby = (elem.attr( "aria-describedby" ) || "").split( /\s+/ ),
-			index = $.inArray( id, describedby );
+			describedatabasey = (elem.attr( "aria-describedatabasey" ) || "").split( /\s+/ ),
+			index = $.inArray( id, describedatabasey );
 
 		if ( index !== -1 ) {
-			describedby.splice( index, 1 );
+			describedatabasey.splice( index, 1 );
 		}
 
 		elem.removeData( "ui-tooltip-id" );
-		describedby = $.trim( describedby.join( " " ) );
-		if ( describedby ) {
-			elem.attr( "aria-describedby", describedby );
+		describedatabasey = $.trim( describedatabasey.join( " " ) );
+		if ( describedatabasey ) {
+			elem.attr( "aria-describedatabasey", describedatabasey );
 		} else {
-			elem.removeAttr( "aria-describedby" );
+			elem.removeAttr( "aria-describedatabasey" );
 		}
 	},
 
@@ -16277,7 +16277,7 @@ var tooltip = $.widget( "ui.tooltip", {
 		});
 
 		// remove title attributes to prevent native tooltips
-		this.element.find( this.options.items ).addBack().each(function() {
+		this.element.find( this.options.items ).addatabaseack().each(function() {
 			var element = $( this );
 			if ( element.is( "[title]" ) ) {
 				element
@@ -16289,7 +16289,7 @@ var tooltip = $.widget( "ui.tooltip", {
 
 	_enable: function() {
 		// restore title attributes
-		this.element.find( this.options.items ).addBack().each(function() {
+		this.element.find( this.options.items ).addatabaseack().each(function() {
 			var element = $( this );
 			if ( element.data( "ui-tooltip-title" ) ) {
 				element.attr( "title", element.data( "ui-tooltip-title" ) );
@@ -16410,7 +16410,7 @@ var tooltip = $.widget( "ui.tooltip", {
 
 		tooltipData = this._tooltip( target );
 		tooltip = tooltipData.tooltip;
-		this._addDescribedBy( target, tooltip.attr( "id" ) );
+		this._addDescribedatabasey( target, tooltip.attr( "id" ) );
 		tooltip.find( ".ui-tooltip-content" ).html( content );
 
 		// Support: Voiceover on OS X, JAWS on IE <= 9
@@ -16524,7 +16524,7 @@ var tooltip = $.widget( "ui.tooltip", {
 			target.attr( "title", target.data( "ui-tooltip-title" ) );
 		}
 
-		this._removeDescribedBy( target );
+		this._removeDescribedatabasey( target );
 
 		tooltipData.hiding = true;
 		tooltip.stop( true );

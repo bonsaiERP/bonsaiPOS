@@ -12,7 +12,7 @@ $(document).ready(function(){
     '<link href="../../libs/jquery-ui.css" rel="stylesheet">'+
     '<link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">'+
     '<script type="text/javascript" src="../../models/database/database.js"></script>'+
-    '<script src="../../libs/require.js"></script>'+
+
 
     '<script type="text/javascript" src="../../models/cashier/cashier.js"></script>'+
     '<script type="text/javascript" src="../../models/bill/generatorbill.js"></script>'+

@@ -1,7 +1,7 @@
 window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
 
-define(["database"], function(database) {
+
 
   function convertdatetoformatofso(date)
   {
@@ -63,7 +63,7 @@ define(["database"], function(database) {
 
   returnlistofsalesofdate:function(date)
   {
-    var database = database.DataBase();
+    var database = new Database();
     var general_list_of_sales = database.getTable("sales");
     var day = date.getDate();
     var month = date.getMonth();
@@ -200,8 +200,5 @@ define(["database"], function(database) {
     var result = hours+":"+minuts+":"+seconds;
     return result;
   }
-  }
-
+};
   module.exports = daySales;
-
-});
