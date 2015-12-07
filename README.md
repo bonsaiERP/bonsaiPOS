@@ -1,5 +1,6 @@
 Point of Sale for bonsaiERP.
 INSTALADORES DE LA APLICACION
-Dropbox
+
+Dropbox \n
 Correo: bonsaipos@gmail.com
 Password: 123.bonsai
