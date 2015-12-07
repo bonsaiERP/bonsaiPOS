@@ -1,10 +1,5 @@
-window.$ = window.jQuery = require('../../libs/jquery.min.js');
-var fs = require('fs');
-
-
-
-var database= new DataBase();
-var mySales = database.getTable("sales",'\\views\\sales',2);
+var db = new DataBase();
+var mySales = db.getTable("sales",'\\views\\sales',2);
 
 if(localStorage.getItem('reload')==1)
 {
@@ -27,8 +22,8 @@ function showAlertMessage(tipeMessage)
 
 $(document).ready(function(){
 	for (var i = mySales.length - 1; i >= 0; i--) {
-		$('#sales-index-table').append('<tr><td>'+String(mySales[i].id)+'</td> <td>'+String(mySales[i].client)+'</td><td>'+String(mySales[i].date)+'</td><td>$ '+String(mySales[i].total)+'</td> <td> <button class="btn btn-danger btn-sm borrar" id="'+String(mySales[i].id)+'"><span class="glyphicon glyphicon-trash"></span></button></td> </tr>');
-	}
+		$('#sales-index-table').append('<tr><td>'+String(mySales[i].id)+'</td> <td>'+String(mySales[i].client)+'</td><td>'+String(mySales[i].date)+'</td><td>$ '+String(mySales[i].total)+'</td> <td> <button class="btn btn-danger btn-sm borrar" id="'+String(mySales[i].id)+'"><span class="glyphicon glyphicon-trash"></span></button></td> </tr>')
+	};
 
 	$('.borrar').click(function(){
 		$('#deleteModal').modal('show');
@@ -41,12 +36,12 @@ $(document).ready(function(){
 		var id=$('#id').val();
 		console.log(id);
 		for (var i = mySales.length - 1; i >= 0; i--) {
-		//	mySales[i]
+			mySales[i]
 			if (mySales[i].id==id) {
 				mySales.splice(i,1);
-			}
-		}
-      	database.putTable("sales", mySales,'\\views\\sales',2);
+			};
+		};
+      	db.putTable("sales", mySales,'\\views\\sales',2);
       	updateStock(id);
       	location.reload();
      	localStorage.setItem('reload',1);
@@ -59,17 +54,17 @@ $(document).ready(function(){
 
 function updateStock(id)
 {
-	var salesProducts=database.getTable("saleProducts",'\\views\\sales',2);
-	var products=database.getTable("products",'\\views\\sales',2);
+	var salesProducts=db.getTable("saleProducts",'\\views\\sales',2);
+	var products=db.getTable("products",'\\views\\sales',2);
 
 	for (var i = salesProducts.length - 1; i >= 0; i--) {
 		if (String(salesProducts[i].sale_id)==String(id)) {
 			for (var j = products.length - 1; j >= 0; j--) {
 				if (String(products[j].id)== String(salesProducts[i].product_id)) {
 					products[j].amount=parseInt(products[j].amount)+parseInt(salesProducts[i].quantity);
-				}
-			}
-		}
-	}
-	database.putTable('products',products,'\\views\\sales',2);
-  }
+				};
+			};
+		};
+	};
+	db.putTable('products',products,'\\views\\sales',2);
+}

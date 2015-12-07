@@ -1,13 +1,10 @@
-	window.$ = window.jQuery = require('../../libs/jquery.min.js');
-	var fs = require('fs');
-
 $(document).ready(function(){
-
-	var database = new Database();
+	var fs = require('fs');
+	var db = new DataBase();
 	var name='';
 	var lastname='';
 	var ci = 0;
-	var myUser = database.getTable("users",'\\views\\users',2);
+	var myUser = db.getTable("users",'\\views\\users',2);
 
 
 	$('#btn-new-user').click(function(){
@@ -54,71 +51,10 @@ $(document).ready(function(){
       }
       var user = { "id": id, "name": name, "lastname": lastname, "ci" : ci, "date": date, "sync": false };
       myUser.push(user);
-      database.putTable("users", myUser,'\\views\\users',2);
+      db.putTable("users", myUser,'\\views\\users',2);
       location.replace('../../views/users/listusers.html');
       localStorage.setItem('reload',1);
       $('#alertMessage').html('Cliente creado con &eacute;xito.');
       $('#alertMessage').show;
   };
-});
-$(document).ready(function(){
-	var fs = require('fs');
-	var database = new Database();
-	var name='';
-	var lastname='';
-	var ci = 0;
-	var myUser = database.getTable("users",'\\views\\users',2);
-
-
-	$('#btn-new-user').click(function(){
-		event.preventDefault();
-		var error= false;
-		$('#modalBodyMessageDanger').html('');
-
-		if (!$('#name-field').val()) {
-			$('#modalBodyMessageDanger').append('<p>El campo <b>nombre</b> deben estar lleno.</p>');
-			error=true;
-		}
-
-		if (!$('#lastname-field').val()) {
-			$('#modalBodyMessageDanger').append('<p>El campo <b>apellido</b> deben estar lleno</p>');
-			error=true;
-		}
-
-		if (!$('#ci-field').val()) {
-			$('#modalBodyMessageDanger').append('<p>El campo <b>CI</b> deben estar lleno</p>');
-			error=true;
-		}
-
-		if (!$.isNumeric($('#ci-field').val())) {
-			$('#modalBodyMessageDanger').append('<p>El <b>CI</b> debe ser un valor numerico.</p>');
-			error=true;
-		}
-		if (error) {
-			$('#myDangerModal').modal('show');
-		} else{
-			name=$('#name-field').val();
-			lastname=$('#lastname-field').val();
-			ci=$('#ci-field').val();
-			saveUser();
-		}
-	});
-
-	function saveUser() {
-	      var date = new Date().toUTCString();
-	      var size = myUser.length;
-				var id = 1;
-	      if(myUser.length !== 0){
-	        var aux = myUser.length;
-	        id = myUser[aux-1].id + 1;
-	      }
-	      var user = { "id": id, "name": name, "lastname": lastname, "ci" : ci, "date": date, "sync": false };
-	      myUser.push(user);
-	      database.putTable("users", myUser,'\\views\\users',2);
-	      location.replace('../../views/users/listusers.html');
-	      localStorage.setItem('reload',1);
-	      $('#alertMessage').html('Cliente creado con &eacute;xito.');
-	      $('#alertMessage').show;
-	  }
-
 });

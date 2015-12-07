@@ -1,0 +1,95 @@
+<html>
+  <head>
+    <!-- Librerias y scripts iniciales de la pagina -->
+      <script>
+        window.$ = window.jQuery = require('./libs/jquery.min.js');
+      </script>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+      <title>BonsaiPOS</title>
+      <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+      <script src="./models/nameoffice.js" type="text/javascript"></script>
+      <script src="./models/database/database.js" type="text/javascript"></script>
+
+      <style>
+      body{
+        background-image: url("images/bonsai_tree.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+      }
+      </style>
+  </head>
+
+  <body>
+    <!-- Contenido despues del navbar -->
+    <!--<body onload="verify_cashier()">-->
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+       </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+      </ul>
+    </div>
+  </div>
+</nav>
+<br><br><br>
+
+<div class="container col-md-4 col-md-offset-4">
+  <div class="well bs-component">
+<form class="form-horizontal">
+  <fieldset>
+    <legend>Iniciar Sesion</legend>
+    <div align="middle">
+    <img src="images/user_default.png" height="150" width="150">
+    </div>
+    <br>
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+      <div class="col-lg-9">
+        <input class="form-control" id="inputEmail" placeholder="Email" type="text">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+      <div class="col-lg-9">
+        <input class="form-control" id="inputPassword" placeholder="Password" type="password">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <!--<button class="btn btn-primary" onclick="auth_user()">Iniciar Sesion</button>-->
+        <a id="iniciar" href="#">Iniciar</a>
+
+        <a href="index.html">Home</a>
+      </div>
+    </div>
+  </fieldset>
+</form>
+</div>
+</div>
+  </body>
+
+  <footer>
+    <!-- Scripts y librerias de la pagina -->
+    <script src="./models/database/database.js" type="text/javascript"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./models/products/products.js"></script>
+    <script src="./models/employees/employees.js"></script>
+    <script src="./models/organisations/organisations.js"></script>
+    <script src="./models/users/clientes.js"></script>
+    <script src="./models/incomes/incomes.js"></script>
+    <script src="./models/cashier/cashier.js" type="text/javascript"></script>
+    <script src="./models/auth/auth.js"></script>
+  </footer>
+  
+</html>

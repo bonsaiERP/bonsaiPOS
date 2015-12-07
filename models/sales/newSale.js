@@ -1,20 +1,16 @@
 /* global DataBase */
-window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
-
-
-
 var total = 0;
 var ci;
-var database = new DataBase();
-var myObject = database.getTable("products",'\\views\\sales',2);
+var db = new DataBase();
+var myObject = db.getTable("products",'\\views\\sales',2);
 var business_name;
 var nit;
-var clients= database.getTable("users",'\\views\\sales',2);
-var mySales = database.getTable("sales",'\\views\\sales',2);
-var myOrganisation = database.getTable("organisations",'\\views\\sales',2);
-var myNit = database.getTable("organisations",'\\views\\sales',2);
-var saleproducts = database.getTable("saleProducts",'\\views\\sales',2);
+var clients= db.getTable("users",'\\views\\sales',2);
+var mySales = db.getTable("sales",'\\views\\sales',2);
+var myOrganisation = db.getTable("organisations",'\\views\\sales',2);
+var myNit = db.getTable("organisations",'\\views\\sales',2);
+var saleproducts = db.getTable("saleProducts",'\\views\\sales',2);
 
 if(localStorage.getItem('reload')==1)
 {
@@ -70,6 +66,7 @@ function showAlertMessage(tipeMessage)
            name_product = myObject[cont].id;
         }
       }
+
     }
     var resp = false;
     if(amount_product > 0){
@@ -134,9 +131,9 @@ function showAlertMessage(tipeMessage)
     event.preventDefault();
     var data_table = $("#tblclient");
     var rowCount = $('#tblclient tr').length;
-    var client_id=0;
-    var aux="";
-    var business_name="";
+    var client_id=0
+    var aux=""
+    var business_name=""
     if(rowCount<1){
       name=$('#name-field').val();
     if (!isNaN(parseFloat(name)) && isFinite(name)) {
@@ -149,21 +146,21 @@ function showAlertMessage(tipeMessage)
       }
     }
               for (var cont = 0; cont < clients.length; cont++) {
-                aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString();
+                aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
                 if (aux == name) {
-                  client_id=clients[cont].ci;
-                  business_name=clients[cont].business_name;
-                  nit=clients[cont].nit;
+                  client_id=clients[cont].ci
+                  business_name=clients[cont].business_name
+                  nit=clients[cont].nit
 
                 }
                 ci=client_id;
               }
 
       if (!$('#name-field').val()) {
-        name="sin cliente";
+        name="sin cliente"
       }
       else {
-        data_table.append('<tr id=tr_client> <td> <b> Cliente: </b></td><td> '+ name +"</td><td> <b>CI:</b>"+client_id +'</td> <td> <input type="button" id= "deleteclient" onclick= "deleteclient()" value="Borrar"/> </td></tr>');
+        data_table.append('<tr id=tr_client> <td> <b> Cliente: </b></td><td> '+ name +"</td><td> <b>CI:</b>"+client_id +'</td> <td> <input type="button" id= "deleteclient" onclick= "deleteclient()" value="Borrar"/> </td></tr>')
         $('#business_name').val(business_name);
         $('#nit').val(nit);
       }
@@ -172,37 +169,6 @@ function showAlertMessage(tipeMessage)
     $('#myDangerModal2').modal('show');
   }
 });
-
-///////////////////////////////////////a;adir organizacion
-$('#organizatiobutton').click(function(){
-  event.preventDefault();
-  var data_table = $("#tblorganization");
-  var rowCountOrg = $('#tblorganization tr').length;
-  if (rowCountOrg<1) {
-    business_name = $("#business_name").val();
-    nit = $("#nit").val();
-    if (!$('#business_named').val()) { //si el campo de nombre esta vacio esta ingresanod por nit
-      nit = $("#nit").val();
-
-      for (var i = 0; i < myOrganisation.length; i++) { //busco el nombre segun nit
-        if (  myOrganisation[i].nit==nit) {
-          business_name=myOrganisation[i].name;
-        }
-      }
-
-    }
-    if (($('#business_named').val()&&$('#nit').val() ) || (!$('#business_named').val()&&$('#nit').val() ) ) {
-      data_table.append('<tr id=tr_organization> <td> <b> Nombre: </b></td><td> '+ business_name +"</td><td> <b>NIT:</b>"+nit +'</td></tr>');
-
-    }
-
-
-  }
-
-
-});
-///////////////////////////////////////////
-
 
   $("#add_btn").click(function () {
     showAlertMessage("danger");
@@ -214,41 +180,45 @@ $('#organizatiobutton').click(function(){
       var size = mySales.length;
       var id = 1;
 
+
       if ($('#name-field').val()) {
          client=document.getElementById("tblclient").rows[0].cells[1].innerText;
       }
-      if(mySales.length !== 0)
+      if(mySales.length != 0)
       {
         var aux = mySales.length;
         id = mySales[aux-1].id + 1;
       }
 
       on_account=$('#on_account').val();
-      if(on_account===''){
+      if(on_account==''){
         $("#alertMessage").removeClass();
         $("#alertMessage").addClass("alert alert-dismissible alert-danger");
         $("#alertMessage")[0].innerHTML='<p>Debe ingresar un monto recibido.</p>';
         $("#alertMessage").show();
+        document.getElementById('button').focus();
       }else{
         if (!$.isNumeric(on_account)) {
            $("#alertMessage").removeClass();
            $("#alertMessage").addClass("alert alert-dismissible alert-danger");
            $("#alertMessage")[0].innerHTML='<p>El monto recibido debe ser numerico.</p>';
            $("#alertMessage").show();
+           document.getElementById('alertMessage').focus();
         }else{
           if (on_account<total) {
             $("#alertMessage").removeClass();
             $("#alertMessage").addClass("alert alert-dismissible alert-danger");
             $("#alertMessage")[0].innerHTML='<p>El monto recibido debe ser mayor o igual al total.</p>';
             $("#alertMessage").show();
+            document.getElementById('alertMessage').focus();
           }else{
             changing=$('#changing').val();
             var sale = { "id": id, "date": date, "total": total , "on_account": on_account, "changing": changing, "client":client, "business_name":business_name, "nit":nit, "sync":false};
 
             mySales.push(sale);
-            database.putTable("sales", mySales,'\\views\\sales',2);
+            db.putTable("sales", mySales,'\\views\\sales',2);
             registerSalesProducts(sale.id)
-            database.putTable("products", myObject,'\\views\\sales',2);
+            db.putTable("products", myObject,'\\views\\sales',2);
             name=$('#name-field').val();
             for (var cont = 0; cont < clients.length; cont++) {
               aux= clients[cont].name.toString()+" "+clients[cont].lastname.toString()
@@ -257,7 +227,7 @@ $('#organizatiobutton').click(function(){
                 clients[cont].nit=$('#nit').val();
               }
             }
-            database.putTable("users", clients,'\\views\\sales',2);
+            db.putTable("users", clients,'\\views\\sales',2);
             var to_bill = {"id_sale":id,"nit_buyer":nit,"name_buyer":business_name,"date":date};
             set_data_to_push(to_bill,'\\views\\sales',2);
             location.reload();
@@ -265,13 +235,37 @@ $('#organizatiobutton').click(function(){
           }
         }
       }
-      database.putTable("users", clients,'\\views\\sales',2);
+
+      db.putTable("users", clients,'\\views\\sales',2);
       var to_bill = {"id_sale":id,"nit_buyer":nit,"name_buyer":business_name,"date":date};
       set_data_to_push(to_bill,'\\views\\sales',2);
-      synchronize();
+      if (!isDaily()) {synchronize()};
       location.reload();
       localStorage.setItem('reload',1);
+
   });
+
+
+
+
+  ///////////////////////////////////////a;adir organizacion
+  $("#nit").blur(function(){
+    nit = $("#nit").val();
+    if (!$('#business_name').val()) {
+      for (var i = 0; i < myOrganisation.length; i++) { //busco el nombre segun nit
+        if (  myOrganisation[i].nit==nit) {
+          business_name=myOrganisation[i].name;
+        }
+      }
+        document.getElementById("business_name").value = business_name;
+
+    }
+
+
+    });
+
+  ///////////////////////////////////////////
+
 
   $("#btn_cancel").click(function(){
     $('#myDangerModal').modal('show');
@@ -290,7 +284,7 @@ $('#organizatiobutton').click(function(){
 
 function getpathproyect(todelete,cant_of_breakbar)
 {
-  actualdir = __dirname;
+  actualdir = __dirname
   /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
   si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
   */
@@ -304,7 +298,7 @@ function getpathproyect(todelete,cant_of_breakbar)
 }
 
 function converpath(toconvert,cant_of_breakbar){
-  actualdir = __dirname;
+  actualdir = __dirname
   /*34 es ascii de '\', la primera comparación ve si pertenece el path a windows,
   si pertenece a windows, no hace nada, caso contrario, lo cambia a '/'
   */
@@ -376,25 +370,25 @@ $(document).ready(function() {
   }
 
 function getProductsFromSalesTable(){
-  var table = document.getElementById('tblDatos');
+  var table = document.getElementById('tblDatos')
   var products = [];
   for (var i = 1, row; row = table.rows[i]; i++) {
-    //row
+    row
     var product = { "id": row.cells[0].innerHTML, "code": row.cells[1].innerHTML, "name": row.cells[2].innerHTML , "quantity": String((row.cells[5].innerHTML)/(row.cells[4].innerHTML)), "price": row.cells[4].innerHTML, "total": row.cells[5].innerHTML};
     products.push(product);
-  }
+  };
   return products;
 }
 
 function getSaleProducts(id)
 {
-  var table = document.getElementById('tblDatos');
+  var table = document.getElementById('tblDatos')
   var products = [];
   for (var i = 1, row; row = table.rows[i]; i++) {
-  //  row
-    var product = { "product_id": row.cells[0].innerHTML, "sale_id": id, "name": row.cells[2].innerHTML ,"quantity": String((row.cells[5].innerHTML)/(row.cells[4].innerHTML)), "price": row.cells[4].innerHTML};
+    row
+    var product = { "product_id": row.cells[0].innerHTML, "sale_id": id, "name": row.cells[1].innerHTML ,"quantity": String((row.cells[4].innerHTML)/(row.cells[3].innerHTML)), "price": row.cells[3].innerHTML};
     products.push(product);
-  }
+  };
   return products;
 }
 
@@ -404,8 +398,8 @@ function getTotal(){
 
 function generatePDF(sale,client)
 {
-  if(ci===undefined)
-  ci='0';
+  if(ci==undefined)
+  ci='0'
   var doc = new jsPDF();
   doc.setFontSize(22);
   doc.text(20, 20, 'NOTA DE VENTA');
@@ -441,7 +435,7 @@ function generatePDF(sale,client)
     doc.text(20, (85+50)+60*i, '----');
 
 
-  }
+  };
 
   doc.text(20, i*60+90, '------------');
 
@@ -455,7 +449,7 @@ function registerSalesProducts(id)
 {
   var auxArray = getSaleProducts(id);
   array=saleproducts.concat(auxArray);
-  database.putTable("saleProducts", array,'\\views\\sales',2);
+  db.putTable("saleProducts", array,'\\views\\sales',2);
 
 }
 
@@ -465,59 +459,71 @@ function open_bill_view()
   window.open(path, '', 'width=420,height=600');
 }
 
+
+
 function synchronize()
 {
-  var data;
-  user = database.getTable('token','',2);
-  sales = database.getTable('sales','',2);
-  saleProducts = database.getTable('saleProducts','',2);
-  //generar cadena para json
-  var product;
-  var products=[];
-  for (var cont=0;cont<sales.length;cont++){
+    var data;
+    user = db.getTable('token','\\views\\sales',2);
+    sales = db.getTable('sales','\\views\\sales',2);
+    saleProducts = db.getTable('saleProducts','\\views\\sales',2);
+    //generar cadena para json
+    var product;
+    var products=[];
+    for (var cont=0;cont<sales.length;cont++){
 
-    if(sales[cont].sync===false){
-      products=[];
-    for (var cont2=0;cont2<saleProducts.length;cont2++){
-          if(sales[cont].id===saleProducts[cont2].sale_id){
-          sales[cont].sync=true;
-          resp=true;
-           product = { "item_id": parseInt(saleProducts[cont2].product_id), "price":parseInt(saleProducts[cont2].price), "quantity":parseInt(saleProducts[cont2].quantity), "description": saleProducts[cont2].name};
-           products.push(product);
-          }
-    }
-        data= JSON.stringify(products);
-        data=eval("("+ data + ")" );
-  //enviar la cadena json a erp
-  $.ajax({
-    headers: {token: user[0].token},
-    method: "POST",
-    url: "http://catolica.bonsaierp.com:3000/api/v1/incomes",
-    data: {
-      income: {
-      "date":"2015-11-19",
-      "due_date":"2015-11-22",
-      "contact_id":1,
-      "currency":"BOB",
-      "description":"Prueba ingreso",
-      "income_details_attributes":
-      data}
-    }
-  })
-  .done(function(resp) {
-    setTimeout(function(){
-      alert("Los datos de la empresa fueron actualizados exitosamente.");
-    }, 1000);
-      })
-      .fail(function (ajaxContext){
-       alert("Error al Actualizar los datos de la empresa");
-     });
-       }
+      if(sales[cont].sync===false){
+        products=[];
+      for (var cont2=0;cont2<saleProducts.length;cont2++){
+            if(sales[cont].id===saleProducts[cont2].sale_id){
+            sales[cont].sync=true;
+            resp=true;
+             product = { "item_id": parseInt(saleProducts[cont2].product_id), "price":parseInt(saleProducts[cont2].price), "quantity":parseInt(saleProducts[cont2].quantity), "description": saleProducts[cont2].name};
+             products.push(product);
+            }
+      }
+          data= JSON.stringify(products);
+          data=eval("("+ data + ")" );
+    //enviar la cadena json a erp
+    $.ajax({
+      headers: {token: user[0].token},
+      method: "POST",
+      url: "http://catolica.bonsaierp.com:3000/api/v1/incomes",
+      data: {
+        income: {
+        "date":"2015-11-19",
+        "due_date":"2015-11-22",
+        "contact_id":1,
+        "currency":"BOB",
+        "description":"Prueba ingreso",
+        "income_details_attributes":
+        data}
+      }
+    })
+    .done(function(resp) {
+      setTimeout(function(){
+        alert("Los datos de la empresa fueron actualizados exitosamente.");
+      }, 1000);
+    })
+    .fail(function (ajaxContext){
+     //alert("Error al Actualizar los datos de la empresa");
+   });
      }
-     if(resp === true){
-       alert("Las  de ventas de la empresa fueron actualizados exitosamente");
-     } else {
-       alert("No se tiene ninguna  nueva venta para sincronizar");
-     }
-         database.putTable('sales',sales,'',2);
+   }
+   if(resp === true){
+     alert("Las  de ventas de la empresa fueron actualizados exitosamente");
+   }
+   else {
+     alert("No se tiene ninguna  nueva venta para synchronize");
+   }
+       db.putTable('sales',sales,'\\views\\sales',2);
+}
+
+function isDaily() {
+  var mySynchronization = db.getTableDos("synchronization");
+  for (var i = 0; i < mySynchronization.length; i++) {
+    if (mySynchronization[i].type === "daily")
+      return true;
   }
+  return false;
+}

@@ -1,13 +1,12 @@
-//	window.$ = window.jQuery = require('../../libs/jquery.min.js');
-	var fs = require('fs');
-
-var database = new DataBase();
-var user = database.getTable("token",'\\views\\synchronization',2);
+window.$ = window.jQuery = require('../../libs/jquery.min.js');
+var fs = require('fs');
+var db = new DataBase();
+var user = db.getTable("token",'\\views\\synchronization',2);
 var $debo_sincronizar = true;
 //====================================================================
 
 function getProducts() {
-	var products = database.getTableDos('products');
+	var products = db.getTableDos('products');
 	return products;
 }
 
@@ -51,7 +50,7 @@ function sincronizar() {
 		$.ajax(stocks).done(function (response) {
 			var stocks = response;
 			var products_pos = agregarAmount(products, stocks);
-			database.putTable('products', products_pos, '\\views\\synchronization', 2);
+			db.putTable('products', products_pos, '\\views\\synchronization', 2);
 			setTimeout(function () {
 				alert("Los productos fueron actualizados exitosamente.");
 			}, 1000);
@@ -123,7 +122,7 @@ function agregarAmount(products, stocks) {
 }
 //=====================================================================
 function isDaily() {
-	var mySynchronization = database.getTableDos("synchronization");
+	var mySynchronization = db.getTableDos("synchronization");
 	for (var i = 0; i < mySynchronization.length; i++) {
 		if (mySynchronization[i].type === "daily")
 			return true;
@@ -133,8 +132,8 @@ function isDaily() {
 
 function getTime() {
 	var date = new Date($.now());
-	var hours = date.getHours();
-	var minutes = date.getMinutes();
+	var hours = date.getHours()
+	var minutes = date.getMinutes()
 	var time = { hour: hours, minute: minutes };
 	return time;
 }
@@ -157,8 +156,8 @@ function isTime() {
 
 function isLate(){
 	var fecha = new Date($.now());
-	var hora_establecida = 2;
-	var minutos_establecidos = 31;
+	var hora_establecida = 2
+	var minutos_establecidos = 31
 	var late = false;
 	if(hora_establecida < fecha.getHours()){
 		late = true;
@@ -186,8 +185,8 @@ function sincronizacionDiaria(){
 		}
 	}
 
-		if ($debo_sincronizar===true) {
-			setTimeout("sincronizacionDiaria()", 5000);
-		}
+	if ($debo_sincronizar==true) {
+		setTimeout("sincronizacionDiaria()", 5000);
+	}
 }
-		sincronizacionDiaria();
+sincronizacionDiaria();

@@ -1,10 +1,8 @@
-window.$ = window.jQuery = require('../../libs/jquery.min.js');
 var fs = require('fs');
-
-var database = new Database();
+var db = new DataBase();
 var user;
 var id = get_data('\\views\\users',2);
-var general_list_of_users = database.getTable("users",'\\views\\users',2);
+var general_list_of_users = db.getTable("users",'\\views\\users',2);
 function get_user(){
   for (var i = 0; i < general_list_of_users.length; i++) {
     if(general_list_of_users[i].id == id){
@@ -49,22 +47,22 @@ function edit_user()
   if (!$('#name-field').val()) {
     $('#modalBodyMessageDanger').append('<p>El campo <b>nombre</b> deben estar lleno.</p>');
     error=true;
-  }
+  };
 
   if (!$('#lastname-field').val()) {
     $('#modalBodyMessageDanger').append('<p>El campo <b>apellido</b> deben estar lleno</p>');
     error=true;
-  }
+  };
 
   if (!$('#ci-field').val()) {
     $('#modalBodyMessageDanger').append('<p>El campo <b>CI</b> deben estar lleno</p>');
     error=true;
-  }
+  };
 
   if (!$.isNumeric($('#ci-field').val())) {
     $('#modalBodyMessageDanger').append('<p>El <b>CI</b> debe ser un valor numerico.</p>');
     error=true;
-  }
+  };
   if (error) {
     $('#myDangerModal').modal('show');
   } else{
@@ -78,7 +76,7 @@ function edit_user()
         general_list_of_users[i] = user;
       }
     }
-    database.putTable("users", general_list_of_users,'\\views\\users',2);
+    db.putTable("users", general_list_of_users,'\\views\\users',2);
     $('#modalBodyMessageAccept').html('');
     $('#modalBodyMessageAccept').append('<p>Cliente modificado con &eacute;xito.</p>');
     $('#myAcceptModal').modal('show');

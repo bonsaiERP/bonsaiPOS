@@ -5,15 +5,16 @@
 <script>
   window.$ = window.jQuery = require('../../libs/jquery.min.js');
 </script>
-<script type="text/javascript" src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../models/nameoffice.js" type="text/javascript"></script>
 <script src="../../models/database/database.js" type="text/javascript"></script>
-<script src="../../layout.js" type="text/javascript"></script>
-
+<script src="../../models/synchronization/synchronization.js" type="text/javascript"></script>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-  <!-- <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="../../index.html">BonsaiPOS</a>
@@ -86,26 +87,27 @@
     <div class="alert alert-dismissible alert-success" id="alertMessage" hidden="true">
       <button type="button" class="close" data-dismiss="alert">×</button>
     </div>
-  </div> -->
+  </div>
 
 
-  <h2 align="center">Sincronizacion Diaria - Sincronizacion con Conexion</h2>
+  <h2 align="center">&nbsp;&nbsp;&nbsp;Sincronizacion Diaria - Sincronizacion con Conexion</h2>
   <h2 align="center">Productos y Ventas</h2><br/><br/>
 
   <div class="container">
     <center>
-
+<br>
 
       <form id="form1" enctype="text/plain">
+
         <input type="checkbox" id="daily" name="daily" >
-        <label style="text-align: right;​">Sincronizacion Diaria</label>
+        <label  style="text-align: right;​"><h4>Sincronizacion Diaria</h4></label>
         <input id="time" type="time" name="time" value="21:00:00"  step="1" required><br>
         <input type="checkbox" id="change" name="change">
-        <label style="text-align: right;​">Sincronizacion por modificacion</label>
+        <label style="text-align: right;​"><h4>Sincronizacion por modificacion</h4></label>
 
         <br>
         <br>
-        <input name="checkbox_check" id="checkbox_check" type="button" value="Aceptar" />
+        <input class="btn btn-primary" name="checkbox_check" id="checkbox_check" type="button" value="Aceptar" />
 
         <br>
       </form>
@@ -115,9 +117,4 @@
 
   </div>
 </body>
-
-<footer>
-  <!-- Scripts y librerias de la pagina -->
-</footer>
-
 </html>

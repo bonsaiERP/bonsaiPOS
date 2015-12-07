@@ -1,12 +1,7 @@
-
-window.$ = window.jQuery = require('../../libs/jquery.min.js');
-var fs = require('fs');
-
-
-
-var database = new Database();
-var clientes = database.getTable('users','',2);
-var user = database.getTable('token','',2);
+window.$ = window.jQuery = require('./libs/jquery.min.js');
+var db = new DataBase();
+var clientes = db.getTable('users','',2);
+var user = db.getTable('token','',2);
 
 function showAlertMessage(tipeMessage)
 {
@@ -53,16 +48,15 @@ $(document).ready(function () {
      alert("Error al Actualizar los clientes de la empresa");
    $('#progressbar-2').html("Error en la Actualizacion.");
    })
-    }
-    }
-    if(resp === true)
-    {
-      alert("Los clientes de la empresa fueron actualizados exitosamente");
-    }
-    else {
-      alert("No se tiene ningun cliente nuevo para sincronizar");
-    }
-    database.putTable("users", clientes,'\\views\\users',2);
-  	});
-
-});
+  }
+  }
+  if(resp === true)
+  {
+    alert("Los clientes de la empresa fueron actualizados exitosamente");
+  }
+  else {
+    alert("No se tiene ningun cliente nuevo para sincronizar");
+  }
+  db.putTable("users", clientes,'\\views\\users',2);
+	});
+  });

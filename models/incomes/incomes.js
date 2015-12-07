@@ -1,50 +1,46 @@
-window.$ = window.jQuery = require('../../libs/jquery.min.js');
-  var fs = require('fs');
-
-  var database = new DataBase();
-  var resp = false;
-  function showAlertMessage(tipeMessage)
-  {
-    $("#alertMessage").removeClass();
-    if(tipeMessage=="successProductUpdate"){
-      $("#alertMessage").addClass("alert alert-dismissible alert-success");
-      $("#alertMessage")[0].innerHTML='<p>Los datos de la empresa fueron actualizados exitosamente.</p>';
-    }
-    else{
-      $("#alertMessage").addClass("alert alert-dismissible alert-danger");
-      $("#alertMessage")[0].innerHTML='<p>Error al Actualizar los datos de la empresa.</p>';
-    }
+window.$ = window.jQuery = require('./libs/jquery.min.js');
+var db = new DataBase();
+var resp = false;
+function showAlertMessage(tipeMessage)
+{
+  $("#alertMessage").removeClass();
+  if(tipeMessage=="successProductUpdate"){
+    $("#alertMessage").addClass("alert alert-dismissible alert-success");
+    $("#alertMessage")[0].innerHTML='<p>Los datos de la empresa fueron actualizados exitosamente.</p>';
   }
-
-  function addDaysToDate(date,days){
-    var d = new Date(date);
-
-    var  miliseconds=parseInt(35*24*60*60*1000);
-    var n = d.getDate();
-    var day=d.getDate();
-
-    var month=d.getMonth()+1;
-    var  year=d.getFullYear();
-
-    time=d.getTime();
-
-    miliseconds=parseInt(days*24*60*60*1000);
-
-    date=d.setTime(time+miliseconds);
-    date= new Date(date);
-    day=date.getDate();
-    month=date.getMonth()+1;
-    year=date.getFullYear();
-    return  year + "/" + month + "/" + day;
-
+  else{
+    $("#alertMessage").addClass("alert alert-dismissible alert-danger");
+    //$("#alertMessage")[0].innerHTML='<p>Error al Actualizar los datos de la empresa.</p>';
   }
+}
+function addDaysToDate(date,days){
+  var d = new Date(date);
 
-  $(document).ready(function () {
-  $("#update_incomes").click(function () {
+  var  miliseconds=parseInt(35*24*60*60*1000);
+  var n = d.getDate();
+  var day=d.getDate();
+
+  var month=d.getMonth()+1;
+  var  year=d.getFullYear();
+
+  time=d.getTime();
+
+  miliseconds=parseInt(days*24*60*60*1000);
+
+  date=d.setTime(time+miliseconds);
+  date= new Date(date);
+  day=date.getDate();
+  month=date.getMonth()+1;
+  year=date.getFullYear();
+  return  year + "/" + month + "/" + day;
+
+}
+$(document).ready(function () {
+	$("#update_incomes").click(function () {
     var data;
-    user = database.getTable('token','',2);
-    sales = database.getTable('sales','',2);
-    saleProducts = database.getTable('saleProducts','',2);
+    user = db.getTable('token','',2);
+    sales = db.getTable('sales','',2);
+    saleProducts = db.getTable('saleProducts','',2);
     //generar cadena para json
     var product;
     var products=[];
@@ -59,7 +55,6 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
       for (var cont2=0;cont2<saleProducts.length;cont2++){
             if(sales[cont].id===saleProducts[cont2].sale_id){
             sales[cont].sync=true;
-              date=Date.parse(sales[cont].date);
             resp=true;
              product = { "item_id": parseInt(saleProducts[cont2].product_id), "price":parseInt(saleProducts[cont2].price), "quantity":parseInt(saleProducts[cont2].quantity), "description": saleProducts[cont2].name};
              products.push(product);
@@ -77,13 +72,22 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
       url: "http://catolica.bonsaierp.com:3000/api/v1/incomes",
       data: {
         income: {
-        "date":date,
+
+        "date": date,
         "due_date":auxDateThreeDatesMore,
-        "contact_id":1,
+        "contact_id":23,
+
         "currency":"BOB",
         "description":"Prueba ingreso",
         "income_details_attributes":
-        data}
+        data,
+        "extras":
+        {"delivered": "true",
+         "inventory": "true",
+         "operation_type": "ledger_in",
+         "approver_datetime": "1448661630",
+         "balance_inventory": "33200.0"}
+         },
       }
     })
     .done(function(resp) {
@@ -93,19 +97,21 @@ window.$ = window.jQuery = require('../../libs/jquery.min.js');
       }, 1000);
     })
     .fail(function (ajaxContext){
-     alert("Error al Actualizar los datos de la empresa");
-   $('#progressbar-2').html("Error en la Descarga.");
-   });
-  }
+    // alert("Error al Actualizar los datos de la empresa");
 
- }
- if(resp === true){
-   alert("Las  de ventas de la empresa fueron actualizados exitosamente");
- }
- else {
-   alert("No se tiene ninguna  nueva venta para sincronizar");
- }
-     database.putTable('sales',sales,'',2);
-   });
+      $('#progressbar-2').html("Error en la Descarga.");
 
- });
+   });
+     }
+   }
+   if(resp === true){
+     alert("Las  de ventas de la empresa fueron actualizados exitosamente");
+   }
+   else {
+     $('#progressbar-2').html("Descarga Completa.");
+     alert("No se tiene ninguna  nueva venta para sincronizar");
+
+   }
+       db.putTable('sales',sales,'',2);
+	});
+  });
